@@ -1,0 +1,14 @@
+*{
+    font-family: YEKAN;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+@font-face {
+    font-family: YEKAN ;
+    src: url('./fonts/Qs_Iranyekan\ medium.ttf'), format("truetype");
+}
+
+
+

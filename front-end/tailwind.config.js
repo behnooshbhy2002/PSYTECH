@@ -5,5 +5,9 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  
+fontFamily: {
+  vazir: ['Vazir'],
+},
 }
 
