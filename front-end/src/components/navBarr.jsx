@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 const NavBarr = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav  className="navbar navbar-expand-lg navbar-light bg-light" dir="rtl" >
       <a className="navbar-brand" href="#">
         Navbar
       </a>
@@ -22,44 +22,23 @@ const NavBarr = () => {
         <ul className="navbar-nav">
           <li className="nav-item active">
             <a className="nav-link" href="#">
-              Home <span className="sr-only">(current)</span>
+              خانه <span className="sr-only"></span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Features
+              لیست پزشکان
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Pricing
+              درباره ما
             </a>
           </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dropdown link
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              تماس با ما
             </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </div>
           </li>
         </ul>
       </div>
