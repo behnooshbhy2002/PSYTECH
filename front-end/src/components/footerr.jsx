@@ -1,16 +1,19 @@
 import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
-
+import email from '../images/email.svg'
+import logo from '../images/logo.png'
+import telegram from '../images/telegram.svg'
 export default function Footer() {
   return (
-   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted fixed-bottom' id="footerstyle">
-      <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
-        <div className='me-5 d-none d-lg-block'>
-          <span>Get connected with us on social networks:</span>
+   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted fixed-bottom' id="footerstyle" dir='rtl'>
+      {/* <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'> */}
+        {/* <div className='me-5 d-none d-lg-block'>
+          <span>در شبکه های اجتماعی با ما در ارتباط باشید:</span>
         </div>
         <div>
           <a href='' className='fab fa-youtube'>
-            <MDBIcon color='secondary' className="fab fa-youtube" />
+            {/* <MDBIcon color='secondary' className="fab fa-youtube" /> */}
+            {/* <img src={email} alt="http:\\google.com" id='image-email' title='ایمیل'></img>
           </a>
           <a href='' className='me-4 text-reset'>
             <MDBIcon color='secondary' fab icon='twitter' />
@@ -27,43 +30,49 @@ export default function Footer() {
           <a href='' className='me-4 text-reset'>
             <MDBIcon color='secondary' fab icon='github' />
           </a>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
 
       <section className=''>
         <MDBContainer className='text-center text-md-start mt-5'>
           <MDBRow className='mt-3'>
             <MDBCol md='3' lg='4' xl='3' className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>
+              <img src={logo} alt="" id='logo'/>
+              <p>سایت مشاوره و خدمات روانشناسی psytech</p>
+              <img src={telegram} alt="" id='img-under-logo' />
+              <img src={email} alt="" id='img-under-logo'/>
+              <img src={email} alt="" id='img-under-logo'/>
+              <img src={telegram} alt="" id='img-under-logo'/>
+              {/* <h6 className='text-uppercase fw-bold mb-4'>
                 <MDBIcon color='secondary' icon='gem' className='me-3' />
                 Company name
-              </h6>
-              <p>
+              </h6> */}
+              {/* <p>
                 Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit
                 amet, consectetur adipisicing elit.
-              </p>
+              </p> */}
             </MDBCol>
 
             <MDBCol md='2' lg='2' xl='2' className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
+              <h6 className='text-uppercase fw-bold mb-4'>خدمات سایت </h6>
               <p>
                 <a href='#!' className='text-reset'>
-                  Angular
+                  مشاوره خانواده
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  React
+                  مشاوره فردی
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Vue
+                  مشاوره تحصیلی
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Laravel
+                  مشاوره ازدواج
                 </a>
               </p>
             </MDBCol>
@@ -99,7 +108,8 @@ export default function Footer() {
                 New York, NY 10012, US
               </p>
               <p>
-                <MDBIcon color='secondary' icon='envelope' className='me-3' />
+                <MDBIcon color='secondary' icon={email} className='me-3' />
+                {/* <img src={email} alt="" id='email-image-context'/> */}
                 info@example.com
               </p>
               <p>

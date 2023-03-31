@@ -5,3 +5,16 @@ MDBFooter
     margin-top: 200px;
     padding: top 200px;;
 }
+#email-image-context
+{
+    width: 20px;
+    padding-right: 10 px;
+}
+#logo
+{
+    width: 250px;
+}
+#img-under-logo,telegram-under-logo
+{
+    width: 20px;
+}
