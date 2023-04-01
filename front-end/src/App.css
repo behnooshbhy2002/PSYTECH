@@ -1,13 +1,36 @@
-*{
-    font-family: YEKAN;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-}
+
 @font-face {
     font-family: YEKAN ;
-    src: url('./fonts/Qs_Iranyekan\ medium.ttf'), format("truetype");
+    src: url('./fonts/Qs_Iranyekan.ttf') format("truetype");
+    font-weight: 400;
+}
+
+*{
+   
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+html{
+    scroll-behavior: smooth;
+    scroll-padding-top: 50px;
+}
+
+body{
+    overflow-x: hidden;
+    position: relative;
+    background-color: rgb(255, 255, 255) !important;
+    color: rgb(50, 50, 50) !important;
+    font-family: 'YEKAN' ,sans-serif !important ;
+
+}
+
+
+
+.App{
+    text-align: center;
 }
 
 

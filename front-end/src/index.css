@@ -1,10 +1,4 @@
 
-
-@font-face {
-    font-family: 'IR-Yekan';
-    src: local('IR-yekan'), url(./fonts/Qs_Iranyekan.ttf) format('truetype');
-  };
-
-  @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
