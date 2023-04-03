@@ -10,3 +10,13 @@
     display: inline;
     padding: 3px;
 }
+.a-tags p{
+    margin: 10px;
+ }
+.a-tags p:hover{
+color: rgb(80, 80, 80);
+}
+.contact-div p
+{
+    margin: 10px;
+}

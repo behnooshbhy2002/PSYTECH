@@ -35,17 +35,21 @@ const NavBarr = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav">
                 <span className="navbar-toggler-icon"></span>
             </Navbar.Toggle>
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Collapse id="basic-navbar-nav" >
               <Nav className="me-auto">
                 <Nav.Link  href="#about" classsName='i'>درباره ما</Nav.Link>
                 <Nav.Link  href="#contact" classsName='i'>تماس با ما</Nav.Link>
                 <Nav.Link  href="#list" classsName='i'>لیست</Nav.Link>
                 <Nav.Link  href="#home" classsName='i'>خانه</Nav.Link>
+                <button  class="login">ورود</button>
+              <button  class="signup">ثبت نام</button>
               </Nav> 
             </Navbar.Collapse>
+          
+              
+       
+           
             
-            <button  class="login">ورود</button>{' '}
-            <button  class="signup">ثبت نام</button>
           </Container>
         </Navbar>
       );
