@@ -85,6 +85,7 @@ export default function Footer() {
           </MDBRow>
         </MDBContainer>
       </section>
+      <br />
     </MDBFooter>
   );
 }
