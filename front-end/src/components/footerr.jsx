@@ -3,7 +3,7 @@ import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-k
 import logo from '../images/logo.png'
 export default function Footer() {
   return ( 
-   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted' id="footerstyle" dir='rtl'>
+   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted fixed-bottom' id="footerstyle" dir='rtl'>
       <section className=''>
         <MDBContainer className='text-center  mt-4 text-start'>
           <MDBRow className='mt-3'>
