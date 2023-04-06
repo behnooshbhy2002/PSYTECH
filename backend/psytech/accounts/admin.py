@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import User, Psychologist
 
 
@@ -16,3 +17,4 @@ class PsychologistAdmin(admin.ModelAdmin):
     list_filter = ("last_login",)
     search_fields = ("medical_number", "email", "full_name")
     ordering = ("full_name",)
+

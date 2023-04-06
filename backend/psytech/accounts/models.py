@@ -39,3 +39,4 @@ class Psychologist(User):
 
     def __str__(self):
         return f'{self.full_name} - {self.medical_number}'
+
