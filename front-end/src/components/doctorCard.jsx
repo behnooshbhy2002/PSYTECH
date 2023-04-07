@@ -14,6 +14,8 @@ const DoctorCard = props =>
                 <p className="display-10">{title}</p>
                   {/* <button className="w-100 button">مشاهده و رزرو نوبت پزشک</button> */}
             </Card.Body>
+            <br />
+            <br />
             <Button className="w-90 button-border-radius"variant="success" id="test" >مشاهده و رزرو نوبت پزشک</Button>         
         </Card>
        

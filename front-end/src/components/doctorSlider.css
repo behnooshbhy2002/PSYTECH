@@ -5,6 +5,7 @@
 .slider
 {
     background-color:white;
+    margin-top: 50px;
 }
 #test
 {
@@ -26,4 +27,9 @@
     transform: rotate(0deg) scale(1) translateY(10px);
     transition: .5s all ease;
     z-index: 400;
+   
+}
+.p-drslider
+{
+    font-size: x-large;
 }

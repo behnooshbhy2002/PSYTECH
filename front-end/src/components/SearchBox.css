@@ -1,17 +1,16 @@
-<<<<<<< HEAD
-=======
 .contain{
     background-color: rgb(255, 255, 255);
     border: 3px solid #fff;
-    height: 400px;
+    height: 460px;
     width: 100%;
 }
 
 .pic{
-    width:35%;
-    height:80%;
+    width:28%;
+    height:430px;
     float: right;
     padding: 20px;
+    margin-right: 25px;
 }
 
 #zoom{
@@ -33,15 +32,18 @@
    align-content: center;
    align-self: center;
    align-items: center;
+   font-size:xx-large;
+   padding-bottom: 5px;
+   margin-top: 20px;
 }
 
 .text{
-    width: 600px;
-    height: 40px;
+    width: 800px;
+    height: 60px;
     background-color: rgba(0, 0, 0, 0);
     border: 2px solid rgb(68, 0, 255);
     border-radius: 30px;
     float: right;
-    padding: 5px;
+    padding: 30px;
+    margin-top: 50px;
 }
->>>>>>> parent of 9ab5e9d5 (a little change)

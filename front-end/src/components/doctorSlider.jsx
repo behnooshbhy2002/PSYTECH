@@ -25,8 +25,10 @@ import img6 from '../images/sara-payam-shad.png'
 function DoctorSlider()
 {
     return(
+        <div>
+        
         <div className='container py-4 px-4 justify-content-center rounded slider'>
-            <p dir='rtl' className='font-weight-bold display-7' >محبوب‌ترین‌ها</p>
+            <p className='p-drslider' dir='rtl'>محبوب‌ترین‌ها</p>
             <br />
             <Swiper 
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -75,6 +77,7 @@ function DoctorSlider()
                 </SwiperSlide>
                 <br />
             </Swiper>   
+        </div>
         </div>
     )
 }
