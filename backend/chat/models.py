@@ -3,8 +3,8 @@ from accounts.models import User
 
 
 class ChatMessage(models.Model):
-    sender = models.ForeignKey(User, related_name='sender_user')
-    receiver = models.ForeignKey(User, related_name='receiver_user')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_user')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver_user')
     received_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField()
 
@@ -18,8 +18,8 @@ class ChatMessage(models.Model):
 class Message(models.Model):
     text = models.CharField(max_length=250)
     date = models.DateTimeField(auto_now=True, blank=True)
-    sender = models.ForeignKey(User, related_name='sender', blank=True)
-    chat = models.ForeignKey(ChatMessage)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    chat = models.ForeignKey(ChatMessage, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Messages"
@@ -30,8 +30,8 @@ class Message(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, related_name='author')
-    psychologist = models.ForeignKey(User, related_name='psychologist')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
+    psychologist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='psycholo')
     text = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
@@ -44,8 +44,8 @@ class Comment(models.Model):
 
 
 class Report(models.Model):
-    psychologist = models.ForeignKey(User, related_name='psychologist')
-    patient = models.ForeignKey(User, related_name='patient')
+    psychologist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='psychologist2')
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient')
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     content = f'patient_name:{patient.name}'
