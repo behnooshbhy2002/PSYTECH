@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import User
+from accounts.models import User, Psychologist
 
 
 class Schedule(models.Model):
@@ -25,9 +25,9 @@ class Appointment(models.Model):
 
 
 class Booking(models.Model):
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='appointments')
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients')
-    psychologist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='psychologists')
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='appointment_booking')
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_booking')
+    psychologist = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='psychologist_booking')
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Booking(models.Model):
 
 
 class Bill(models.Model):
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='booking')
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='booking_bill')
     amount = models.FloatField()
     status = models.BooleanField()
     date = models.DateField(auto_now_add=True)
