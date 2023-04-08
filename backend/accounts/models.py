@@ -40,3 +40,13 @@ class Psychologist(User):
     def __str__(self):
         return f'{self.full_name} - {self.medical_number}'
 
+
+class Rate(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_rate')
+    psychologist = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='psychologist_rate')
+    value = models.IntegerField()
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.psychologist} - {self.value}'
