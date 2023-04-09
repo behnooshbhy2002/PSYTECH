@@ -8,6 +8,7 @@ import DoctorSlider from './components/doctorSlider'
 import './components/doctorSlider.css'
 import ServiceSlide from './components/ServiceSlide'
 import SearchBox from "./components/SearchBox";
+import './components/doctorCard.css'
 function App()
 {
     return (
@@ -17,6 +18,7 @@ function App()
         <SearchBox></SearchBox>
         <ServiceSlide></ServiceSlide>
         <DoctorSlider></DoctorSlider>
+        
        <Footer></Footer>
         </>
 

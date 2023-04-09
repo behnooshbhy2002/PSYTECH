@@ -36,7 +36,7 @@ export default function Footer() {
               </p>
               <p dir='rtl'>
                 <MDBIcon color='secondary' icon='phone' className='me-3' dir='rtl'/>
-               <span dir='rtl'>  0936-666-6666   </span>   
+               <span dir='rtl'> ۰۹۳۶-۶۶۶-۶۶۶۶ </span>   
               </p>
               </div>
             </MDBCol>

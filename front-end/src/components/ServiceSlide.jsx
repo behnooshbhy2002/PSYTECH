@@ -10,13 +10,17 @@ import './ServisSlide.css';
 
 const ServiceSlide = () => {
   return (
-
-    <div className='all' dir='rtl'>
+    <div className='serviceDiv' >
+    <h4 className='serviceTitle' dir='rtl'>خدمات سایت</h4>
+    <hr className='serviceLine'></hr>
+    <div className='services' dir='rtl'>
+        
         <li className='sec'><img  src={personal}/><h6>فردی</h6></li>
         <li className='sec'><img  src={family}/><h6>خانواده</h6></li>
         <li className='sec'><img  src={kids}/><h6>کودک</h6></li>
         <li className='sec'><img  src={love}/><h6>ازدواج</h6></li>
         <li className='sec'><img  src={study}/><h6>تحصیلی</h6></li>
+    </div>
     </div>
     
   )

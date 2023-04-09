@@ -5,7 +5,7 @@
 .slider
 {
     background-color:white;
-    margin-top: 50px;
+    margin-top: 200px;
 }
 #test
 {
@@ -19,7 +19,7 @@
 .card-class
 {
     border-radius: 20px;
-    box-shadow:  0px 10px rgba(180, 180, 180 , 0.2);
+    box-sadow:  0px 10px 20px  #00000014
 }
 .card-class:hover
 {

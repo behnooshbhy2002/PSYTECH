@@ -25,10 +25,11 @@ import img6 from '../images/sara-payam-shad.png'
 function DoctorSlider()
 {
     return(
-        <div>
+        <div >
         
         <div className='container py-4 px-4 justify-content-center rounded slider'>
-            <p className='p-drslider' dir='rtl'>محبوب‌ترین‌ها</p>
+            <p className='p-drslider ' dir='rtl'>تعدادی از </p>
+            <hr className='serviceLine'></hr>
             <br />
             <Swiper 
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -43,37 +44,37 @@ function DoctorSlider()
            >
     
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img1  , nameDoctor: 'زهرا اعتمادی' , title:'مشاوره ازدواج'}}/>
+                <DoctorCard data={{imgSrc:img1  , nameDoctor: 'زهرا اعتمادی' , title:'مشاوره ازدواج' , score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img2  , nameDoctor: 'علی همتی' , title:'مشاوره تحصیلی'}}/>
+                <DoctorCard data={{imgSrc:img2  , nameDoctor: 'علی همتی' , title:'مشاوره تحصیلی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img3  , nameDoctor: ' الهام محمدی' , title:'مشاوره فردی-خانواده'}}/>
+                <DoctorCard data={{imgSrc:img3  , nameDoctor: ' الهام محمدی' , title:'مشاوره فردی-خانواده', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img4  , nameDoctor: 'مریم امینی' , title:'مشاوره خانواده'}}/>
+                <DoctorCard data={{imgSrc:img4  , nameDoctor: 'مریم امینی' , title:'مشاوره خانواده', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img5  , nameDoctor: 'مریم منتظری' , title:'مشاوره فردی'}}/>
+                <DoctorCard data={{imgSrc:img5  , nameDoctor: 'مریم منتظری' , title:'مشاوره فردی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره تحصیلی'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره تحصیلی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره اجتماعی'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره اجتماعی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره تحصیلی'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره تحصیلی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره خانواده'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره خانواده', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره ازدواج-خانواده'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره ازدواج-خانواده', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <SwiperSlide>
-                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره فردی'}}/>
+                <DoctorCard data={{imgSrc:img6  , nameDoctor: 'سارا پیام' , title:'مشاوره فردی', score:"۴.۹"}}/>
                 </SwiperSlide>
                 <br />
             </Swiper>   
