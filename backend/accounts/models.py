@@ -36,6 +36,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Psychologist(User):
     medical_number = models.CharField(max_length=7)
     specialist = models.CharField(max_length=50)
+    rate = models.FloatField(default=0.0)
+    rate_counter = models.IntegerField(default=0)
+    rate_value = models.FloatField(default=0.0)
 
     DISEASES = (
         ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
@@ -67,16 +70,13 @@ class Psychologist(User):
     #         'diseases': forms.CheckboxSelectMultiple(choices=Psychologist.CHOICES),
     #     }
 
+    def count_rate(self, value):
+        rate_count = self.rate_counter + 1
+        rate_value = self.rate_value + value
+        self.rate = rate_value / rate_count
+        self.rate_value = rate_value
+        self.rate_counter = rate_count
+        self.save()
+
     def __str__(self):
         return f'{self.full_name} - {self.medical_number}'
-
-
-class Rate(models.Model):
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_rate')
-    psychologist = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='psychologist_rate')
-    value = models.FloatField()
-    date = models.DateField(auto_now_add=True)
-    time = models.TimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'{self.psychologist} - {self.value}'
