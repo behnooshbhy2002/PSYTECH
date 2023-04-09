@@ -37,6 +37,36 @@ class Psychologist(User):
     medical_number = models.CharField(max_length=7)
     specialist = models.CharField(max_length=50)
 
+    DISEASES = (
+        ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
+        ('وسواس', 'وسواس'),
+        ('کابوس', 'اختلال کابوس شبانه'),
+        ('هویت', 'اختلال هویت جنسیتی'),
+        ('هیستری', 'هیستری'),
+        ('پرخوابی', 'پرخوابی ایدیوپاتیک'),
+        ('بی‌خوابی', 'بی‌خوابی'),
+        ('نافرمانی', 'اختلال نافرمانی مقابله جویانه'),
+        ('خلقی', 'اختلال خلقی فصلی'),
+        ('اسکیزوفرنی', 'اسکیزوفرنی'),
+        ('نشخوار فکری', 'نشخوار فکری'),
+        ('شخصیت اسکیزوتایپال', 'اختلال شخصیت اسکیزوتایپال'),
+        ('فوبیای اجتماعی', 'فوبیای اجتماعی'),
+        ('بی اختیاری عاطفی', 'بی اختیاری عاطفی'),
+        ('شخصیت پارانوئید', 'اختلال شخصیت پارانوئید'),
+        ('هراس', 'اختلال هراس'),
+        ('اضطراب', 'اختلال اضطراب پس از سانحه'),
+        ('پرخوری', 'اختلال پرخوری'),
+        ('دوقطبی', 'اختلال دوقطبی'),
+        ('شخصیت مرزی', 'اختلال شخصیت مرزی'),
+    )
+    diseases = models.CharField(max_length=18, choices=DISEASES)
+
+    # class Meta:
+    #     fields = ['diseases']
+    #     widgets = {
+    #         'diseases': forms.CheckboxSelectMultiple(choices=Psychologist.CHOICES),
+    #     }
+
     def __str__(self):
         return f'{self.full_name} - {self.medical_number}'
 
@@ -44,7 +74,7 @@ class Psychologist(User):
 class Rate(models.Model):
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_rate')
     psychologist = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='psychologist_rate')
-    value = models.IntegerField()
+    value = models.FloatField()
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
