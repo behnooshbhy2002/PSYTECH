@@ -33,12 +33,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class Psychologist(User):
+class Psychologist(User): # todo: delete rate value
     medical_number = models.CharField(max_length=7)
     specialist = models.CharField(max_length=50)
     rate = models.FloatField(default=0.0)
     rate_counter = models.IntegerField(default=0)
-    rate_value = models.FloatField(default=0.0)
+    # rate_value = models.FloatField(default=0.0)
 
     DISEASES = (
         ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
@@ -72,9 +72,9 @@ class Psychologist(User):
 
     def count_rate(self, value):
         rate_count = self.rate_counter + 1
-        rate_value = self.rate_value + value
+        rate_value = self.rate * self.rate_counter + value
         self.rate = rate_value / rate_count
-        self.rate_value = rate_value
+        # self.rate_value = rate_value
         self.rate_counter = rate_count
         self.save()
 

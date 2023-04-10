@@ -15,6 +15,7 @@ class Schedule(models.Model):
 
 
 class Appointment(models.Model):
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='schedule_appointment')
     start = models.TimeField()
     end = models.TimeField()
     reserved = models.BooleanField()
