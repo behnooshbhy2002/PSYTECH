@@ -8,7 +8,7 @@ export default function Footer() {
         <MDBContainer className='text-center  mt-4 text-start'>
           <MDBRow className='mt-3'>
             <MDBCol md='3' lg='4' xl='2' className='mx-auto mb-2'>
-            <img src={logo} alt="" id='logo' />
+            <img src={logo} alt="" id='footer-logo' />
             <br />
               <p>سایت مشاوره و خدمات روانشناسی <br />
                 psytech</p>

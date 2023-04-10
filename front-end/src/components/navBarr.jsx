@@ -5,7 +5,11 @@ import './navBar.css';
 const NavBarr = () => {
   return(
      <div  className="navbar-div" dir="rtl">  
-    <ul>
+    <ul className="menu-ul">
+      <input type="checkbox" name="" value="" id="navbar-check"/>
+      <label htmlFor="navbar-check" className="navbar-check-btn">
+        <i className="fas fa-bars"></i>
+      </label>
     <img src={logo} className="navbar-logo"/>
     <li className="list">خانه</li>
     <li className="list">لیست مشاوران</li>

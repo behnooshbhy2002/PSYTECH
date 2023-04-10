@@ -100,7 +100,79 @@ ul.MyMenu{
     float:right;
     width: 10%;
     height: 100px;
+}
+.navbar-check-btn{
+    font-size: 30px;
+    color: #734df3;
+    float: right;
+    line-height: 80px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+#navbar-check{
+    display: none;
+}
+.navbar-check-btn
+{
+    display: none;
+}
+@media screen and (max-width: 760px){
+    /* .navbar-div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        padding: 1em;
+    }
+    .menu-ul{
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .list{
+        margin: 0 1rem;
+        overflow: hidden;
+    } */
+    .navbar-check-btn
+    {
+        display: block;
+
+    }
+    .menu-ul 
+    {
+        position: relative;
+        width: 100px;
+        height: 100vh;
+        background: #2c2c2c;
+       
+        top: 80px;
+        text-align: center; 
+        transition: all .5s;
+
+    } 
+    .navbar-logo
+    {
+        height: 50px;
+        width: 20%;
+    }
+    .navbar-div ul li{
+        display: block;
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .list:hover,.list:active
+    {
+        background: #734df3;
+        color: white;
+
+    }
+    #navbar-check:checked ~ ul
+    {
+        right: 0;
+        
+    }
 
 }
-
-

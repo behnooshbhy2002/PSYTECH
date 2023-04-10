@@ -39,6 +39,20 @@ function DoctorSlider()
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
             className='mySwiper'
+            breakpoints={{
+                576: {
+                  width: 576,
+                  slidesPerView: 2,
+                },
+                768: {
+                  width: 768,
+                  slidesPerView: 1,
+                },
+                1508 :{
+                    width: 1508,
+                    slidesPerView: 5,
+                }
+              }}
             slidesPerView={5}
             spaceBetween={30}
            >
