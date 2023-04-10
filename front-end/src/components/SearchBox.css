@@ -69,7 +69,8 @@
 }
 @media only screen and (min-width: 761px) and (max-width: 1000px)  {
     .contain{
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
     }
     .pic{
         width: 50%;
