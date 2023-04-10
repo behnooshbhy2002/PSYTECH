@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 @font-face {
   font-family: "Yekan";
-  src: url(accounts/fonts/Yekan.eot);
-  src: url({% static 'accounts/fonts/Yekan.eot'%}) format("embedded-opentype"),
-    url({% static 'accounts/fonts/Yekan.woff2'%}) format("woff2"),
-    url({% static 'accounts/fonts/Yekan.woff'%}) format("woff"),
-    url({% static 'accounts/fonts/Yekan.otf'%}) format("opentype"),
-    url({% static 'accounts/fonts/Yekan.ttf'%}) format("truetype"); /* Safari, Android, iOS */
+  /*src: url(accounts/fonts/Yekan.eot);*/
+  /*src: url({% static 'accounts/fonts/Yekan.eot'%}) format("embedded-opentype"),*/
+  /*  url({% static 'accounts/fonts/Yekan.woff2'%}) format("woff2"),*/
+  /*  url({% static 'accounts/fonts/Yekan.woff'%}) format("woff"),*/
+  /*  url({% static 'accounts/fonts/Yekan.otf'%}) format("opentype"),*/
+  /*  url({% static 'accounts/fonts/Yekan.ttf'%}) format("truetype"); !* Safari, Android, iOS *!*/
   font-weight: normal;
   font-style: normal;
   text-rendering: optimizeLegibility;
