@@ -47,7 +47,7 @@ ul.MyMenu{
     float: left;
     border-radius: 10px;
     color: aliceblue;
-    background-color: rgb(252, 109, 171);
+    background-color:#2691b9;
     border-width: 0px;
     margin-top: 45px;
     transition: 0.3s;
@@ -91,7 +91,7 @@ ul.MyMenu{
     float: left;
     border-radius: 10px;
     color: aliceblue;
-    background-color: rgb(153, 91, 213);
+    background-color:#2691b9;
     border: none;
     margin-top: 45px;
 }
