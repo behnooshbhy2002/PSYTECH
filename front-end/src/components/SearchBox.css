@@ -3,6 +3,8 @@
     border: 3px solid #fff;
     height: 460px;
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 .pic{
@@ -11,6 +13,10 @@
     float: right;
     padding: 20px;
     margin-right: 25px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    margin-left: 5%;
+    
 }
 
 #zoom{
@@ -38,7 +44,7 @@
 }
 
 .text{
-    width: 800px;
+    width: 80%;
     height: 60px;
     background-color: rgba(0, 0, 0, 0);
     border: 2px solid rgb(68, 0, 255);
@@ -46,4 +52,31 @@
     float: right;
     padding: 30px;
     margin-top: 50px;
+}
+@media(max-width: 760px){
+    .contain{
+        flex-direction: column;
+        align-items: center;
+    }
+    .pic{
+        width: 40%;
+        height: 200;
+        align-items: center;
+    }
+    .p{
+        font-size:large;
+    }
+}
+@media only screen and (min-width: 761px) and (max-width: 1000px)  {
+    .contain{
+        flex-direction: row;
+    }
+    .pic{
+        width: 50%;
+        height: 200;
+        align-items: center;
+    }
+    .p{
+        font-size:large;
+    }
 }

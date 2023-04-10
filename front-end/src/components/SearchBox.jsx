@@ -12,7 +12,6 @@ const SearchBox = () => {
           { /*<img src={search} id='zoom' alt="zoom"></img>
           <i class="fa-solid fa-magnifying-glass"></i>*/}
             <input className='text' placeholder='جستجو کنید....' dir='rtl'></input>
-            
             </div>
         </div>
     </div>
