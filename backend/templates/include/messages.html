@@ -1,5 +1,19 @@
+{% load static %}
+
 {% if messages %}
     {% for msg in messages %}
-        <p class="alert alert-{{ msg.tags }}">{{ msg }}</p>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/messages.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <div class="container" dir="rtl">
+          <p class="alert alert-{{ msg.tags }} alert-dismissable">{{ msg }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-close"></i></a>
+          </p>
+        </div>
+
     {% endfor %}
 {%endif%}

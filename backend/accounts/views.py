@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import render, redirect
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from .models import User
 from .forms import UserRegistrationForm, UserLoginForm
@@ -34,8 +34,8 @@ class UserRegisterView(View):
             if user is not None:
                 login(request, user)
 
-            messages.success(request, 'registered successfully', 'success')
-            return redirect('accounts:login')
+            messages.success(request, 'ثبت نام با موفقیت', 'success')
+            return redirect('accounts:login_user')
         return render(request, self.template_name, {'form': form})
 
 
@@ -47,11 +47,11 @@ class UserLoginView(View):
         self.next = request.GET.get('next')
         return super().setup(request, *args, **kwargs)
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('accounts/login.html')
-        else:
-            return super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return redirect('accounts/login.html')
+    #     else:
+    #         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
         form = self.form_class
@@ -68,9 +68,9 @@ class UserLoginView(View):
                 #     pass
                     # return redirect(to=reverse('admin:index'))
                 # else:
-                    messages.success(request, 'you logged in successfully', 'info')
+                    messages.success(request, 'ورود با موفقیت', 'info')
                     return redirect('accounts:home')
-            messages.error(request, 'email or password is wrong', 'warning')
+            messages.error(request, 'ایمیل یا پسورد اشتباه است.', 'warning')
         return render(request, self.template_name, {'form': form})
 
 
@@ -79,5 +79,5 @@ class UserLogoutView(LoginRequiredMixin, View):
 
     def get(self, request):
         logout(request)
-        messages.success(request, 'you logged out successfully', 'success')
+        messages.success(request, 'خروج با موفقیت', 'success')
         return redirect('accounts:home')

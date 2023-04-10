@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class Psychologist(User): # todo: delete rate value
+class Psychologist(User):
     medical_number = models.CharField(max_length=7)
     specialist = models.CharField(max_length=50)
     rate = models.FloatField(default=0.0)
