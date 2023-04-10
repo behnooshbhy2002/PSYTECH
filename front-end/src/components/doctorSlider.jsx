@@ -28,7 +28,7 @@ function DoctorSlider()
         <div >
         
         <div className='container py-4 px-4 justify-content-center rounded slider'>
-            <p className='p-drslider ' dir='rtl'>تعدادی از </p>
+            <p className='p-drslider ' dir='rtl'> تعدادی از مشاوران</p>
             <hr className='serviceLine'></hr>
             <br />
             <Swiper 

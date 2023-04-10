@@ -1,6 +1,6 @@
 .serviceTitle{
   color: rgb(118, 116, 116);
-  font-size: larger;
+  font-size: 22px;
   
 }
 .serviceDiv{
@@ -12,15 +12,15 @@
   margin-right: 40%;
 }
 .sec img{
-  width: 70;
-  height: 120px;
-  margin-top: 30px;
-  margin-right: 12px;
+  width: 130px;
+  height: 115px;
+  margin-top: 18px;
+  margin-right: 22px;
 }
 
 .services{
  width: 100%;
- height:30%;
+ height:200px;
 
 }
 .sec {
