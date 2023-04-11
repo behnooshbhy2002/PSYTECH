@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from pyexpat.errors import messages
 from django.urls import reverse, reverse_lazy
 from .models import User
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import PsychologistRegistrationForm, UserLoginForm
 
 
 class HomeView(View):
@@ -16,7 +16,7 @@ class HomeView(View):
 
 
 class UserRegisterView(View):
-    form = UserRegistrationForm
+    form = PsychologistRegistrationForm
     template_name = 'accounts/signup.html'
 
     def get(self, request):
