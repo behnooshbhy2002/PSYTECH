@@ -117,62 +117,93 @@ ul.MyMenu{
     display: none;
 }
 @media screen and (max-width: 760px){
-    /* .navbar-div{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        height: 50px;
-        padding: 1em;
-    }
-    .menu-ul{
-        display: flex;
-        flex-direction: row;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+    ul.MyMenu{
+        list-style-type:none;
+        overflow: hidden;
+        display:inline;
+        
+       }
+
+     .navbar-logo{
+        margin-top: 20px;
+        float:right;
+        width: 85px;
+        height: 60px;
     }
     .list{
-        margin: 0 1rem;
-        overflow: hidden;
-    } */
-    .navbar-check-btn
-    {
-        display: block;
-
-    }
-    .menu-ul 
-    {
-        position: relative;
+        margin-top: 50px;
+        height: 30px;
         width: 100px;
-        height: 100vh;
-        background: #2c2c2c;
+        padding: 5px;
+        font-size: 12px;
+        text-align: center;
        
-        top: 80px;
-        text-align: center; 
-        transition: all .5s;
+    }
+   
+    #login{
+        text-align: center;
+        width:75px;
+        height:35px;
+        float: left;
+        border-radius: 10px;
+        color: rgb(145, 77, 255);
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(145, 77, 255);
+        border-width: 1px;
+        margin-left: 10px;
+        margin-top: 50px;
+        transition: 0.3s;
+        font-size: 10px;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -ms-transition: 0.3s;
+        -o-transition: 0.3s;
+}
+    
+    #login:hover{
+        text-align: center;
+        width:75px;
+        height:35px;
+        float: left;
+        border-radius: 10px;
+        color: aliceblue;
+        background-color:#2691b9;
+        border: none;
+        margin-top: 50px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+}
 
-    } 
-    .navbar-logo
-    {
-        height: 50px;
-        width: 20%;
-    }
-    .navbar-div ul li{
-        display: block;
-        font-size: 20px;
-        line-height: 30px;
-    }
-    .list:hover,.list:active
-    {
-        background: #734df3;
-        color: white;
+#signup{
+    text-align: center;
+    width:75px;
+    height:35px;
+    float: left;
+    border-radius: 10px;
+    color: aliceblue;
+    background-color:#2691b9;
+    border-width: 0px;
+    margin-top: 50px;
+    transition: 0.3s;
+    margin-left: 10px;
+    font-size: 10px;
 
-    }
-    #navbar-check:checked ~ ul
-    {
-        right: 0;
-        
-    }
+}
+
+#signup:hover{
+    text-align: center;
+    width:75px;
+    height:35px;
+    float: left;
+    border-radius: 10px;
+    color: rgb(145, 77, 255);
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-color: rgb(145, 77, 255);
+    margin-top: 50px;
+
+}
 
 }
