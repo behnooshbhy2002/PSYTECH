@@ -17,7 +17,7 @@ class HomeView(View):
 
 class PsychologistRegisterView(View):
     form = PsychologistRegistrationForm
-    template_name = 'accounts/signup.html'
+    template_name = 'accounts/signup2.html'
 
     def get(self, request):
         form = self.form
