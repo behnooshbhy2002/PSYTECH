@@ -1,61 +1,76 @@
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="SignUp.css" type="text/css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="SignUp.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="Login.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
 
     <title>sign up form</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <section class="form_model">
-        <div class="form_toggle">
-            <button id="login-toggle" onclick="togglelogin()">ثبت نام بیمار</button>
-            <button id="signup-toggle" onclick="togglesignup()">ثبت نام پزشک</button>
-        </div>
-        <div id="login-form">
-            <form action="main page.php" id="signup1">
-                <input type="text" placeholder="نام و نام خانوادگی" name="">
-                <input type="text" placeholder="شماره تلفن همراه" name="">
-                <input type="email" placeholder="ایمیل" name="">
-                <select id="gender" name="" form="signup1">
-                    <option hidden>جنسیت</option>
-                    <option>مرد</option>
-                    <option>زن</option>
-                </select>
-                <input type="text" placeholder="شماره نظام پزشکی" name="">
-                <input type="text" placeholder="رمز" name="">
-                <input type="text" placeholder="تکرار رمز" name="">
-                <button type="button" class="btn login">ثبت اطلاعات</button>
-                <p>کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما با <a href="#">شرایط خدمات</a>
-                    موافق هستید.</p>
+      <div class="form_toggle">
+        <button id="DrSignup-toggle" onclick="toggleDrSignup()">
+          ثبت نام پزشک
+        </button>
+        <button id="Psignup-toggle" onclick="togglePsignup()">
+          ثبت نام بیمار
+        </button>
+      </div>
+      <div id="DrSignup-form">
+        <form action="main page.php" id="signup1">
+          <!-- <div className="txt_field email">
+            <input type="text" value="" id="email" name="email" />
+            <span></span>
+            <label>ایمیل یا شماره همراه</label>
+          </div> -->
+          <input type="text" placeholder="نام و نام خانوادگی" name="" />
+          <input type="text" placeholder="شماره تلفن همراه" name="" />
+          <input type="email" placeholder="ایمیل" name="" />
+          <select id="gender" name="" form="signup1">
+            <option hidden>جنسیت</option>
+            <option>مرد</option>
+            <option>زن</option>
+          </select>
+          <input type="text" placeholder="شماره نظام پزشکی" name="" />
+          <input type="text" placeholder="رمز" name="" />
+          <input type="text" placeholder="تکرار رمز" name="" />
+          <button type="button" class="btn login">ثبت اطلاعات</button>
+          <p>
+            کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما
+            با <a href="#">شرایط خدمات</a> موافق هستید.
+          </p>
+        </form>
+      </div>
 
-            </form>
-        </div>
-
-        <div id="signup-form">
-            <form action="main page.php" id="signup2">
-                <input type="text" placeholder="نام و نام خانوادگی" name="">
-                <input type="text" placeholder="شماره تلفن همراه" name="">
-                <input type="email" placeholder="ایمیل" name="">
-                <select id="gender" name="" form="signup2">
-                    <option hidden>جنسیت</option>
-                    <option>مرد</option>
-                    <option>زن</option>
-                </select>
-                <input type="text" placeholder="رمز" name="">
-                <input type="text" placeholder="تکرار رمز" name="">
-                <button type="button" class="btn login">ثبت اطلاعات</button>
-                <p>کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما با <a href="#">شرایط خدمات</a>
-                    موافق هستید.</p>
-            </form>
-        </div>
+      <div id="Psignup-form">
+        <form action="main page.php" id="signup2">
+          <input type="text" placeholder="نام و نام خانوادگی" name="" />
+          <input type="text" placeholder="شماره تلفن همراه" name="" />
+          <input type="email" placeholder="ایمیل" name="" />
+          <select id="gender" name="" form="signup2">
+            <option hidden>جنسیت</option>
+            <option>مرد</option>
+            <option>زن</option>
+          </select>
+          <input type="text" placeholder="رمز" name="" />
+          <input type="text" placeholder="تکرار رمز" name="" />
+          <button type="button" class="btn login">ثبت اطلاعات</button>
+          <p>
+            کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما
+            با <a href="#">شرایط خدمات</a> موافق هستید.
+          </p>
+        </form>
+      </div>
     </section>
     <script src="SignUp.js"></script>
-</body>
-
+  </body>
 </html>
