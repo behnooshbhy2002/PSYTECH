@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'psytech',
         'USER': 'postgres',
-        'PASSWORD': 'mithri74',
+        'PASSWORD': '12345',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -140,4 +140,11 @@ AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.RemoteUserBackend',
     'django.contrib.auth.backends.ModelBackend',
+)
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'accounts/static'),
 )

@@ -33,5 +33,5 @@ class UserRegistrationForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    email = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.CharField(help_text='آدرس ایمیل')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), help_text='رمز ورود')
