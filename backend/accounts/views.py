@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from .models import User
-from .forms import PsychologistRegistrationForm, UserLoginForm
+from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 
 
 class HomeView(View):
@@ -72,6 +72,29 @@ class UserLoginView(View):
                 messages.success(request, 'ورود با موفقیت', 'info')
                 return redirect('accounts:home')
             messages.error(request, 'ایمیل یا پسورد اشتباه است.', 'warning')
+        return render(request, self.template_name, {'form': form})
+
+
+class PatientRegisterView(View):
+    form = PatientRegistrationForm
+    template_name = 'accounts/signup2.html'
+
+    def get(self, request):
+        form = self.form
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
+                                     full_name=cd['full_name'], gender=cd['gender'])
+            user = authenticate(request, email=cd['email'], password=cd['password'])
+            if user is not None:
+                login(request, user)
+
+            messages.success(request, 'ثبت نام با موفقیت', 'success')
+            return redirect('accounts:login_user')
         return render(request, self.template_name, {'form': form})
 
 
