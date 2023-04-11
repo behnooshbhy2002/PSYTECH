@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login form</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+
+    />
+    <link rel = "stylesheet" href="{% static 'accounts/fonts/Yekan.eot' %}">
+  </head>
+
+  <body>
+    <div class="center">
+      <h1>ورود</h1>
+      <form action="" method="post" accept-charset="UTF-8">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="txt_field pass">
+            {{ field.errors }}
+              <label>
+                  {{field.help_text|safe}}
+              </label>
+            {{ field }}
+            {% if field.help_text == 'رمز ورود' %}
+              <div class="show-hide">
+                <i class="fa fa-eye"></i>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <!-- forget password -->
+        <div class="forPass">رمز عبور خود را فراموش کرده‌اید؟</div>
+
+        <input type="submit"  class="login" value="ورود">
+        <div class="signup_link">
+          عضو نشده‌اید؟
+          <a href="{% static 'accounts/signup.html'%}"
+            >ثبت‌نام</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="{%static 'accounts/js/login.jsx'%}"></script>
+</html>

@@ -9,15 +9,15 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 
 class HomeView(View):
-    template_name = 'product/index.html'
+    template_name = 'accounts/home.html'
 
-    def get(self, request, category_id=None):
-        return render(request, self.template_name, {})
+    def get(self, request):
+        return render(request, self.template_name)
 
 
 class UserRegisterView(View):
     form = UserRegistrationForm
-    template_name = 'accounts/register.html'
+    template_name = 'accounts/signup.html'
 
     def get(self, request):
         form = self.form
@@ -35,7 +35,7 @@ class UserRegisterView(View):
                 login(request, user)
 
             messages.success(request, 'registered successfully', 'success')
-            return redirect('products:landing')
+            return redirect('accounts:login')
         return render(request, self.template_name, {'form': form})
 
 
@@ -49,7 +49,7 @@ class UserLoginView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('product/home.html')
+            return redirect('accounts/login.html')
         else:
             return super().dispatch(request, *args, **kwargs)
 
@@ -61,16 +61,16 @@ class UserLoginView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(request, email=cd['email'], phone_number=cd['phone'], password=cd['password'])
+            user = authenticate(request, email=cd['email'], password=cd['password'])
             if user is not None:
-                login(request, user)
-                if user.is_staff():
-                    pass
+                    login(request, user)
+                # if user.is_staff():
+                #     pass
                     # return redirect(to=reverse('admin:index'))
-                else:
+                # else:
                     messages.success(request, 'you logged in successfully', 'info')
                     return redirect('accounts:home')
-            messages.error(request, 'phone or password is wrong', 'warning')
+            messages.error(request, 'email or password is wrong', 'warning')
         return render(request, self.template_name, {'form': form})
 
 
@@ -80,4 +80,4 @@ class UserLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.success(request, 'you logged out successfully', 'success')
-        return redirect('product:home')
+        return redirect('accounts:home')
