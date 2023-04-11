@@ -69,7 +69,7 @@ class UserLoginView(View):
                 #     pass
                 # return redirect(to=reverse('admin:index'))
                 # else:
-                messages.success(request, 'ورود با موفقیت', 'info')
+                messages.success(request, f' {user.full_name} با موفقیت وارد شد ', 'info')
                 return redirect('accounts:home')
             messages.error(request, 'ایمیل یا پسورد اشتباه است.', 'warning')
         return render(request, self.template_name, {'form': form})
@@ -94,7 +94,7 @@ class PatientRegisterView(View):
                 login(request, user)
 
             messages.success(request, 'ثبت نام با موفقیت', 'success')
-            return redirect('accounts:login_user')
+            return redirect('accounts:user_login')
         return render(request, self.template_name, {'form': form})
 
 

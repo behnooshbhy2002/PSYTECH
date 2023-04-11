@@ -1,3 +1,5 @@
+from django.core.validators import RegexValidator
+
 from .models import User
 from django import forms
 from django.core.exceptions import ValidationError
@@ -5,12 +7,12 @@ from django.core.exceptions import ValidationError
 
 class PsychologistRegistrationForm(forms.Form):
     full_name = forms.CharField(help_text='نام و نام خانوادگی')
-    phone = forms.CharField(help_text='شماره تلفن همراه')
+    phone_number = forms.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')], help_text='شماره تلفن همراه')
     email = forms.EmailField(help_text='ایمیل')
-    gender = forms.ChoiceField(help_text='جنسیت')
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), help_text='رمز')
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
                                        help_text='تکرار رمز')
+    gender = forms.ChoiceField(choices=User.GENDERS, widget=forms.RadioSelect, help_text='جنسیت')
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -36,13 +38,15 @@ class PsychologistRegistrationForm(forms.Form):
 
 class PatientRegistrationForm(forms.Form):
     full_name = forms.CharField(help_text='نام و نام خانوادگی')
-    phone = forms.CharField(help_text='شماره تلفن همراه')
+    # phone = forms.CharField(help_text='شماره تلفن همراه')
+    phone_number = forms.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')], help_text='شماره تلفن همراه')
     email = forms.EmailField(help_text='ایمیل')
-    gender = forms.ChoiceField(help_text='جنسیت')
-    id_psychologist = forms.CharField(help_text='شماره نظام پزشکی')
+
+    # gender = forms.ChoiceField(help_text='جنسیت')
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), help_text='رمز')
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
                                        help_text='تکرار رمز')
+    gender = forms.ChoiceField(choices=User.GENDERS, widget=forms.Select(attrs={'class': 'bootstrap-select'}), help_text='جنسیت')
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -64,6 +68,9 @@ class PatientRegistrationForm(forms.Form):
         if password != confirm_password and password:
             raise ValidationError('confirm password does not match password')
         return confirm_password
+
+    # def clean_gender(self):
+    #     return [self.cleaned_data['gender']]
 
 
 class UserLoginForm(forms.Form):

@@ -21,17 +21,18 @@
     <section class="form_model">
       <div class="form_toggle">
         <button id="DrSignup-toggle" onclick="toggleDrSignup()">
-          ثبت نام پزشک
+          ثبت نام بیمار
         </button>
         <button id="Psignup-toggle" onclick="togglePsignup()">
-          ثبت نام بیمار
+          ثبت نام پزشک
         </button>
       </div>
       <div id="DrSignup-form">
-        <form method="post" action="main page.php" id="signup1">
+        <form method="post" action="" id="signup1">
+          <div class="temp">
           {% csrf_token %}
           {% for field in form %}
-            <div class="text">
+            <div class="text" style="text-align: right; direction: rtl">
               {{ field.errors }}
                 <label>
                     {{field.help_text|safe}}
@@ -39,11 +40,12 @@
               {{ field }}
             </div>
           {% endfor %}
-          <button type="button" class="btn login">ثبت اطلاعات</button>
+          <input type="submit" class="btn login">ثبت اطلاعات</input>
           <p>
             کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما
             با <a href="#">شرایط خدمات</a> موافق هستید.
           </p>
+          </div>
         </form>
       </div>
     </section>
