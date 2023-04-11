@@ -7,7 +7,7 @@ class PsychologistRegistrationForm(forms.Form):
     full_name = forms.CharField(help_text='نام و نام خانوادگی')
     phone = forms.CharField(help_text='شماره تلفن همراه')
     email = forms.EmailField(help_text='ایمیل')
-    gender = forms.CharField(help_text='جنسیت')
+    gender = forms.ChoiceField(help_text='جنسیت')
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), help_text='رمز')
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
                                        help_text='تکرار رمز')
@@ -38,7 +38,7 @@ class PatientRegistrationForm(forms.Form):
     full_name = forms.CharField(help_text='نام و نام خانوادگی')
     phone = forms.CharField(help_text='شماره تلفن همراه')
     email = forms.EmailField(help_text='ایمیل')
-    gender = forms.CharField(help_text='جنسیت')
+    gender = forms.ChoiceField(help_text='جنسیت')
     id_psychologist = forms.CharField(help_text='شماره نظام پزشکی')
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), help_text='رمز')
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
