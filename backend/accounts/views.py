@@ -15,7 +15,7 @@ class HomeView(View):
         return render(request, self.template_name)
 
 
-class UserRegisterView(View):
+class PsychologistRegisterView(View):
     form = PsychologistRegistrationForm
     template_name = 'accounts/signup.html'
 
@@ -28,7 +28,8 @@ class UserRegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
-                                     full_name=cd['full_name'])
+                                     full_name=cd['full_name'], gender=cd['gender'], medical_number=['medical_number'],
+                                     specialist=['specialist'])
 
             user = authenticate(request, email=cd['email'], password=cd['password'])
             if user is not None:
@@ -63,13 +64,13 @@ class UserLoginView(View):
             cd = form.cleaned_data
             user = authenticate(request, email=cd['email'], password=cd['password'])
             if user is not None:
-                    login(request, user)
+                login(request, user)
                 # if user.is_staff():
                 #     pass
-                    # return redirect(to=reverse('admin:index'))
+                # return redirect(to=reverse('admin:index'))
                 # else:
-                    messages.success(request, 'you logged in successfully', 'info')
-                    return redirect('accounts:home')
+                messages.success(request, 'you logged in successfully', 'info')
+                return redirect('accounts:home')
             messages.error(request, 'email or password is wrong', 'warning')
         return render(request, self.template_name, {'form': form})
 
