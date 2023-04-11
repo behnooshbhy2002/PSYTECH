@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="Itr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login form</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body>
+
+    {% for msg in messages %}
+      <div class="message" dir="rtl">
+          <p class="alert alert-{{ msg.tags }} alert-dismissable">{{ msg }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-close"></i></a>
+          </p>
+      </div>
+    {% endfor %}
+
+    <div class="center">
+      <h1>ورود</h1>
+      <form method="post" action="">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="txt_field">
+
+<!--            {% if field.help_text == 'رمز ورود' %}-->
+<!--              <div class="show-hide">-->
+<!--                <i class="fa fa-eye"></i>-->
+<!--              </div>-->
+<!--            {% endif %}-->
+
+            {{ field.errors }}
+              <label>
+                  {{field.help_text|safe}}
+              </label>
+            {{ field }}
+          </div>
+        {% endfor %}
+
+        <!-- forget password -->
+        <div class="forPass">رمز عبور خود را فراموش کرده‌اید؟</div>
+
+        <input type="submit"  class="login" value="ورود">
+        <div class="signup_link">
+          عضو نشده‌اید؟
+          <a href="{% static 'accounts/signup.html'%}"
+            >ثبت‌نام</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="{%static 'accounts/js/login.jsx'%}"></script>
+</html>

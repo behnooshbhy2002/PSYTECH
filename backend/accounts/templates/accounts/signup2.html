@@ -1,0 +1,51 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="SignUp.css" type="text/css" />
+    <link rel="stylesheet" href="{% static 'accounts/css/SignUp.css' %}" type="text/css" />
+    <!-- <link rel="stylesheet" href="Login.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <title>sign up form</title>
+  </head>
+
+  <body>
+    <section class="form_model">
+      <div class="form_toggle">
+        <button id="DrSignup-toggle" onclick="toggleDrSignup()">
+          ثبت نام پزشک
+        </button>
+        <button id="Psignup-toggle" onclick="togglePsignup()">
+          ثبت نام بیمار
+        </button>
+      </div>
+      <div id="DrSignup-form">
+        <form method="post" action="main page.php" id="signup1">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="text">
+              {{ field.errors }}
+                <label>
+                    {{field.help_text|safe}}
+                </label>
+              {{ field }}
+            </div>
+          {% endfor %}
+          <button type="button" class="btn login">ثبت اطلاعات</button>
+          <p>
+            کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که شما
+            با <a href="#">شرایط خدمات</a> موافق هستید.
+          </p>
+        </form>
+      </div>
+    </section>
+<script src="{%static 'accounts/js/SignUp.jsx'%}"></script>
+</html>
