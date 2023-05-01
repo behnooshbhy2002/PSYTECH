@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 @font-face {
   font-family: "Yekan";
-  src: url("fonts/Yekan.eot"); /* IE9 Compat Modes */
-  src: url("fonts/Yekan.eot?#iefix") format("embedded-opentype"),
-    /* IE6-IE8 */ url("fonts/Yekan.woff2") format("woff2"),
-    /* Modern Browsers */ url("fonts/Yekan.woff") format("woff"),
-    /* Modern Browsers */ url("fonts/Yekan.otf") format("opentype"),
-    /* Open Type Font */ url("fonts/Yekan.ttf") format("truetype"); /* Safari, Android, iOS */
+  src: url("../fonts/Yekan.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Yekan.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/Yekan.woff2") format("woff2"),
+    /* Modern Browsers */ url("../fonts/Yekan.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/Yekan.otf") format("opentype"),
+    /* Open Type Font */ url("../fonts/Yekan.ttf") format("truetype"); /* Safari, Android, iOS */
   font-weight: normal;
   font-style: normal;
   text-rendering: optimizeLegibility;
@@ -23,14 +23,14 @@
     font-family: myFirstFont;
     src: url(sansation_light.woff);
 } */
-body {
+/* body {
   margin: 0;
   padding: 0;
   background: linear-gradient(120deg, #56d8e4, #9f01ea);
   height: 100vh;
   overflow: hidden;
-}
-.center {
+} */
+.form_model_login {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -39,8 +39,10 @@ body {
   height: 400px;
   background: rgb(255, 255, 255);
   border-radius: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-.center h1 {
+.form_model_login h1 {
   /* text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid silver; */
@@ -61,7 +63,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.center form {
+.form_model_login form {
   padding: 0 40px;
   box-sizing: border-box;
 }

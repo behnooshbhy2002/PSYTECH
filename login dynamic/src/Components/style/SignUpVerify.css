@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 @font-face {
   font-family: "Yekan";
-  src: url("fonts/Yekan.eot"); /* IE9 Compat Modes */
-  src: url("fonts/Yekan.eot?#iefix") format("embedded-opentype"),
-    /* IE6-IE8 */ url("fonts/Yekan.woff2") format("woff2"),
-    /* Modern Browsers */ url("fonts/Yekan.woff") format("woff"),
-    /* Modern Browsers */ url("fonts/Yekan.otf") format("opentype"),
-    /* Open Type Font */ url("fonts/Yekan.ttf") format("truetype"); /* Safari, Android, iOS */
+  src: url("../fonts/Yekan.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Yekan.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/Yekan.woff2") format("woff2"),
+    /* Modern Browsers */ url("../fonts/Yekan.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/Yekan.otf") format("opentype"),
+    /* Open Type Font */ url("../fonts/Yekan.ttf") format("truetype"); /* Safari, Android, iOS */
   font-weight: normal;
   font-style: normal;
   text-rendering: optimizeLegibility;
@@ -23,14 +23,14 @@
     font-family: myFirstFont;
     src: url(sansation_light.woff);
 } */
-body {
+/* body {
   margin: 0;
   padding: 0;
   background: linear-gradient(120deg, #56d8e4, #9f01ea);
   height: 100vh;
   overflow: hidden;
-}
-.center {
+} */
+.form_model_verify {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -39,8 +39,10 @@ body {
   height: 400px;
   background: rgb(255, 255, 255);
   border-radius: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-.center h1 {
+.form_model_verify h1 {
   /* text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid silver; */
@@ -61,7 +63,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.center form {
+.form_model_verify form {
   padding: 0 40px;
   box-sizing: border-box;
 }
@@ -78,9 +80,7 @@ form .txt_field {
   border: none;
   background: none;
   outline: none;
-
-  /* left: 50px; */
-  /* text-align: right; */
+  text-align: right;
 }
 .txt_field label {
   position: absolute;
@@ -107,7 +107,7 @@ form .txt_field {
   transition: 0.5s;
 }
 
-.show-hide i {
+.show-hide img {
   position: absolute;
   font-size: 20px;
   left: 5px;
@@ -115,34 +115,43 @@ form .txt_field {
   font-size: 19px;
   color: #48b3fb;
   cursor: pointer;
+  width: 20px;
+  right: 8px;
+  top: 8px;
   transform: translateX(10%);
   transition: transform 0.3s ease-in-out;
 }
-.show-hide i.hide::before {
+.show-hide img.hide::before {
   content: "\f070";
 }
-input:valid ~ .show-hide i {
+input:valid ~ .show-hide img {
   transform: translateX(0);
 }
-.txt_field input:focus ~ label,
-.txt_field input:valid ~ label {
+
+.txt_field input:focus ~ label {
   top: -5px;
   color: #2691d9;
 }
-.txt_field input:focus ~ span::before,
-.txt_field input:valid ~ span::before {
+.txt_field input:focus ~ span::before {
   width: 100%;
 }
-.forPass {
+.forPass a {
   margin: -5px 0 20px 5px;
   color: #a6a6a6;
   cursor: pointer;
+  display: block;
   text-align: center;
+  text-decoration: none;
 }
-.forPass:hover {
+.forPass a:hover {
   text-decoration: underline;
 }
-.login {
+.sendCodetxt {
+  text-align: right;
+  margin-top: 2rem;
+  color: #666666;
+}
+.verify_code {
   width: 100%;
   height: 50px;
   border: 1px solid;
@@ -154,10 +163,32 @@ input:valid ~ .show-hide i {
   cursor: pointer;
   outline: none;
   border-radius: 25px;
+  margin-top: 1.5rem;
 }
-.login:hover {
-  border-color: #14405e;
+.verify_code:hover {
+  background-color: #14405e;
   transition: 0.5s;
+}
+.getCodeAgain {
+  color: #2691d9;
+  text-align: center;
+  margin-top: 2rem;
+}
+.getCodeAgain:hover {
+  text-decoration: underline;
+}
+.signup-timer {
+  color: #2691d9;
+  position: relative;
+}
+.verifyCode {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.verifyCode-box {
+  flex: 5;
 }
 .signup_link {
   margin: 30px 0 30px;
@@ -165,11 +196,13 @@ input:valid ~ .show-hide i {
   font-size: 14px;
   color: #666666;
 }
-.signup_link a {
+.signup_link button {
   color: #2691d9;
-  /* text-align:center; */
+  /* text-align: center; */
   text-decoration: none;
+  background: none;
+  border: none;
 }
-.signup_link a:hover {
+.signup_link button:hover {
   text-decoration: underline;
 }

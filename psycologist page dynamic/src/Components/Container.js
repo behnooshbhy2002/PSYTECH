@@ -1,29 +1,62 @@
-import "./PsyList.css";
-// import "https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.9.95/css/materialdesignicons.css";
-// import "https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css";
-
+import "./style/Container.css";
 import Filter from "./Filter";
 import PsyList from "./PsyList";
 const Container = (props) => {
   return (
     <>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-12">
-            <div className="ContentHeaderboxConsultant-text">
-              <h1 className="header-title-Consultant-index">
-                مشاوره روانشناسی
-              </h1>
+      <div className="psylist-page">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-12">
+              <div className="ContentHeaderboxConsultant-text">
+                <h1 className="header-title-Consultant-index">روانشناسان</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="">
+
           <div className="flex-container">
             <Filter></Filter>
             <PsyList></PsyList>
           </div>
         </div>
       </div>
+
+      {/* <div class="col-lg-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination job-pagination justify-content-center mt-5 mb-5">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <i class="mdi mdi-chevron-double-left f-15"></i>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                4
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <i class="mdi mdi-chevron-double-right f-15"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div> */}
     </>
   );
 };

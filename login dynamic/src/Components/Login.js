@@ -1,7 +1,7 @@
-import "./Login.css";
+import "./style/Login.css";
 import React, { useState } from "react";
-import showPwdImg from "./show-pass.svg";
-import hidePwdImg from "./hide-pass.svg";
+import showPwdImg from "./icons/show-pass.svg";
+import hidePwdImg from "./icons/hide-pass.svg";
 import { Outlet, Link } from "react-router-dom";
 
 function Login(props) {
@@ -15,7 +15,7 @@ function Login(props) {
     console.log(email);
   };
   return (
-    <div className="center">
+    <div className="form_model_login">
       <h1>ورود</h1>
       <form action="post">
         <div className="txt_field email">
