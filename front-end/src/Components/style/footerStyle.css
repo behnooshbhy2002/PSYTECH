@@ -1,4 +1,4 @@
-#logo
+#footer-logo
 {
     width: 250px;
 }
@@ -13,9 +13,14 @@
 .a-tags p{
     margin: 10px;
  }
-.a-tags p:hover{
+.a-tags a:hover{
 color: rgb(80, 80, 80);
+text-decoration: none;
 }
+.a-tags p:hover{
+    color: rgb(80, 80, 80);
+    }
+    
 .contact-div p
 {
     margin: 10px;
