@@ -1,0 +1,263 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.ContentHeaderboxConsultant-text {
+  text-align: right;
+}
+/* filter part */
+
+@media (min-width: 768px) {
+  .consultation-filter-header {
+    text-align: right;
+    border-bottom: 1px solid #ececec;
+    padding: 16px 20px 8px 20px;
+  }
+  .boxConsultant-filter {
+    position: unset;
+    display: block;
+    border-radius: 20px;
+    -moz-box-shadow: 0 10px 20px #00000014;
+    -o-box-shado: 0 10px 20px #00000014;
+    -webkit-box-shadow: 0 10px 20px #00000014;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .col-md-3 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    /* max-width: 25%; */
+  }
+  .box.boxConsultant {
+    margin: 0 0 56px 0;
+    padding: 0 !important;
+  }
+  .col-md-9 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+}
+.filter-box {
+  flex: 1;
+}
+.consultation-filter-box {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: unset;
+  display: block;
+  border-radius: 20px;
+  -moz-box-shadow: 0 10px 20px #00000014;
+  -o-box-shado: 0 10px 20px #00000014;
+  -webkit-box-shadow: 0 10px 20px #00000014;
+  box-shadow: 0 10px 20px #00000014;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 9999999999;
+  width: 100%;
+  padding: 0;
+  margin-top: 1.5rem;
+  float: right !important;
+}
+.col-md-3 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.boxConsultant-filter {
+  flex: 4;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 9999999999;
+  width: 100%;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+.float-right {
+  float: right !important;
+}
+.consultation-filter-header {
+  padding: 16px 16px 8px 16px;
+  text-align: center;
+}
+.consultation-filter-header-caption {
+  font-size: 16px;
+  color: #032133;
+  font-weight: 700;
+  position: relative;
+  top: -2px;
+}
+.filtered_now_list_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+.consultation-filter-body {
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 8px 0;
+}
+.consultation-filter-lists {
+  overflow: hidden;
+  border-bottom: 1px solid #ececec;
+  padding: 16px 16px;
+  width: 100%;
+}
+.header-title-Consultant-index {
+  color: #032133;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.7em;
+  display: inline-block;
+}
+.consultation-filter-item-caption {
+  margin: 0 0 8px;
+  text-align: right;
+}
+.consultation-filter-item-text {
+  font-size: 16px;
+  color: #032133;
+  font-weight: 700;
+}
+.consultation-filter-item___container_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.consultation-filter-item__flex__filter:first-child {
+  margin-right: 0 !important;
+}
+.border-0 {
+  border-bottom: 0;
+}
+.consultation-filter-item__flex__filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 4px;
+}
+.consultation-filter-input-radio:first-child {
+  margin-right: -2px;
+}
+.consultation-filter-input-radio {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  border: 1px solid #4f6470;
+  cursor: pointer;
+}
+input[type="checkbox"] {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  border: 1px solid #4f6470;
+}
+input[type="checkbox"]:checked {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #2691d9;
+  border-color: #2691d9;
+}
+.consultation-filter-input {
+  -webkit-appearance: none;
+}
+.consultation-filter-text {
+  font-size: 14px;
+  color: #03273c;
+  cursor: pointer;
+}
+.consultation-filter-item__flex__filter > label {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: -4px;
+}
+.consultation-filter-item__flex__filter > svg {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none !important;
+  font-weight: 700;
+}
+.consultation-filter-item-diseases_input {
+  background-color: #f4f5f7;
+  padding: 10px 10px;
+  border: none !important;
+  outline: 0 !important;
+  border-radius: 8px;
+  width: 100%;
+  margin: 8px 0;
+}
+.box.boxConsultant {
+  width: 100%;
+  float: right;
+  padding: 0 20px;
+  margin: 0 0 48px;
+}
+.float-left {
+  float: left !important;
+}
+.diseases_filters_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.diseases_filters_container .diseases_filters_item {
+  border: 1px solid #e6e9eb;
+  outline: 0;
+  padding: 4px 8px;
+  margin: 4px 4px;
+  background-color: transparent;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #4f6470;
+  cursor: pointer;
+  transition: all 0.4s linear;
+}
+
+.diseases_filters_item:hover {
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-1px);
+}
