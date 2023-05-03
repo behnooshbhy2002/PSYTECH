@@ -30,9 +30,9 @@
   overflow: hidden;
 } */
 .form_model_login {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
+  right: 20%;
+  margin-top: 250px;
   transform: translate(-50%, -50%);
   width: 450px;
   height: 400px;
@@ -66,12 +66,12 @@
   padding: 0 40px;
   box-sizing: border-box;
 }
-form .txt_field {
+form .txt_field-login {
   position: relative;
   border-bottom: 2px solid #adadad;
   margin: 30px 0;
 }
-.txt_field input {
+.txt_field-login input {
   width: 100%;
   padding: 0 5px;
   height: 40px;
@@ -81,9 +81,9 @@ form .txt_field {
   outline: none;
 
   /* left: 50px; */
-  /* text-align: right; */
+  text-align: left;
 }
-.txt_field label {
+.txt_field-login label {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -97,7 +97,7 @@ form .txt_field {
 .pass input {
   padding-left: 35px;
 }
-.txt_field span::before {
+.txt_field-login span::before {
   content: "";
   position: absolute;
   top: 40px;
@@ -117,7 +117,7 @@ form .txt_field {
   color: #48b3fb;
   cursor: pointer;
   width: 20px;
-  right: 8px;
+  right: 95%;
   top: 8px;
   transform: translateX(10%);
   transition: transform 0.3s ease-in-out;
@@ -129,11 +129,11 @@ input:valid ~ .show-hide img {
   transform: translateX(0);
 }
 
-.txt_field input:focus ~ label {
+.txt_field-login input:focus ~ label {
   top: -5px;
   color: #2691d9;
 }
-.txt_field input:focus ~ span::before {
+.txt_field-login input:focus ~ span::before {
   width: 100%;
 }
 .forPass a {

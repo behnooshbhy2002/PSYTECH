@@ -2,8 +2,12 @@ import "../style/Login.css";
 import React, { useState } from "react";
 import showPwdImg from "../icons/show-pass.svg";
 import hidePwdImg from "../icons/hide-pass.svg";
-import { Outlet, Link } from "react-router-dom";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 function Login(props) {
   const [passwordShown, setPasswordShown] = useState(false);
   const [pwd, setPwd] = useState("");
@@ -18,13 +22,22 @@ function Login(props) {
     <div className="form_model_login">
       <h1>ورود</h1>
       <form action="post">
-        <div className="txt_field email">
-          <input type="text" value={""} id="email" name="email" />
+        <div className="txt_field-login email">
+          <input
+            type="text"
+            value={email}
+            id="email"
+            name="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              console.log(email);
+            }}
+          />
           <span></span>
           <label>ایمیل یا شماره همراه</label>
         </div>
 
-        <div className="txt_field pass">
+        <div className="txt_field-login pass">
           <input
             type={passwordShown ? "text" : "password"}
             spellCheck="false"
@@ -54,10 +67,10 @@ function Login(props) {
           ورود
         </button>
         <div className="signup_link">
-          <button onClick={() => props.onFormSwitch("Register")}>
-            ثبت نام
-          </button>
           <span> عضو نشده‌اید؟</span>
+          <NavLink to="/SignUp">
+            <button>ثبت نام</button>
+          </NavLink>
         </div>
       </form>
     </div>

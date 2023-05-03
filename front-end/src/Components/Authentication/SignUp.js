@@ -147,17 +147,17 @@ function Sign() {
               <button type="submit" class="btn login">
                 ثبت اطلاعات
               </button>
-              <p>
+              {/* <p>
                 کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که
                 شما با <a href="#">شرایط خدمات</a> موافق هستید.
-              </p>
+              </p> */}
             </form>
           </div>
-          <p>
+          {/* <p>
             {" "}
             name : {fullname} , email : {email}
             gender : {gender}
-          </p>
+          </p> */}
         </section>
       </div>
     </>

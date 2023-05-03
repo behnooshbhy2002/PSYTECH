@@ -1,18 +1,27 @@
 import React from "react";
 import logo from "../../images/logo.png";
 import "../style/navBar.css";
+import { BrowserRouter, Router, Route, Link, NavLink } from "react-router-dom";
 
 const NavBarr = () => {
   return (
     <div className="navbar-div" dir="rtl">
       <ul>
         <img src={logo} className="navbar-logo" />
-        <li className="list">خانه</li>
-        <li className="list">لیست مشاوران</li>
-        <li className="list">درباره ما</li>
-        <li className="list">تماس با ما</li>
-        <button id="signup">ثبت نام</button>
-        <button id="login">ورود</button>
+        <NavLink to="/" className="list">
+          <li>خانه</li>
+        </NavLink>
+        <NavLink to="/PsycologistList" className="list">
+          لیست مشاوران
+        </NavLink>
+        <NavLink className="list">درباره ما</NavLink>
+        <NavLink className="list">تماس با ما</NavLink>
+        <NavLink to="/Login">
+          <button id="login">ورود</button>
+        </NavLink>
+        <NavLink to="/SignUp">
+          <button id="signup">ثبت نام</button>
+        </NavLink>
       </ul>
     </div>
   );

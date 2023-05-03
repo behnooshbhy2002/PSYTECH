@@ -1,201 +1,190 @@
-ul.MyMenu{
-    padding:0;
-    margin:0;
-    list-style-type:none;
-    overflow: hidden;
-    display: inline;
-    border-bottom:1px solid #757575 ;
-   }
-
-.list{
-    margin-top: 12px;
-    display: inline;
-    float: right;
-    padding:20px;
-    color:#757575;
-    border-bottom:1px solid #757575 ;
-    transition: 0.3s;
-    margin-top: 30px;
+ul.MyMenu {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow: hidden;
+  display: inline;
+  border-bottom: 1px solid #757575;
 }
 
-
-    
-.list:hover{
-    color:#734df3;
-    border-bottom: 2px solid #7950fe;
-    
+.list {
+  margin-top: 12px;
+  display: inline;
+  float: right;
+  padding: 20px;
+  color: #757575;
+  border-bottom: 1px solid #757575;
+  transition: 0.3s;
+  margin-top: 30px;
+  text-decoration: none;
 }
 
-.list:active{
-    color:#734df3;
-    border-bottom: 2px solid #7950fe;
-    
+.list:hover {
+  color: #734df3;
+  border-bottom: 2px solid #7950fe;
+}
+
+.list:active {
+  color: #734df3;
+  border-bottom: 2px solid #7950fe;
 }
 
 .navbar-div {
-   width: 100%;
-   height: 120px;
-   background-color: rgb(255, 255, 255);
-   
-
+  width: 100%;
+  height: 120px;
+  background-color: rgb(255, 255, 255);
 }
 
-#signup{
-    text-align: center;
-    width:100px;
-    height:45px;
-    float: left;
-    border-radius: 10px;
-    color: aliceblue;
-    background-color:#2691b9;
-    border-width: 0px;
-    margin-top: 45px;
-    transition: 0.3s;
-    margin-left: 45px;
-
-    
+#signup {
+  text-align: center;
+  width: 100px;
+  height: 45px;
+  float: left;
+  border-radius: 10px;
+  color: aliceblue;
+  background-color: #2691b9;
+  border-width: 0px;
+  margin-top: 45px;
+  transition: 0.3s;
+  margin-left: 10px;
 }
 
-#signup:hover{
-    text-align: center;
-    width:100px;
-    height:45px;
-    float: left;
-    border-radius: 10px;
-    color: rgb(145, 77, 255);
-    background-color: rgb(255, 255, 255);
-    border-width: 2px;
-    border-color: rgb(145, 77, 255);
-    margin-top: 45px;
+#signup:hover {
+  text-align: center;
+  width: 100px;
+  height: 45px;
+  float: left;
+  border-radius: 10px;
+  color: rgb(145, 77, 255);
+  background-color: rgb(255, 255, 255);
+  border-width: 2px;
+  border-color: rgb(145, 77, 255);
+  margin-top: 45px;
 }
 
-#login{
-    text-align: center;
-    width:100px;
-    height:45px;
-    float: left;
-    border-radius: 10px;
-    color: rgb(145, 77, 255);
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(145, 77, 255);
-    border-width: 2px;
-    margin-left: 10px;
-    margin-top: 45px;
-    transition: 0.3s;
+#login {
+  text-align: center;
+  width: 100px;
+  height: 45px;
+  float: left;
+  border-radius: 10px;
+  color: rgb(145, 77, 255);
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(145, 77, 255);
+  border-width: 2px;
+  margin-left: 10px;
+  margin-top: 45px;
+  transition: 0.3s;
 }
 
-#login:hover{
-    text-align: center;
-    width:100px;
-    height:45px;
-    float: left;
-    border-radius: 10px;
-    color: aliceblue;
-    background-color:#2691b9;
-    border: none;
-    margin-top: 45px;
+#login:hover {
+  text-align: center;
+  width: 100px;
+  height: 45px;
+  float: left;
+  border-radius: 10px;
+  color: aliceblue;
+  background-color: #2691b9;
+  border: none;
+  margin-top: 45px;
 }
 
-.navbar-logo{
-    float:right;
-    width: 10%;
-    height: 100px;
+.navbar-logo {
+  float: right;
+  width: 10%;
+  height: 100px;
 }
-.navbar-check-btn{
-    font-size: 30px;
-    color: #734df3;
+.navbar-check-btn {
+  font-size: 30px;
+  color: #734df3;
+  float: right;
+  line-height: 80px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+#navbar-check {
+  display: none;
+}
+.navbar-check-btn {
+  display: none;
+}
+@media screen and (max-width: 760px) {
+  ul.MyMenu {
+    list-style-type: none;
+    overflow: hidden;
+    display: inline;
+  }
+
+  .navbar-logo {
+    margin-top: 20px;
     float: right;
-    line-height: 80px;
-    margin-right: 20px;
-    cursor: pointer;
-}
-#navbar-check{
-    display: none;
-}
-.navbar-check-btn
-{
-    display: none;
-}
-@media screen and (max-width: 760px){
-    ul.MyMenu{
-        list-style-type:none;
-        overflow: hidden;
-        display:inline;
-        
-       }
-
-     .navbar-logo{
-        margin-top: 20px;
-        float:right;
-        width: 85px;
-        height: 60px;
-    }
-    .list{
-        margin-top: 50px;
-        height: 30px;
-        width: 100px;
-        padding: 5px;
-        font-size: 12px;
-        text-align: center;
-       
-    }
-   
-    #login{
-        text-align: center;
-        width:75px;
-        height:35px;
-        float: left;
-        border-radius: 10px;
-        color: rgb(145, 77, 255);
-        background-color: rgb(255, 255, 255);
-        border-color: rgb(145, 77, 255);
-        border-width: 1px;
-        margin-left: 10px;
-        margin-top: 50px;
-        transition: 0.3s;
-        font-size: 10px;
-        -webkit-transition: 0.3s;
-        -moz-transition: 0.3s;
-        -ms-transition: 0.3s;
-        -o-transition: 0.3s;
-}
-    
-    #login:hover{
-        text-align: center;
-        width:75px;
-        height:35px;
-        float: left;
-        border-radius: 10px;
-        color: aliceblue;
-        background-color:#2691b9;
-        border: none;
-        margin-top: 50px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
-}
-
-#signup{
+    width: 85px;
+    height: 60px;
+  }
+  .list {
+    margin-top: 50px;
+    height: 30px;
+    width: 100px;
+    padding: 5px;
+    font-size: 12px;
     text-align: center;
-    width:75px;
-    height:35px;
+  }
+
+  #login {
+    text-align: center;
+    width: 75px;
+    height: 35px;
+    float: left;
+    border-radius: 10px;
+    color: rgb(145, 77, 255);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(145, 77, 255);
+    border-width: 1px;
+    margin-left: 10px;
+    margin-top: 50px;
+    transition: 0.3s;
+    font-size: 10px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+  }
+
+  #login:hover {
+    text-align: center;
+    width: 75px;
+    height: 35px;
     float: left;
     border-radius: 10px;
     color: aliceblue;
-    background-color:#2691b9;
+    background-color: #2691b9;
+    border: none;
+    margin-top: 50px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  #signup {
+    text-align: center;
+    width: 75px;
+    height: 35px;
+    float: left;
+    border-radius: 10px;
+    color: aliceblue;
+    background-color: #2691b9;
     border-width: 0px;
     margin-top: 50px;
     transition: 0.3s;
     margin-left: 10px;
     font-size: 10px;
+  }
 
-}
-
-#signup:hover{
+  #signup:hover {
     text-align: center;
-    width:75px;
-    height:35px;
+    width: 75px;
+    height: 35px;
     float: left;
     border-radius: 10px;
     color: rgb(145, 77, 255);
@@ -203,7 +192,5 @@ ul.MyMenu{
     border-width: 1px;
     border-color: rgb(145, 77, 255);
     margin-top: 50px;
-
-}
-
+  }
 }
