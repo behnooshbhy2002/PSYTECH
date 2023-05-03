@@ -22,6 +22,11 @@
 .showAllDiseasesBtn {
   cursor: pointer;
 }
-.showAllDiseasesBtn__show_all_text {
+#showAllDiseasesBtn__show_all_text {
   text-align: center;
+  background-color: #7d6bbd;
+}
+.showAllDrBtn__show_all_text {
+  text-align: center;
+  background-color: #7d6bbd;
 }

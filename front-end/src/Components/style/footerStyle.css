@@ -1,27 +1,27 @@
-#footer-logo
-{
-    width: 250px;
+.footer-section {
+  background-color: white;
 }
-.a-non-decoration{
-    text-decoration: none;
+#footer-logo {
+  width: 250px;
 }
-.icone-under-logo
-{
-    display: inline;
-    padding: 3px;
+.a-non-decoration {
+  text-decoration: none;
 }
-.a-tags p{
-    margin: 10px;
- }
-.a-tags a:hover{
-color: rgb(80, 80, 80);
-text-decoration: none;
+.icone-under-logo {
+  display: inline;
+  padding: 3px;
 }
-.a-tags p:hover{
-    color: rgb(80, 80, 80);
-    }
-    
-.contact-div p
-{
-    margin: 10px;
+.a-tags p {
+  margin: 10px;
+}
+.a-tags a:hover {
+  color: rgb(80, 80, 80);
+  text-decoration: none;
+}
+.a-tags p:hover {
+  color: rgb(80, 80, 80);
+}
+
+.contact-div p {
+  margin: 10px;
 }
