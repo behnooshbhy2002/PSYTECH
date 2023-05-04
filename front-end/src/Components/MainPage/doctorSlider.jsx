@@ -23,7 +23,17 @@ import img3 from "../../images/elham-mohammadi.png";
 import img4 from "../../images/maryam-amini.png";
 import img5 from "../../images/maryam-montazeri.png";
 import img6 from "../../images/sara-payam-shad.png";
+import { useState, useEffect } from "react";
 function DoctorSlider() {
+  const [drList, setDrList] = useState([]);
+  const [url, setUrl] = useState("http://localhost:3001/list");
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => setDrList(json));
+  }, [url]);
+  const numberOfItems = drList.length;
   return (
     <div>
       <div className="container py-4 px-4 justify-content-center rounded slider">
@@ -69,116 +79,22 @@ function DoctorSlider() {
             },
           }}
         >
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img1,
-                nameDoctor: "زهرا اعتمادی",
-                title: "مشاوره ازدواج",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img2,
-                nameDoctor: "علی همتی",
-                title: "مشاوره تحصیلی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img3,
-                nameDoctor: " الهام محمدی",
-                title: "مشاوره فردی-خانواده",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img4,
-                nameDoctor: "مریم امینی",
-                title: "مشاوره خانواده",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img5,
-                nameDoctor: "مریم منتظری",
-                title: "مشاوره فردی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره تحصیلی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره اجتماعی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره تحصیلی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره خانواده",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره ازدواج-خانواده",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <DoctorCard
-              data={{
-                imgSrc: img6,
-                nameDoctor: "سارا پیام",
-                title: "مشاوره فردی",
-                score: "۴.۹",
-              }}
-            />
-          </SwiperSlide>
+          <div>
+            {drList.slice(0, numberOfItems).map((item) => {
+              return (
+                <SwiperSlide>
+                  <DoctorCard
+                    data={{
+                      imgSrc: item.picture,
+                      nameDoctor: item.name,
+                      title: item.spaciality,
+                      score: item.rating,
+                    }}
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </div>
           <br />
         </Swiper>
       </div>

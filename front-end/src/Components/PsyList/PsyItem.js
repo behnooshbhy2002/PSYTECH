@@ -106,30 +106,6 @@ const PsyItem = (props) => {
       })}
 
       <div>
-        <button
-          onClick={() => {
-            setUrl("http://localhost:3000/list");
-          }}
-        >
-          all
-        </button>
-        <button
-          onClick={() => {
-            setUrl("http://localhost:3000/list?gender=1");
-          }}
-        >
-          man
-        </button>
-        <button
-          onClick={() => {
-            setUrl("http://localhost:3000/list?medicalNum=22977");
-          }}
-        >
-          woman
-        </button>
-      </div>
-
-      <div>
         {isShowMore && (
           <button onClick={toggleReadMoreLess} className="showAllDrBtn">
             <span className="showAllDrBtn__show_all_text">
