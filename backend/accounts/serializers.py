@@ -55,6 +55,10 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
             'email': {'validators': (clean_email,)}
         }
 
+    def create(self, validate_data):
+        del validate_data['confirm_password']
+        return User.objects.create_user(**validate_data)
+
     # full_name = serializers.CharField(required=True, help_text='نام و نام خانوادگی')
     # phone_number = serializers.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')],
     #                                      help_text='شماره تلفن همراه')
