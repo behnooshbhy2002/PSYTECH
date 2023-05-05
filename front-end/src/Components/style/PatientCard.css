@@ -1,9 +1,5 @@
-/* header {
-    padding: 2rem 0;
-  } */
-  
   .patient-list {
-    margin-top: 2.5rem;
+    margin-top: 2.7rem;
   }
   
   .patient-card {
@@ -15,6 +11,8 @@
     margin-right: 300px;
     display: flex;
     align-items: center; 
+    /* justify-content: space-between; */
+    justify-content: center;
   }
 
   .patient-card-button{
@@ -27,14 +25,16 @@
     width: 150px;
     margin-top: 5px;
     margin-bottom: 5px;
-    align-items: baseline;
     font-size: 100%;
-    margin-right: 220%;
+  
   }
 .patient-card-img
 {
-    margin-right: 20px;
-    margin-left: 10PX;
+   
+    margin-left: 15PX;
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
 }
 .patient-card:hover{
     -webkit-box-shadow: 0 0 20px 0px plum;
@@ -53,4 +53,14 @@
   {
     margin-right: 5%;
   }
+  }
+  .patient-details
+  {
+    -ms-grid-row-align: start;
+    display: flex;
+    flex-direction:row;
+  }
+  .patient-card-name
+  {
+    margin-top: 5%;
   }
