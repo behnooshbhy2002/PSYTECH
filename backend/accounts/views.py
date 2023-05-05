@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from .serializers import PatientRegisterSerializer
 
 
-class HomeView(View):
+class HomeView(View):  # todo: link react to rest
     template_name = 'accounts/home.html'
 
     def get(self, request):
@@ -27,7 +27,7 @@ class PatientRegisterView(APIView):
         return Response(ser_data.errors)
 
 
-class PsychologistRegisterView(APIView):
+class PsychologistRegisterView(APIView):  # todo: first admin must approve psychologist then add it to DB
     def post(self, request):
         ser_data = PatientRegisterSerializer(data=request.POST)
         if ser_data.is_valid():
@@ -62,6 +62,10 @@ class PsychologistRegisterView(APIView):
 
 
 class UserLoginView(View):
+    # use tjis for login:
+    # https://www.guguweb.com/2022/01/23/django-rest-framework-authentication-the-easy-way/
+    # https://stackoverflow.com/questions/73697673/issue-with-login-endpont-for-django-rest-framework-the-registration-was-success
+    # https://studygyaan.com/django/django-rest-framework-tutorial-register-login-logout
     form_class = UserLoginForm
     template_name = 'accounts/login.html'
 
