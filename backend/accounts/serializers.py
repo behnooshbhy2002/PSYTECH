@@ -31,7 +31,6 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
         del validate_data['confirm_password']
         return User.objects.create_user(**validate_data)
 
-
     # full_name = serializers.CharField(required=True, help_text='نام و نام خانوادگی')
     # phone_number = serializers.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')],
     #                                      help_text='شماره تلفن همراه')
@@ -70,6 +69,6 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
     # gender = forms.ChoiceField(choices=User.GENDERS, widget=forms.RadioSelect, help_text='جنسیت')
 
 
-class UserLoginForm(serializers.Serializer):
+class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(required=True, help_text='آدرس ایمیل')
     password = serializers.CharField(required=True, help_text='رمز ورود')
