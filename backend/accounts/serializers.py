@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from accounts.models import User
-
+from accounts.models import User, Psychologist
 
 def clean_email(email):
     user = User.objects.filter(email=email).exists()
@@ -47,7 +46,7 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = User
+        model = Psychologist
         fields = ('full_name', 'phone_number', 'email', 'gender', 'password', 'specialist', 'confirm_password')
         extra_keywords = {
             'password': {'write_only': True, 'validators': (clean_password,)},
