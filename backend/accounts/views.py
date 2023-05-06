@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from .models import User
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
+from rest_framework.decorators import APIView
+from rest_framework.response import Response
+from .serializers import PatientRegisterSerializer
 
 
 class HomeView(View):
@@ -15,29 +18,47 @@ class HomeView(View):
         return render(request, self.template_name)
 
 
-class PsychologistRegisterView(View):
-    form = PsychologistRegistrationForm
-    template_name = 'accounts/signup2.html'
-
-    def get(self, request):
-        form = self.form
-        return render(request, self.template_name, {'form': form})
-
+class PatientRegisterView(APIView):
     def post(self, request):
-        form = self.form(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
-                                     full_name=cd['full_name'], gender=cd['gender'], medical_number=['medical_number'],
-                                     specialist=['specialist'])
+        ser_data = PatientRegisterSerializer(data=request.POST)
+        if ser_data.is_valid():
+            ser_data.create(ser_data.validated_data)
+            return Response(ser_data.data)
+        return Response(ser_data.errors)
 
-            user = authenticate(request, email=cd['email'], password=cd['password'])
-            if user is not None:
-                login(request, user)
 
-            messages.success(request, 'ثبت نام با موفقیت', 'success')
-            return redirect('accounts:login_user')
-        return render(request, self.template_name, {'form': form})
+class PsychologistRegisterView(APIView):
+    def post(self, request):
+        ser_data = PatientRegisterSerializer(data=request.POST)
+        if ser_data.is_valid():
+            ser_data.create(ser_data.validated_data)
+            return Response(ser_data.data)
+        return Response(ser_data.errors)
+
+
+# class PsychologistRegisterView(View):
+#     form = PsychologistRegistrationForm
+#     template_name = 'accounts/signup2.html'
+#
+#     def get(self, request):
+#         form = self.form
+#         return render(request, self.template_name, {'form': form})
+#
+#     def post(self, request):
+#         form = self.form(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
+#                                      full_name=cd['full_name'], gender=cd['gender'], medical_number=['medical_number'],
+#                                      specialist=['specialist'])
+#
+#             user = authenticate(request, email=cd['email'], password=cd['password'])
+#             if user is not None:
+#                 login(request, user)
+#
+#             messages.success(request, 'ثبت نام با موفقیت', 'success')
+#             return redirect('accounts:login_user')
+#         return render(request, self.template_name, {'form': form})
 
 
 class UserLoginView(View):
@@ -75,27 +96,27 @@ class UserLoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class PatientRegisterView(View):
-    form = PatientRegistrationForm
-    template_name = 'accounts/signup2.html'
-
-    def get(self, request):
-        form = self.form
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request):
-        form = self.form(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
-                                     full_name=cd['full_name'], gender=cd['gender'])
-            user = authenticate(request, email=cd['email'], password=cd['password'])
-            if user is not None:
-                login(request, user)
-
-            messages.success(request, 'ثبت نام با موفقیت', 'success')
-            return redirect('accounts:user_login')
-        return render(request, self.template_name, {'form': form})
+# class PatientRegisterView(View):
+#     form = PatientRegistrationForm
+#     template_name = 'accounts/signup2.html'
+#
+#     def get(self, request):
+#         form = self.form
+#         return render(request, self.template_name, {'form': form})
+#
+#     def post(self, request):
+#         form = self.form(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
+#                                      full_name=cd['full_name'], gender=cd['gender'])
+#             user = authenticate(request, email=cd['email'], password=cd['password'])
+#             if user is not None:
+#                 login(request, user)
+#
+#             messages.success(request, 'ثبت نام با موفقیت', 'success')
+#             return redirect('accounts:user_login')
+#         return render(request, self.template_name, {'form': form})
 
 
 class UserLogoutView(LoginRequiredMixin, View):
