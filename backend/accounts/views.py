@@ -10,14 +10,19 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
-class HomeView(View):  # todo: link react to rest
-    template_name = 'accounts/home.html'
+class HomeView(APIView):  # todo: link react to rest
+    # template_name = 'accounts/home.html'
+    #
+    # def get(self, request):
+    #     return render(request, self.template_name)
+
+    permission_classes = [AllowAny, ]
 
     def get(self, request):
-        return render(request, self.template_name)
+        return Response({'msg': 'home page bitch'})
 
 
 class PatientRegisterView(APIView):
