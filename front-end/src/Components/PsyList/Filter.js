@@ -1,6 +1,6 @@
 import "../style/Filter.css";
 import Dieases from "./Dieases";
-const Filter = (props) => {
+const Filter = () => {
   return (
     <>
       <div className="filter-box">
@@ -50,7 +50,7 @@ const Filter = (props) => {
                       className="consultation-filter-input consultation-filter-input-radio genderRadio"
                       type="checkbox"
                       value="false"
-                      onChange={() => (props.gender = 1)}
+                      // onChange={}
                     />
                     <label
                       htmlFor="justMaleR"
