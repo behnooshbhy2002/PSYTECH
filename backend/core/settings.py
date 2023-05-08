@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'appointments.apps.AppointmentsConfig',
     'chat.apps.ChatConfig',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,9 +51,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
+# urls_front
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+
+]
 
 TEMPLATES = [
     {
@@ -80,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'psytech',
         'USER': 'postgres',
-        'PASSWORD': 'mithri74',
+        'PASSWORD': '12345',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
