@@ -96,7 +96,7 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mehrdadsad.7@gmail.com'
+EMAIL_HOST_USER = 'mehrdadsad.7@gmail.com'  # todo: change sender email
 EMAIL_HOST_PASSWORD = 'jlyggqxjzbjibmox'
 EMAIL_USE_TLS = True
 
@@ -114,7 +114,6 @@ EMAIL_USE_TLS = True
 #     'SEND_ACTIVATION_EMAIL': True,
 #     'SERIALIZER':{
 #         'user_create': 'accounts.serializers.PatientRegisterSerializer',
-#         'user': '',
 #     }
 # }
 

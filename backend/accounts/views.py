@@ -121,7 +121,5 @@ class VerifyOTP(APIView):
                     'message': 'account verified',
                     'data': 'valid otp'
                 })
-
-
         except Exception as e:
             print(e)
