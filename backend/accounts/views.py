@@ -4,21 +4,34 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from .models import User
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer
+from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.core.mail import EmailMessage
+from .emails import send_otp_via_email
+
+
+def email_sender(data):
+    try:
+        email = EmailMessage(
+            subject=data['subject'],
+            body=data['body'],
+            from_email=data['mehrdadsad.7@gmail.com'],
+            to=[data['to']]
+        )
+        email.send()
+        return True
+    except:
+        return False
 
 
 class HomeView(APIView):  # todo: link react to rest
-    # template_name = 'accounts/home.html'
-    #
-    # def get(self, request):
-    #     return render(request, self.template_name)
-
     permission_classes = [AllowAny, ]
 
     def get(self, request):
@@ -30,6 +43,7 @@ class PatientRegisterView(APIView):
         ser_data = PatientRegisterSerializer(data=request.POST)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
+            send_otp_via_email(ser_data.data['email'])
             return Response(ser_data.data)
         return Response(ser_data.errors)
 
@@ -43,70 +57,7 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
         return Response(ser_data.errors)
 
 
-# class PsychologistRegisterView(View):
-#     form = PsychologistRegistrationForm
-#     template_name = 'accounts/signup2.html'
-#
-#     def get(self, request):
-#         form = self.form
-#         return render(request, self.template_name, {'form': form})
-#
-#     def post(self, request):
-#         form = self.form(request.POST)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
-#                                      full_name=cd['full_name'], gender=cd['gender'], medical_number=['medical_number'],
-#                                      specialist=['specialist'])
-#
-#             user = authenticate(request, email=cd['email'], password=cd['password'])
-#             if user is not None:
-#                 login(request, user)
-#
-#             messages.success(request, 'ثبت نام با موفقیت', 'success')
-#             return redirect('accounts:login_user')
-#         return render(request, self.template_name, {'form': form})
-
-
 class UserLoginView(APIView):
-    # use tjis for login:
-    # https://www.guguweb.com/2022/01/23/django-rest-framework-authentication-the-easy-way/
-    # https://stackoverflow.com/questions/73697673/issue-with-login-endpont-for-django-rest-framework-the-registration-was-success
-    # https://studygyaan.com/django/django-rest-framework-tutorial-register-login-logout
-
-    # form_class = UserLoginForm
-    # template_name = 'accounts/login.html'
-    #
-    # def setup(self, request, *args, **kwargs):
-    #     self.next = request.GET.get('next')
-    #     return super().setup(request, *args, **kwargs)
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return redirect('accounts/login.html')
-    #     else:
-    #         return super().dispatch(request, *args, **kwargs)
-
-    # def get(self, request):
-    #     form = self.form_class
-    #     return render(request, self.template_name, {'form': form})
-    #
-    # def post(self, request):
-    #     form = self.form_class(request.POST)
-    #     if form.is_valid():
-    #         cd = form.cleaned_data
-    #         user = authenticate(request, email=cd['email'], password=cd['password'])
-    #         if user is not None:
-    #             login(request, user)
-    #             # if user.is_staff():
-    #             #     pass
-    #             # return redirect(to=reverse('admin:index'))
-    #             # else:
-    #             messages.success(request, f' {user.full_name} با موفقیت وارد شد ', 'info')
-    #             return redirect('accounts:home')
-    #         messages.error(request, 'ایمیل یا پسورد اشتباه است.', 'warning')
-    #     return render(request, self.template_name, {'form': form})
-
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -129,38 +80,6 @@ class UserLoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class PatientRegisterView(View):
-#     form = PatientRegistrationForm
-#     template_name = 'accounts/signup2.html'
-#
-#     def get(self, request):
-#         form = self.form
-#         return render(request, self.template_name, {'form': form})
-#
-#     def post(self, request):
-#         form = self.form(request.POST)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             User.objects.create_user(cd['email'], cd['password'], phone_number=cd['phone_number'],
-#                                      full_name=cd['full_name'], gender=cd['gender'])
-#             user = authenticate(request, email=cd['email'], password=cd['password'])
-#             if user is not None:
-#                 login(request, user)
-#
-#             messages.success(request, 'ثبت نام با موفقیت', 'success')
-#             return redirect('accounts:user_login')
-#         return render(request, self.template_name, {'form': form})
-
-
-# class UserLogoutView(LoginRequiredMixin, View):
-#     login_url = '/accounts/login/'
-#
-#     def get(self, request):
-#         logout(request)
-#         messages.success(request, 'خروج با موفقیت', 'success')
-#         return redirect('accounts:home')
-
-
 class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated, ]
 
@@ -168,3 +87,41 @@ class UserLogoutView(APIView):
         request.user.auth_token.delete()
         logout(request)
         return Response('User Logged out successfully')
+
+
+class VerifyOTP(APIView):
+    def post(self, request):
+        try:
+            ser_data = VerifyAccountSerializer(data=request.data)
+
+            if ser_data.is_valid():
+                email = ser_data.data['email']
+                otp = ser_data.data['otp']
+
+                user = User.objects.get(email=email)
+                if not user:
+                    return Response({
+                        'status': 400,
+                        'message': 'something went wrong',
+                        'data': 'invalid email'
+                    })
+
+                if user.otp != otp:
+                    return Response({
+                        'status': 400,
+                        'message': 'something went wrong',
+                        'data': 'wrong otp'
+                    })
+
+                user.is_verified = True
+                user.save()
+
+                return Response({
+                    'status': 400,
+                    'message': 'account verified',
+                    'data': 'valid otp'
+                })
+
+
+        except Exception as e:
+            print(e)
