@@ -11,5 +11,7 @@ def send_otp_via_email(email):
     send_mail(subject, message, email_from, [email])
 
     user_obj = User.objects.get(email=email)
+    if not user_obj:
+        user_obj = Psychologist.objects.get(email=email)
     user_obj.otp = otp
     user_obj.save()

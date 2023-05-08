@@ -6,29 +6,14 @@ from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User
+from .models import User, Psychologist
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from django.core.mail import EmailMessage
 from .emails import send_otp_via_email
-
-
-def email_sender(data):
-    try:
-        email = EmailMessage(
-            subject=data['subject'],
-            body=data['body'],
-            from_email=data['mehrdadsad.7@gmail.com'],
-            to=[data['to']]
-        )
-        email.send()
-        return True
-    except:
-        return False
 
 
 class HomeView(APIView):  # todo: link react to rest
@@ -53,6 +38,7 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
         ser_data = PsychologistRegistrationSerializer(data=request.POST)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
+            send_otp_via_email(ser_data.data['email'])
             return Response(ser_data.data)
         return Response(ser_data.errors)
 
@@ -100,11 +86,13 @@ class VerifyOTP(APIView):
 
                 user = User.objects.get(email=email)
                 if not user:
-                    return Response({
-                        'status': 400,
-                        'message': 'something went wrong',
-                        'data': 'invalid email'
-                    })
+                    user = Psychologist.objects.get(email=email)
+                    if not user:
+                        return Response({
+                            'status': 400,
+                            'message': 'something went wrong',
+                            'data': 'invalid email'
+                        })
 
                 if user.otp != otp:
                     return Response({
