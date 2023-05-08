@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+@font-face {
+  font-family: "Yekan";
+  src: url("../fonts/Yekan.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Yekan.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/Yekan.woff2") format("woff2"),
+    /* Modern Browsers */ url("../fonts/Yekan.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/Yekan.otf") format("opentype"),
+    /* Open Type Font */ url("../fonts/Yekan.ttf") format("truetype"); /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  font-display: auto;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: Yekan;
+}
+/* @font-face {
+    font-family: myFirstFont;
+    src: url(sansation_light.woff);
+} */
+/* body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(120deg, #56d8e4, #9f01ea);
+  height: 100vh;
+  overflow: hidden;
+} */
+.form_model_verify {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 400px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.form_model_verify h1 {
+  /* text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver; */
+  padding: 20px 0 0;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 600;
+  background: -webkit-linear-gradient(
+    right,
+    #56d8e4,
+    #9f01ea,
+    #56d8e4,
+    #9f01ea /*#46c2cb,
+    #38ce4e,
+    #46c2cb,
+    #38ce4e */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.form_model_verify form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+form .txt_field {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.txt_field input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+  text-align: right;
+}
+.txt_field label {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+  text-align: right;
+}
+
+.txt_field span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: 0.5s;
+}
+
+.txt_field input:focus ~ label {
+  top: -5px;
+  color: #2691d9;
+}
+.txt_field input:focus ~ span::before {
+  width: 100%;
+}
+
+.sendCodetxt {
+  text-align: right;
+  margin-top: 2rem;
+  color: #666666;
+}
+.verify_code {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2691d9;
+  border: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  border-radius: 25px;
+  margin-top: 1.5rem;
+}
+.verify_code:hover {
+  background-color: #14405e;
+  transition: 0.5s;
+}
+.getCodeAgain {
+  color: #2691d9;
+  text-align: center;
+  margin-top: 2rem;
+}
+.getCodeAgain:hover {
+  text-decoration: underline;
+}
+.signup-timer {
+  color: #2691d9;
+  position: relative;
+}
+.verifyCode {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.verifyCode-box {
+  flex: 5;
+}
+.countdown-text {
+  flex: 1;
+}

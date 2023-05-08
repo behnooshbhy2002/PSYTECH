@@ -1,0 +1,39 @@
+
+.card-img
+{
+    height: 200px;
+}
+.slider
+{
+    background-color:white;
+    margin-top: 200px;
+    text-align: center;
+}
+#test
+{
+    background-color:#2691b9;
+    color: white;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30px;
+}
+.card-class
+{
+    border-radius: 20px;
+    box-shadow:  0px 10px 20px  #00000014
+}
+.card-class:hover
+{
+    cursor: pointer;
+    transform: rotate(0deg) scale(1) translateY(10px);
+    transition: .5s all ease;
+    z-index: 400;
+   
+}
+.p-drslider
+{
+    font-size: 22px;
+    color: rgb(100, 100, 100);
+    
+}
