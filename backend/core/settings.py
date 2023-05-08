@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'chat.apps.ChatConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'djoser',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,9 +51,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
+# urls_front
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+
+]
 
 TEMPLATES = [
     {
