@@ -14,7 +14,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
     PsychologistListSerializer
-from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, VerifyAccountSerializer
+from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
+    VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .emails import send_otp_via_email
 
@@ -124,3 +125,13 @@ class PsychologistListView(APIView):
         psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
+
+class PsychologistSearchView(APIView):  # todo: check screen shot of youtube
+
+    def get(self, request):
+        query = request.query_params.get('keyword')
+        if not query:
+            query = ''
+        psychologists = Psychologist.objects.filter(full_name__icontains=query)
+        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
