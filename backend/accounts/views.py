@@ -7,10 +7,13 @@ from django.urls import reverse, reverse_lazy
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Psychologist
+from .models import User, Psychologist
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
+    PsychologistListSerializer
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .emails import send_otp_via_email
@@ -111,3 +114,13 @@ class VerifyOTP(APIView):
                 })
         except Exception as e:
             print(e)
+
+
+class PsychologistListView(APIView):
+    throttle_scope = 'psychologists'
+
+    def get(self, request):
+        psychologists = Psychologist.objects.all()
+        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
+
