@@ -4,12 +4,13 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
-from .models import User
+from .models import User, Psychologist
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer
+from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
+    PsychologistListSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
@@ -73,3 +74,13 @@ class UserLogoutView(APIView):
         request.user.auth_token.delete()
         logout(request)
         return Response('User Logged out successfully')
+
+
+class PsychologistListView(APIView):
+    throttle_scope = 'psychologists'
+
+    def get(self, request):
+        psychologists = Psychologist.objects.all()
+        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
+

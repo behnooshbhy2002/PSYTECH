@@ -9,5 +9,6 @@ urlpatterns = [
     path('register/', views.PatientRegisterView.as_view(), name='user_register'),
     path('login/', views.UserLoginView.as_view(), name='user_login'),
     path('logout/', views.UserLogoutView.as_view(), name='user_logout'),
+    path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
 ]
 # todo: register url for psychologist
