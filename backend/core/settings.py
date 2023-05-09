@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    # 'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,6 @@ ROOT_URLCONF = 'core.urls'
 # urls_front
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-
 ]
 
 TEMPLATES = [
