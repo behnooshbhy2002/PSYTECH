@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from accounts.models import User, Psychologist
 
+
 def clean_email(email):
     user = User.objects.filter(email=email).exists()
     if user:
@@ -71,3 +72,9 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(required=True, help_text='آدرس ایمیل')
     password = serializers.CharField(required=True, help_text='رمز ورود')
+
+
+class PsychologistListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Psychologist
+        fields = ("full_name", "medical_number", "specialist", "image", "rate")
