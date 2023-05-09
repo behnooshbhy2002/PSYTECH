@@ -13,6 +13,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
+    path('search_psychologist/', views.PsychologistSearchView.as_view(), name='search_psychologist'),
 ]
 # todo: register url for psychologist
 
