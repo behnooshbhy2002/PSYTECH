@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from accounts.models import User, Psychologist
+from django.contrib.auth import authenticate
 
 
 def clean_email(email):
@@ -31,17 +32,6 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
         del validate_data['confirm_password']
         return User.objects.create_user(**validate_data)
 
-    # full_name = serializers.CharField(required=True, help_text='نام و نام خانوادگی')
-    # phone_number = serializers.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')],
-    #                                      help_text='شماره تلفن همراه')
-    # email = serializers.EmailField(required=True, help_text='ایمیل', validators=[clean_email])
-    #
-    # password = serializers.CharField(required=True, help_text='رمز', validators=[clean_password])
-    # confirm_password = serializers.CharField(required=True, help_text='تکرار رمز')
-
-    # gender = serializers.ChoiceField(required=True,choices=User.GENDERS),
-    #                            help_text='جنسیت')
-
 
 class PsychologistRegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
@@ -58,20 +48,15 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
         del validate_data['confirm_password']
         return User.objects.create_user(**validate_data)
 
-    # full_name = serializers.CharField(required=True, help_text='نام و نام خانوادگی')
-    # phone_number = serializers.CharField(max_length=11, validators=[RegexValidator(r'^\+?1?\d{9,10}$')],
-    #                                      help_text='شماره تلفن همراه')
-    # email = serializers.EmailField(required=True, help_text='ایمیل')
-    # password = serializers.CharField(required=True, help_text='رمز')
-    # confirm_password = serializers.CharField(required=True, help_text='تکرار رمز')
-    # specialist = serializers.CharField(help_text='تخصص')
-
-    # gender = forms.ChoiceField(choices=User.GENDERS, widget=forms.RadioSelect, help_text='جنسیت')
-
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(required=True, help_text='آدرس ایمیل')
     password = serializers.CharField(required=True, help_text='رمز ورود')
+
+
+class VerifyAccountSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp = serializers.CharField()
 
 
 class PsychologistListSerializer(serializers.ModelSerializer):

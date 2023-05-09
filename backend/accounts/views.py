@@ -4,6 +4,9 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import User, Psychologist
 from .models import User, Psychologist
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
 from rest_framework.decorators import APIView
@@ -11,15 +14,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
     PsychologistListSerializer
+from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from .emails import send_otp_via_email
 
 
 class HomeView(APIView):  # todo: link react to rest
-    # template_name = 'accounts/home.html'
-    #
-    # def get(self, request):
-    #     return render(request, self.template_name)
-
     permission_classes = [AllowAny, ]
 
     def get(self, request):
@@ -31,6 +31,7 @@ class PatientRegisterView(APIView):
         ser_data = PatientRegisterSerializer(data=request.POST)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
+            send_otp_via_email(ser_data.data['email'])
             return Response(ser_data.data)
         return Response(ser_data.errors)
 
@@ -40,6 +41,7 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
         ser_data = PsychologistRegistrationSerializer(data=request.POST)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
+            send_otp_via_email(ser_data.data['email'])
             return Response(ser_data.data)
         return Response(ser_data.errors)
 
@@ -74,6 +76,44 @@ class UserLogoutView(APIView):
         request.user.auth_token.delete()
         logout(request)
         return Response('User Logged out successfully')
+
+
+class VerifyOTP(APIView):
+    def post(self, request):
+        try:
+            ser_data = VerifyAccountSerializer(data=request.data)
+
+            if ser_data.is_valid():
+                email = ser_data.data['email']
+                otp = ser_data.data['otp']
+
+                user = User.objects.get(email=email)
+                if not user:
+                    user = Psychologist.objects.get(email=email)
+                    if not user:
+                        return Response({
+                            'status': 400,
+                            'message': 'something went wrong',
+                            'data': 'invalid email'
+                        })
+
+                if user.otp != otp:
+                    return Response({
+                        'status': 400,
+                        'message': 'something went wrong',
+                        'data': 'wrong otp'
+                    })
+
+                user.is_verified = True
+                user.save()
+
+                return Response({
+                    'status': 400,
+                    'message': 'account verified',
+                    'data': 'valid otp'
+                })
+        except Exception as e:
+            print(e)
 
 
 class PsychologistListView(APIView):
