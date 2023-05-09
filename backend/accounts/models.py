@@ -11,6 +11,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=100)
     phone_number = models.CharField(validators=[RegexValidator(r'^\+?1?\d{9,10}$')], max_length=11, unique=True)
     image = models.ImageField(upload_to='profile_pic', default='user_default_avatar.png')
+    is_verified = models.BooleanField(default=False)
+    otp = models.CharField(max_length=6, blank=True, null=True)
 
     GENDERS = (
         ('F', 'Female'),
