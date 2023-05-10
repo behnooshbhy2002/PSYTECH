@@ -1,46 +1,72 @@
 
-.sidebar-item1{
+ .sidebar-item1{
     margin-bottom: 30px;
 }
 .sidebar-containar
 {
     margin-top: 40px;
+    margin-bottom: 40px;
     background-color: #9f74f2;
-    height: 350px;
-    border-top-left-radius: 20%;
-    border-bottom-left-radius: 20%;
-    flex: 0.5;
+    height: 300px;
+    border-top-left-radius: 3%;
+    border-bottom-left-radius: 3%;
+    
+    top: 0; 
+
 }
 .section-sidebar
 {
     flex: 5;
 }
+
 .div-sidebar-cont
 {
     border-top-left-radius: 50%;
 }
-.menu-item1
+.css-1wvake5
 {
-    font-size:50px;
-}
-.sidebar-div-menu
+    /* min-width: none !important; */
+    /* width: 200px !important; */
+    position: sticky !important; 
+    align-self: first baseline;
+    justify-self: center;
+    text-align: center;
+    
+    /* top: 0 !important; */
+ }
+ /* .sidebar-div-menu
 {
     display: flex;
     flex-direction: row;
     margin-top: 40px;
     margin-bottom: 10px;
-    padding-inline: 30px;
-}
-.css-dip3t8
-{
-    background-color: white;
-}
+}  */
 .ps-sidebar-container
 {
-    border-top-left-radius: 20%;
-    border-bottom-left-radius: 20%;
+    border-top-left-radius: 3%;
+    border-bottom-left-radius: 3%;
+}
+.psytech-sidebar
+{
+    font-size: 20px;
 }
 .div-sidebar-cont
 {
     display: flex;
 }
+/*
+.menu-item1
+{
+    font-size:50px;
+}
+
+
+
+
+.css-1wvake5
+{
+    min-width: none !important;
+    width: 200px !important;
+    position: sticky !important; */
+    /* top: 0 !important; */
+/* } */

@@ -14,6 +14,8 @@ import Sign from "../Authentication/SignUp";
 import Home from "../../Pages/Home";
 function SideBarr()
 {
+  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
+  useProSidebar();
   // const [width, setWidth]=useState("")
   // const [hamber , setHamber] = useState(true);
   // function handelHamburgerMenu(){
@@ -32,35 +34,44 @@ function SideBarr()
   //     document.getElementById('patient-req-sidebar').style.display='inline';
   //     document.getElementById('logout-sidebar').style.display='inline';
   //     document.getElementById('edit-sidebar').style.display='inline';
+      
   //   }
   //   setHamber(!hamber);
   // }
   return(  
         <div className="div-sidebar-cont" style={{ display: "flex" , direction:'rtl' }}>
-          
-          <ProSidebarProvider className="sidebar-containar"  >
-            
           <Sidebar className="sidebar-containar">
-            <div className="sidebar-div-menu">
+            {/* <MenuRoundedIcon onClick={() => {
+                  collapseSidebar();
+                }}></MenuRoundedIcon> */}
+            {/* <div className="sidebar-div-menu">
             <h3>Psytech</h3>
-            </div>       
+            </div>        */}
             <Menu menuItemStyles={{
   button: {
         backgroundColor: '9a46e',
+        
         '&:hover': {
            backgroundColor: '#9a46e8',
-           color:'white'
+           color:'white',
+          
         },
+     
     },
 }}>
-              <MenuItem component={<NavLink to="/MyProfile" className="link" />} icon={<AccountCircleRoundedIcon /> } className="sidebar-item"> <div id='profile-sidebar'>پروفایل من</div> </MenuItem>
-              <MenuItem component={<NavLink to="/MyPatientnList" className="link" />} icon={<ReceiptRoundedIcon />} className="sidebar-item"> <div id='patient-sidebar'>بیمارهای من </div></MenuItem>
-              <MenuItem component={<NavLink to="/MyPatientRequestList" className="link" />} icon={<NotificationsRoundedIcon />} className="sidebar-item"> <div id='patient-req-sidebar'>درخواست های من </div></MenuItem>
-              <MenuItem component={<NavLink to="/EditMyProfile"/>} icon={<DriveFileRenameOutlineRoundedIcon/>} className="sidebar-item"><div id='edit-sidebar'> ویرایش پروفایل </div></MenuItem>
-              <MenuItem component={<NavLink to="/Home" className="link" />} icon={<LogoutRoundedIcon />} className="sidebar-item"> <div id='logout-sidebar'>خروج </div></MenuItem>
+   <MenuItem className="item1-sidebar" title="پنل کاربری من"
+            icon={<MenuRoundedIcon />}
+            onClick={() => {
+              collapseSidebar();
+            }}> <div  className="psytech-sidebar">Psytech</div>
+            </MenuItem>
+              <MenuItem title=" پروفایل من" component={<NavLink to="/MyProfile" className="link" />} icon={<AccountCircleRoundedIcon /> } className="sidebar-item"> <div id='profile-sidebar'>پروفایل من</div> </MenuItem>
+              <MenuItem title="بیمارهای من" component={<NavLink to="/MyPatientnList" className="link" />} icon={<ReceiptRoundedIcon />} className="sidebar-item"> <div id='patient-sidebar'>بیمارهای من </div></MenuItem>
+              <MenuItem title="درخواست های من" component={<NavLink to="/MyPatientRequestList" className="link" />} icon={<NotificationsRoundedIcon />} className="sidebar-item"> <div id='patient-req-sidebar'>درخواست های من </div></MenuItem>
+              <MenuItem  title="ویرایش پروفایل" component={<NavLink to="/EditMyProfile"/>} icon={<DriveFileRenameOutlineRoundedIcon/>} className="sidebar-item"><div id='edit-sidebar'> ویرایش پروفایل </div></MenuItem>
+              <MenuItem title="خروج" component={<NavLink to="/Home" className="link" />} icon={<LogoutRoundedIcon />} className="sidebar-item"> <div id='logout-sidebar'>خروج </div></MenuItem>
             </Menu>
           </Sidebar>
-          </ProSidebarProvider>
           <section className="section-sidebar">
         <Routes>
           <Route path="/MyProfile" element={<Sign />} />

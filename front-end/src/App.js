@@ -15,6 +15,7 @@ import SideBar from "./Components/SideBarr/SideBarr"
 import SideBarr from "./Components/SideBarr/SideBarr";
 import PatientsList from "./Components/PatientList/PatientsList";
 import DoctorPanel from "./Pages/DoctorPanel";
+import { ProSidebarProvider } from "react-pro-sidebar";
 function App() {
   return (
     <>
@@ -23,7 +24,9 @@ function App() {
      
         <NavBarr></NavBarr>
         {/* <Route path="/" element={<SideBarr></SideBarr>}></Route> */}
+        <ProSidebarProvider>
         <SideBarr></SideBarr>
+        </ProSidebarProvider>
         {/* <PatientsList></PatientsList> */}
         <Routes>
            <Route path="/Login" element={<Login />}></Route>
