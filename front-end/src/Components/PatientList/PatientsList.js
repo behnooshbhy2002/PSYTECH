@@ -24,7 +24,7 @@ function PatientsList() {
     return (
       <>
       <div className="container patient-list">
-          <div>
+          <div >
             {drList.slice(0, numberOfItems).map((item) => {
               return (   
                   <PatientCard

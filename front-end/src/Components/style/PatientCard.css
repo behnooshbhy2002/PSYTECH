@@ -1,6 +1,8 @@
   .patient-list {
     margin-top: 2.7rem;
+    
   }
+
   
   .patient-card {
     border: 2px solid plum; 
@@ -8,7 +10,12 @@
     padding: 1rem 0;
     margin: 1rem 0;
     width: 60%;
-    margin-right: 300px;
+    margin-right: 180px;
+     margin-left: auto;
+    margin-right: auto;/*
+    align-items: center; */
+    /* left: 50%;
+    margin-right: 50%; */
     display: flex;
     align-items: center; 
     /* justify-content: space-between; */
@@ -32,7 +39,6 @@
   }
 .patient-card-img
 {
-   
     margin-left: 15PX;
     border-radius: 50%;
     width: 110px;
@@ -66,3 +72,4 @@
   {
     margin-top: 5%;
   }
+  
