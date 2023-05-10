@@ -1,6 +1,162 @@
 import "../style/Filter.css";
-import Dieases from "./Dieases";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
+import "../style/Dieases.css";
 const Filter = () => {
+  const [justFemale, setJustFemale] = useState(false);
+  const [justMale, setJustMale] = useState(false);
+
+  let navigate = useNavigate();
+  const location = useLocation();
+  let path = location.pathname;
+
+  let params = [];
+
+  const justFemaleHandler = (e) => {
+    setJustFemale(e.target.checked);
+    if (e.target.checked) {
+      addQuery("justFemale", true);
+    } else {
+      removeQuery("justFemale");
+    }
+  };
+
+  const justMaleHandler = (e) => {
+    console.log(e.target.checked);
+    setJustMale(e.target.checked);
+
+    if (e.target.checked) {
+      addQuery("justMale", true);
+    } else {
+      removeQuery("justMale");
+    }
+  };
+
+  const [disItem, setDisItem] = useState(null);
+  const sick = [
+    {
+      name: "اختلال شخصیت خودشیف",
+      id: 1,
+    },
+    {
+      name: "وسواس",
+      id: 2,
+    },
+    {
+      name: "اختلال کابوس شبانه",
+      id: 3,
+    },
+    {
+      name: "اختلال هویت جنسیتی",
+      id: 4,
+    },
+    {
+      name: "هیستری",
+      id: 6,
+    },
+    {
+      name: "پرخوابی ایدیوپاتیک",
+      id: 8,
+    },
+    {
+      name: "بی‌خوابی",
+      id: 9,
+    },
+    {
+      name: "اختلال نافرمانی مقابله جویانه",
+      id: 10,
+    },
+    {
+      name: "اختلال خلقی فصلی",
+      id: 13,
+    },
+    {
+      name: "اسکیزوفرنی",
+      id: 14,
+    },
+
+    {
+      name: "نشخوار فکری",
+      id: 16,
+    },
+
+    {
+      name: "اختلال شخصیت اسکیزوتایپال",
+      id: 18,
+    },
+
+    {
+      name: "فوبیای اجتماعی",
+      id: 20,
+    },
+    {
+      name: "بی اختیاری عاطفی",
+      id: 21,
+    },
+    {
+      name: "اختلال شخصیت پارانوئید",
+      id: 22,
+    },
+    {
+      name: "اختلال هراس",
+      id: 23,
+    },
+    {
+      name: "روان‌پریشی",
+      id: 24,
+    },
+    {
+      name: "اختلال اضطراب پس از سانحه",
+      id: 25,
+    },
+    {
+      name: "اختلال پرخوری",
+      id: 26,
+    },
+    {
+      name: "اختلال دوقطبی",
+      id: 27,
+    },
+    {
+      name: "اختلال شخصیت مرزی",
+      id: 28,
+    },
+  ];
+
+  const history = useNavigate();
+  const addQuery = (key, value) => {
+    let pathname = location.pathname;
+
+    let searchParams = new URLSearchParams(location.search);
+
+    searchParams.set(key, value);
+    history({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+  };
+
+  const removeQuery = (key) => {
+    let pathname = location.pathname;
+
+    let searchParams = new URLSearchParams(location.search);
+
+    searchParams.delete(key);
+    history({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+  };
+
+  const [isShowMore, setIsShowMore] = useState(false);
+
+  const toggleReadMoreLess = () => {
+    setIsShowMore(!isShowMore);
+  };
+
+  const numberOfItems = isShowMore ? sick.length : 10;
   return (
     <>
       <div className="filter-box">
@@ -23,7 +179,8 @@ const Filter = () => {
                       id="justFemaleR"
                       className="consultation-filter-input consultation-filter-input-radio genderRadio"
                       type="checkbox"
-                      value="false"
+                      checked={justFemale}
+                      onChange={justFemaleHandler}
                     />
                     <label
                       htmlFor="justFemaleR"
@@ -49,7 +206,8 @@ const Filter = () => {
                       id="justMaleR"
                       className="consultation-filter-input consultation-filter-input-radio genderRadio"
                       type="checkbox"
-                      value="false"
+                      checked={justMale}
+                      onClick={justMaleHandler}
                       // onChange={}
                     />
                     <label
@@ -76,16 +234,42 @@ const Filter = () => {
                   <label htmlFor="" className="consultation-filter-item-text">
                     بیماری‌ها
                   </label>
-                  {/* <div>
-                  <input
-                    autoComplete="off"
-                    id="filters_diseases_input"
-                    placeholder="جستجو بیماری"
-                    className="consultation-filter-item-diseases_input"
-                  />
-                </div> */}
+
                   <div className="diseases_filters_container">
-                    <Dieases></Dieases>
+                    {/* <Dieases></Dieases> */}
+                    <div>
+                      {sick.slice(0, numberOfItems).map((item) => {
+                        return (
+                          <button
+                            data-href={item.id}
+                            onClick={() => {
+                              if (item.id == disItem) {
+                                setDisItem(null);
+                                removeQuery("disease");
+                              } else {
+                                setDisItem(item.id);
+                                addQuery("disease", item.id);
+                              }
+                            }}
+                            className={`diseases_filters_item ${
+                              disItem === item.id && "active"
+                            }`}
+                          >
+                            {item.name}
+                          </button>
+                        );
+                      })}
+                      <div>
+                        <button
+                          onClick={toggleReadMoreLess}
+                          className="showAllDiseasesBtn"
+                        >
+                          <span id="showAllDiseasesBtn__show_all_text">
+                            {isShowMore ? "کمتر" : "بیشتر"}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </li>
               </ul>

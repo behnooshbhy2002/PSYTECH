@@ -4,18 +4,26 @@ import { listDoctors } from "../../actions/doctorActions";
 import Loader from "../Error&Loading/Loader";
 import Message from "../Error&Loading/Message";
 import "../style/PsyItem.css";
+import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
 const PsyItem = () => {
   const dispatch = useDispatch();
   // const dr = useSelector((state) => state.drList);
   // const { error, loading, drList } = dr;
 
   // console.log(error, loading, drList);
+
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
+  console.log(params);
+
   useEffect(() => {
     dispatch(listDoctors());
   }, [dispatch]);
   const dr = useSelector((state) => state.doctorList);
   const { error, loading, doctors } = dr;
-  console.log(doctors);
+  // console.log(doctors);
 
   // const [drList, setDrList] = useState([]);
   // const [url, setUrl] = useState("http://localhost:3001/list");

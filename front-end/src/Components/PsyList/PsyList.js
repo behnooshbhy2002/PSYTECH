@@ -1,6 +1,6 @@
 import "../style/PsyList.css";
 import PsyItem from "./PsyItem";
-const PsyList = (props) => {
+const PsyList = () => {
   const DrArr = [
     {
       name: "خانم معصومه مختارپور",

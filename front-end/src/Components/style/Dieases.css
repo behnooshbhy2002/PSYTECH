@@ -30,3 +30,8 @@
   text-align: center;
   background-color: #7d6bbd;
 }
+.diseases_filters_container .active {
+  background-color: #08b89d !important;
+  color: #fff !important;
+  border-color: #08b89d !important;
+}

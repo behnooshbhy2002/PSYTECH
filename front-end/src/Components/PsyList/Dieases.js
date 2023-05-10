@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../style/Dieases.css";
+import { useLocation, useNavigate } from "react-router-dom";
 function Dieases() {
+  const [disItem, setDisItem] = useState(null);
   const sick = [
     {
       name: "اختلال شخصیت خودشیف",
@@ -90,6 +92,33 @@ function Dieases() {
       id: 28,
     },
   ];
+
+  const location = useLocation();
+  const history = useNavigate();
+  const addQuery = (key, value) => {
+    let pathname = location.pathname;
+    // returns path: '/app/books'
+    let searchParams = new URLSearchParams(location.search);
+    // returns the existing query string: '?type=fiction&author=fahid'
+    searchParams.set(key, value);
+    history({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+  };
+
+  // const removeQuery = (key) => {
+  //   let pathname = props.location.pathname;
+  //   // returns path: '/app/books'
+  //   let searchParams = new URLSearchParams(props.location.search);
+  //   // returns the existing query string: '?type=fiction&author=fahid'
+  //   searchParams.delete(key);
+  //   this.props.history.push({
+  //     pathname: pathname,
+  //     search: searchParams.toString(),
+  //   });
+  // };
+
   const [isShowMore, setIsShowMore] = useState(false);
 
   const toggleReadMoreLess = () => {
@@ -101,7 +130,16 @@ function Dieases() {
     <div>
       {sick.slice(0, numberOfItems).map((item) => {
         return (
-          <button data-href={item.id} className="diseases_filters_item">
+          <button
+            data-href={item.id}
+            onClick={() => {
+              setDisItem(item.id);
+              addQuery("disease", item.id);
+            }}
+            className={`diseases_filters_item ${
+              disItem === item.id && "active"
+            }`}
+          >
             {item.name}
           </button>
         );
