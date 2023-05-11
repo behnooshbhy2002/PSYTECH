@@ -15,12 +15,12 @@ const PsyItem = () => {
   // console.log(error, loading, drList);
 
   const [searchParams] = useSearchParams();
-  const params = Object.fromEntries([...searchParams]);
-  console.log(params);
+  // const params = Object.fromEntries([...searchParams]);
+  console.log(searchParams);
 
   useEffect(() => {
-    dispatch(listDoctors());
-  }, [dispatch]);
+    dispatch(listDoctors(searchParams));
+  }, [dispatch, searchParams]);
   const dr = useSelector((state) => state.doctorList);
   const { error, loading, doctors } = dr;
   // console.log(doctors);
