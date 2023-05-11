@@ -12,6 +12,7 @@ import { BrowserRouter, Router, Route, Routes , NavLink , } from "react-router-d
 import PatientList from '../PatientList/PatientsList'
 import Sign from "../Authentication/SignUp";
 import Home from "../../Pages/Home";
+import PatientRequestList from '../../Components/PatientRequestList/PatientsRequestList'
 function SideBarr()
 {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
@@ -75,8 +76,8 @@ function SideBarr()
           <section className="section-sidebar">
         <Routes>
           <Route path="/MyProfile" element={<Sign />} />
-          <Route path="/MyPatientList" element={<PatientList />} />
-          <Route path="MyPatientRequestList" element={<PatientList />} />
+          <Route path="/MyPatientnList" element={<PatientList />} />
+          <Route path="MyPatientRequestList" element={<PatientRequestList />} />
           <Route path="/EditMyProfile" element={<PatientList />} />
           {/* <Route path="/Home" element={<Home />} /> */}
         </Routes>

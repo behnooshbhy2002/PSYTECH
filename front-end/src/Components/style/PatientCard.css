@@ -1,6 +1,5 @@
   .patient-list {
     margin-top: 2.7rem;
-    
   }
 
   
@@ -72,4 +71,15 @@
   {
     margin-top: 5%;
   }
-  
+  .not-accept
+  {
+    background-color: rgb(220, 41, 155);
+  }
+  .patient-h3
+  {
+    margin-right: 44%;
+    margin-bottom: 5%;
+    margin-top: 2%;
+    color: #9a46e8;
+   
+  }

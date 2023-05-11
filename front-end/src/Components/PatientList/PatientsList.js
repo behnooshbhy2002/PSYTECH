@@ -24,13 +24,15 @@ function PatientsList() {
     return (
       <>
       <div className="container patient-list">
+      <h3 className='patient-h3' style={{alignItems:'center'}}>بیمار‌های  من</h3>
           <div >
             {drList.slice(0, numberOfItems).map((item) => {
               return (   
                   <PatientCard
                     data={{
-                      image: item.picture,
+
                       name: item.name,
+                      gender:item.gender
                     }}
                   />
             

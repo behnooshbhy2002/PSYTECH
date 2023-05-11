@@ -21,7 +21,6 @@ function App() {
     <>
     
       <BrowserRouter>
-     
         <NavBarr></NavBarr>
         {/* <Route path="/" element={<SideBarr></SideBarr>}></Route> */}
         <ProSidebarProvider>

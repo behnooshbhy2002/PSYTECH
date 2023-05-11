@@ -1,12 +1,14 @@
 import React from 'react';
 import '../style/PatientCard.css'
+import women from '../../images/woman.png'
+import men from '../../images/men.png'
 const PatientRequestCard = (props) => {
-  let{image,name}=props.data;
+  let{gender,name}=props.data;
   return (
     <div className="patient-card">
       <span className='col-md-9 patient-details'>
       <div >
-        <img src={image} alt="women" height="110" width="110" className='patient-card-img'/>
+        <img src={gender=='2' ? women : men} alt="women" height="110" width="110" className='patient-card-img'/>
       </div>
       <div className=" patient-card-name">
         <h4 className=' patient-card-name'>{name}</h4>
@@ -17,7 +19,7 @@ const PatientRequestCard = (props) => {
         پذیرش درخواست </button>
         <br>
         </br>
-        <button className='patient-card-button'>عدم پذیرش درخواست</button>
+        <button className='patient-card-button not-accept'>عدم پذیرش درخواست</button>
       </div>
     </div>
   );
