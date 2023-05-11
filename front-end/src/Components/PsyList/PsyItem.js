@@ -52,29 +52,29 @@ const PsyItem = () => {
         <div>
           {doctors.slice(0, numberOfItems).map((item) => {
             return (
-              <li key={item.medicalNum} className="drShowCard">
+              <li key={item.medical_number} className="drShowCard">
                 <div className="list-grid-item mt-4">
                   <a href="/#" className="grid-item-content p-2">
                     <div className="doctor-card-right-side">
                       <div className="doctor-card-personal-info-container">
                         <div className="doctor-card-personal-image">
                           <img
-                            src={item.picture}
+                            src={item.image}
                             alt=""
                             className="img-fluid mx-auto d-block rounded-circle"
                           />
                         </div>
                         <div className="doctor-card-personal-info">
                           <span className="doctor-card-personal-info-name">
-                            {item.name}
+                            {item.full_name}
                           </span>
                           <span className="doctor-card-personal-info-specialty">
-                            {item.spaciality}
+                            {item.specialist}
                           </span>
                           <div className="doctor-card-platform-info-container">
                             <span className="doctor-card-rating">
                               <i className="mdi mdi-star f-19"></i>
-                              {item.rating}
+                              {item.rate}
                             </span>
                           </div>
                         </div>
@@ -88,7 +88,7 @@ const PsyItem = () => {
                               شماره نظام پزشکی :
                             </span>
                             <span className="doctor-card-business-info-value">
-                              {item.medicalNum}
+                              {item.medical_number}
                             </span>
                           </div>
                           <div className="doctor-card-business-info-row">

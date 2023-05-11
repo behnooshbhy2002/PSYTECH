@@ -6,14 +6,13 @@ import {
 } from "../constants/doctorConstants";
 
 export const listDoctors =
-  (searchParams = {}) =>
+  (searchParams = "") =>
   async (dispatch) => {
     try {
       dispatch({ type: DOCTORS_LIST_REQUEST });
-
       console.log(searchParams);
       const { data } = await axios.get(
-        `http://localhost:3002/list${searchParams}`
+        `http://127.0.0.1:8000/accounts/psychologists_list/${searchParams}`
       );
 
       dispatch({
