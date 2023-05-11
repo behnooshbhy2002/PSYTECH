@@ -1,5 +1,7 @@
   .patient-list {
     margin-top: 2.7rem;
+    display: flex;
+    flex-direction: column;
   }
 
   
@@ -11,14 +13,10 @@
     width: 60%;
     margin-right: 180px;
      margin-left: auto;
-    margin-right: auto;/*
-    align-items: center; */
-    /* left: 50%;
-    margin-right: 50%; */
+    margin-right: auto;
     display: flex;
     align-items: center; 
-    /* justify-content: space-between; */
-    justify-content: center;
+    align-items: center;
   }
 
   .patient-card-button{
@@ -34,7 +32,6 @@
     margin-bottom: 5px;
     font-size: 100%;
     border-color: #9f74f2;
-  
   }
 .patient-card-img
 {
@@ -66,10 +63,12 @@
     -ms-grid-row-align: start;
     display: flex;
     flex-direction:row;
+    flex: 4.7;
+    margin-right: 3.5%;
   }
   .patient-card-name
   {
-    margin-top: 5%;
+    margin-top: 5.7%;
   }
   .not-accept
   {
@@ -78,8 +77,17 @@
   .patient-h3
   {
     margin-right: 44%;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     margin-top: 2%;
     color: #9a46e8;
    
   }
+.patient-list-buttons
+{
+  flex: 1.5;
+}
+.list-div-patient
+{
+  display: flex;
+  flex-direction: column;
+}

@@ -7,7 +7,7 @@ const PatientCard = (props) => {
   let{name , gender}=props.data;
   return (
     <div className="patient-card">
-      <span className='col-md-9 patient-details'>
+      <span className='patient-details'>
       <div >
         <img src={gender=='2' ? women : men} alt="women" height="110" width="110" className='patient-card-img'/>
       </div>
@@ -15,7 +15,7 @@ const PatientCard = (props) => {
         <h4 className=' patient-card-name'>{name}</h4>
       </div>
       </span>
-      <div>
+      <div className='patient-list-buttons'>
         <button className='patient-card-button'> 
         مشاهده و تکمیل پرونده</button>
         <br>

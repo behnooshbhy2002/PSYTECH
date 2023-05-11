@@ -25,7 +25,7 @@ function PatientsList() {
       <>
       <div className="container patient-list">
       <h3 className='patient-h3' style={{alignItems:'center'}}>بیمار‌های  من</h3>
-          <div >
+          <div className='list-div-patient'>
             {drList.slice(0, numberOfItems).map((item) => {
               return (   
                   <PatientCard

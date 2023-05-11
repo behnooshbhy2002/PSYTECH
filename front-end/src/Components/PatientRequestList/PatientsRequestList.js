@@ -25,7 +25,7 @@ function PatientsRequestList() {
       <>
       <div className="container patient-list">
         <h3 className='patient-h3' style={{alignItems:'center'}}>درخواست‌های من</h3>
-          <div>
+          <div  className='list-div-patient'>
             {drList.slice(0, numberOfItems).map((item) => {
               return (   
                   <PatientRequestCard
