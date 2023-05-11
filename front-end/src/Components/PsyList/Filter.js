@@ -24,9 +24,7 @@ const Filter = () => {
   };
 
   const justMaleHandler = (e) => {
-    console.log(e.target.checked);
     setJustMale(e.target.checked);
-
     if (e.target.checked) {
       addQuery("justMale", true);
     } else {
@@ -37,7 +35,7 @@ const Filter = () => {
   const [disItem, setDisItem] = useState(null);
   const sick = [
     {
-      name: "اختلال شخصیت خودشیف",
+      name: "اختلال شخصیت خودشیفته",
       id: 1,
     },
     {
@@ -54,78 +52,79 @@ const Filter = () => {
     },
     {
       name: "هیستری",
-      id: 6,
+      id: 5,
     },
     {
       name: "پرخوابی ایدیوپاتیک",
-      id: 8,
+      id: 6,
     },
     {
       name: "بی‌خوابی",
-      id: 9,
+      id: 7,
     },
     {
       name: "اختلال نافرمانی مقابله جویانه",
-      id: 10,
+      id: 8,
     },
     {
       name: "اختلال خلقی فصلی",
-      id: 13,
+      id: 9,
     },
     {
       name: "اسکیزوفرنی",
-      id: 14,
+      id: 10,
     },
 
     {
       name: "نشخوار فکری",
-      id: 16,
+      id: 11,
     },
 
     {
       name: "اختلال شخصیت اسکیزوتایپال",
-      id: 18,
+      id: 12,
     },
 
     {
       name: "فوبیای اجتماعی",
-      id: 20,
+      id: 13,
     },
     {
       name: "بی اختیاری عاطفی",
-      id: 21,
+      id: 14,
     },
     {
       name: "اختلال شخصیت پارانوئید",
-      id: 22,
+      id: 15,
     },
     {
       name: "اختلال هراس",
-      id: 23,
+      id: 16,
     },
     {
       name: "روان‌پریشی",
-      id: 24,
+      id: 17,
     },
     {
       name: "اختلال اضطراب پس از سانحه",
-      id: 25,
+      id: 18,
     },
     {
       name: "اختلال پرخوری",
-      id: 26,
+      id: 19,
     },
     {
       name: "اختلال دوقطبی",
-      id: 27,
+      id: 20,
     },
     {
       name: "اختلال شخصیت مرزی",
-      id: 28,
+      id: 21,
     },
   ];
 
   const history = useNavigate();
+
   const addQuery = (key, value) => {
     let pathname = location.pathname;
 

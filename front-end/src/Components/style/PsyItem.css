@@ -247,6 +247,12 @@ a:hover {
   flex-direction: row;
   flex: 4;
 }
+.doctor-card-detail-view-centent svg {
+  display: inline;
+}
+.show-details {
+  color: black;
+}
 @media (min-width: 200px) and (max-width: 768px) {
   .m-14 {
     margin: 14px 0px;
