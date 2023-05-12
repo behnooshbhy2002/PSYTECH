@@ -123,7 +123,16 @@ class PsychologistListView(APIView):
     throttle_scope = 'psychologists'
 
     def get(self, request):
-        psychologists = Psychologist.objects.filter(is_active=True)
+        # psychologists = Psychologist.objects.filter(is_active=True)
+        # psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        # return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
+        query = request.query_params.get('disease')
+        print(query)
+        if not query:
+            # query = ''
+            psychologists = Psychologist.objects.filter(is_active=True)
+        else:
+            psychologists = Psychologist.objects.filter(is_active=True, diseases__id=query)
         psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
@@ -160,7 +169,8 @@ class PsychologistsListDisease(APIView):
 class PsychologistFilterView(APIView):
 
     def get(self, request):
-        query = request.query_params.get('disease')
+        query = request.query_params.get('searchParams')
+        print(query)
         if not query:
             query = ''
         psychologists = Psychologist.objects.filter(diseases__id=query, is_active=True)
