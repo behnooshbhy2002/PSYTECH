@@ -7,13 +7,15 @@ app_name = 'accounts'
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('register/', views.PatientRegisterView.as_view(), name='user_register'),
+    path('register_psychologist/', views.PsychologistRegisterView.as_view(), name='psychologist_register'),
     path('login/', views.UserLoginView.as_view(), name='user_login'),
     path('logout/', views.UserLogoutView.as_view(), name='user_logout'),
     path('verify/', views.VerifyOTP.as_view(), name='user_verify'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
-    path('search_psychologist/', views.PsychologistSearchView.as_view(), name='search_psychologist'),
+    path('search_psychologist/', views.PsychologistFilterView.as_view(), name='search_psychologist'),
+    path('filter_psychologist/', views.PsychologistsListDisease.as_view(), name='filter_psychologist'),
 ]
 # todo: register url for psychologist
 

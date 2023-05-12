@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Psychologist
+from .models import User, Psychologist, Disease
 
 
 @admin.register(User)
@@ -18,3 +18,9 @@ class PsychologistAdmin(admin.ModelAdmin):
     search_fields = ("medical_number", "email", "full_name")
     ordering = ("full_name",)
 
+
+@admin.register(Disease)
+class PsychologistAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+    search_fields = ("title",)
+    ordering = ("title",)
