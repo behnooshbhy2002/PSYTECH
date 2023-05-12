@@ -23,4 +23,4 @@ class PsychologistAdmin(admin.ModelAdmin):
 class PsychologistAdmin(admin.ModelAdmin):
     list_display = ("title",)
     search_fields = ("title",)
-    ordering = ("title",)
+    ordering = ("id",)
