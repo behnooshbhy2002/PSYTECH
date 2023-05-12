@@ -12,7 +12,7 @@ import Footer from "./Components/MainPage/footerr";
 import Card from "./Components/PsyList/Card";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import Table from "./Pages/AdminAdmitDrSignUp";
+import AdminAdmitDrSignUp from "./Pages/AdminAdmitDrSignUp";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
@@ -25,8 +25,8 @@ function App() {
           <Route path="/PsycologistList" element={<Card />}></Route>
           <Route path="/SignUp" element={<Sign />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
+          <Route path="/Admin-SignUp" element={<AdminAdmitDrSignUp />}></Route>
         </Routes>
-        <Table></Table>
         <Footer></Footer>
       </BrowserRouter>
       {/* <NavBarr></NavBarr>

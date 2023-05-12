@@ -11,9 +11,9 @@ const NavBarr = () => {
   const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
-  const logoutHandeler = () => {
-    dispatch(logout());
-  };
+  // const logoutHandeler = () => {
+  //   dispatch(logout());
+  // };
 
   return (
     <div className="navbar-div" dir="rtl">
@@ -27,25 +27,19 @@ const NavBarr = () => {
         </NavLink>
         <NavLink className="list">درباره ما</NavLink>
         <NavLink className="list">تماس با ما</NavLink>
-        {userInfo ? (
-          <NavDropdown title={"userInfo.name"} id="username">
-            <Link to="/profile">
-              <NavDropdown.Item>پروفایل</NavDropdown.Item>
-            </Link>
 
-            <NavDropdown.Item onClick={logoutHandeler}>خروج</NavDropdown.Item>
-          </NavDropdown>
+        <NavLink to="/SignUp">
+          <button id="signup">ثبت نام</button>
+        </NavLink>
+        {userInfo ? (
+          <NavLink to="/profile">
+            <button id="login">پروفایل</button>
+          </NavLink>
         ) : (
           <NavLink to="/Login">
             <button id="login">ورود</button>
           </NavLink>
         )}
-        <NavLink to="/Login">
-          <button id="login">ورود</button>
-        </NavLink>
-        <NavLink to="/SignUp">
-          <button id="signup">ثبت نام</button>
-        </NavLink>
       </ul>
     </div>
   );

@@ -1,0 +1,14 @@
+{
+  "list": [
+    {
+      "fullname": "bhnoosh behyani",
+      "medicalNum": 12345,
+      "active": false
+    },
+    {
+      "fullname": "noshin behyani",
+      "medicalNum": 98765,
+      "active": false
+    }
+  ]
+}

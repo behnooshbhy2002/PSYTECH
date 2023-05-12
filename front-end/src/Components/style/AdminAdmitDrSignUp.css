@@ -1,0 +1,19 @@
+.signup-table-show-admin {
+  width: 600px;
+  height: auto;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+.Show-requests-button-div {
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+  display: flex;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.Show-requests-button {
+  margin-right: auto;
+  margin-left: auto;
+}

@@ -10,6 +10,9 @@ import {
   USER_REGISTER_PATIENT_REQUEST,
   USER_REGISTER_PATIENT_SUCCESS,
   USER_REGISTER_PATIENT_FAIL,
+  USER_REGISTER_SEND_ADMIN_REQUEST,
+  USER_REGISTER_SEND_ADMIN_SUCCESS,
+  USER_REGISTER_SEND_ADMIN_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -44,9 +47,9 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
+export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
-  // dispatch({ type: USER_LOGOUT });
+  dispatch({ type: USER_LOGOUT });
 };
 
 export const registerDr =
@@ -125,6 +128,29 @@ export const registerPatient =
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
+
+export const userSendSignUp =
+  (user = {}) =>
+  async (dispatch) => {
+    try {
+      console.log(user);
+      dispatch({ type: USER_REGISTER_SEND_ADMIN_REQUEST });
+      const { data } = await axios.get(`http://localhost:3003/list`);
+
+      dispatch({
+        type: USER_REGISTER_SEND_ADMIN_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_SEND_ADMIN_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
             : error.message,
       });
     }
