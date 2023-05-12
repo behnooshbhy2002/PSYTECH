@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from accounts.models import User, Psychologist
+from accounts.models import User, Psychologist, Disease
 from django.contrib.auth import authenticate
 
 
@@ -62,4 +62,10 @@ class VerifyAccountSerializer(serializers.Serializer):
 class PsychologistListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
-        fields = ("full_name", "medical_number", "specialist", "image", "rate")
+        fields = ("full_name", "medical_number", "specialist", "image", "rate", "experience")
+
+
+class DiseaseListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disease
+        fields = ("title",)

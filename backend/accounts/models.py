@@ -22,7 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     age = models.DateField(validators=[MinAgeValidator(13)], blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
@@ -35,36 +35,50 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Disease(models.Model):
+    title = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = 'Disease'
+
+    def __str__(self):
+        return self.title
+
+
 class Psychologist(User):  # todo: add address for psychologist
     medical_number = models.CharField(max_length=7)
     specialist = models.CharField(max_length=50)
     rate = models.FloatField(default=0.0)
     rate_counter = models.IntegerField(default=0)
+    diseases = models.ManyToManyField(Disease)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    experience = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
+
     # rate_value = models.FloatField(default=0.0)
 
-    DISEASES = (
-        ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
-        ('وسواس', 'وسواس'),
-        ('کابوس', 'اختلال کابوس شبانه'),
-        ('هویت', 'اختلال هویت جنسیتی'),
-        ('هیستری', 'هیستری'),
-        ('پرخوابی', 'پرخوابی ایدیوپاتیک'),
-        ('بی‌خوابی', 'بی‌خوابی'),
-        ('نافرمانی', 'اختلال نافرمانی مقابله جویانه'),
-        ('خلقی', 'اختلال خلقی فصلی'),
-        ('اسکیزوفرنی', 'اسکیزوفرنی'),
-        ('نشخوار فکری', 'نشخوار فکری'),
-        ('شخصیت اسکیزوتایپال', 'اختلال شخصیت اسکیزوتایپال'),
-        ('فوبیای اجتماعی', 'فوبیای اجتماعی'),
-        ('بی اختیاری عاطفی', 'بی اختیاری عاطفی'),
-        ('شخصیت پارانوئید', 'اختلال شخصیت پارانوئید'),
-        ('هراس', 'اختلال هراس'),
-        ('اضطراب', 'اختلال اضطراب پس از سانحه'),
-        ('پرخوری', 'اختلال پرخوری'),
-        ('دوقطبی', 'اختلال دوقطبی'),
-        ('شخصیت مرزی', 'اختلال شخصیت مرزی'),
-    )
-    diseases = models.CharField(max_length=18, choices=DISEASES)
+    # DISEASES = (
+    #     ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
+    #     ('وسواس', 'وسواس'),
+    #     ('کابوس', 'اختلال کابوس شبانه'),
+    #     ('هویت', 'اختلال هویت جنسیتی'),
+    #     ('هیستری', 'هیستری'),
+    #     ('پرخوابی', 'پرخوابی ایدیوپاتیک'),
+    #     ('بی‌خوابی', 'بی‌خوابی'),
+    #     ('نافرمانی', 'اختلال نافرمانی مقابله جویانه'),
+    #     ('خلقی', 'اختلال خلقی فصلی'),
+    #     ('اسکیزوفرنی', 'اسکیزوفرنی'),
+    #     ('نشخوار فکری', 'نشخوار فکری'),
+    #     ('شخصیت اسکیزوتایپال', 'اختلال شخصیت اسکیزوتایپال'),
+    #     ('فوبیای اجتماعی', 'فوبیای اجتماعی'),
+    #     ('بی اختیاری عاطفی', 'بی اختیاری عاطفی'),
+    #     ('شخصیت پارانوئید', 'اختلال شخصیت پارانوئید'),
+    #     ('هراس', 'اختلال هراس'),
+    #     ('اضطراب', 'اختلال اضطراب پس از سانحه'),
+    #     ('پرخوری', 'اختلال پرخوری'),
+    #     ('دوقطبی', 'اختلال دوقطبی'),
+    #     ('شخصیت مرزی', 'اختلال شخصیت مرزی'),
+    # )
+    # diseases = models.CharField(max_length=18, choices=DISEASES)
 
     # class Meta:
     #     fields = ['diseases']
