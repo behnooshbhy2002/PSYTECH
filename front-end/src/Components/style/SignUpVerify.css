@@ -31,10 +31,7 @@
   overflow: hidden;
 } */
 .form_model_verify {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
   width: 450px;
   height: 400px;
   background: rgb(255, 255, 255);
@@ -147,16 +144,22 @@ form .txt_field {
 .signup-timer {
   color: #2691d9;
   position: relative;
+  margin-bottom: 0;
 }
 .verifyCode {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
 }
 .verifyCode-box {
   flex: 5;
 }
-.countdown-text {
-  flex: 1;
+/* .countdown-text {
+} */
+*:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: none !important;
 }

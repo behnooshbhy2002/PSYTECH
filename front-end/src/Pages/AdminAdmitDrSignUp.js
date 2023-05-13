@@ -38,18 +38,18 @@ function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
         </td> */}
         <td>
           <button
-            className="btn btn-danger"
-            onClick={() => tableRowRemove(index)}
-          >
-            Delete
-          </button>
-        </td>
-        <td>
-          <button
             className="btn btn-success"
             onClick={() => tableRowAccept(index)}
           >
             Accept
+          </button>
+        </td>
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={() => tableRowRemove(index)}
+          >
+            Delete
           </button>
         </td>
       </tr>
@@ -116,7 +116,7 @@ function AdminAdmitDrSignUp() {
         <Message variant="danger">{error}</Message>
       ) : (
         <div>
-          <h2 className="text-center">درخواست ثبت نام</h2>
+          <h2 className="text-center">درخواست‌های ثبت‌نام</h2>
 
           <div className="Show-requests-button-div">
             <button
@@ -127,13 +127,14 @@ function AdminAdmitDrSignUp() {
             </button>
           </div>
           <div className="signup-table-show-admin">
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>MedicalNumber</th>
-                  <th>Delete</th>
                   <th>Accept</th>
+                  <th>Delete</th>
+
                   {/* <th></th> */}
                 </tr>
               </thead>

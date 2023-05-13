@@ -12,6 +12,9 @@ import {
   USER_REGISTER_SEND_ADMIN_REQUEST,
   USER_REGISTER_SEND_ADMIN_SUCCESS,
   USER_REGISTER_SEND_ADMIN_FAIL,
+  USER_REGISTER_VERIFY_REQUEST,
+  USER_REGISTER_VERIFY_SUCCESS,
+  USER_REGISTER_VERIFY_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReduser = (state = {}, action) => {
@@ -58,6 +61,21 @@ export const userRegisterPatientReduser = (state = {}, action) => {
       return { loading: false, userInfo: action.payload };
 
     case USER_REGISTER_PATIENT_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+export const userSignUpVerifyReduser = (state = {}, action) => {
+  switch (action.type) {
+    case USER_REGISTER_VERIFY_REQUEST:
+      return { loading: true };
+
+    case USER_REGISTER_VERIFY_SUCCESS:
+      return { loading: false, result: action.payload };
+
+    case USER_REGISTER_VERIFY_FAIL:
       return { loading: false, error: action.payload };
 
     default:

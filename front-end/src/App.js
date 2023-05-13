@@ -26,6 +26,7 @@ function App() {
           <Route path="/SignUp" element={<Sign />}></Route>
           <Route path="/Profile" element={<Profile />}></Route>
           <Route path="/Admin-SignUp" element={<AdminAdmitDrSignUp />}></Route>
+          <Route path="/signUp-verify" element={<SignUpVerify />}></Route>
         </Routes>
         <Footer></Footer>
       </BrowserRouter>

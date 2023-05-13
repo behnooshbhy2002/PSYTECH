@@ -13,6 +13,9 @@ import {
   USER_REGISTER_SEND_ADMIN_REQUEST,
   USER_REGISTER_SEND_ADMIN_SUCCESS,
   USER_REGISTER_SEND_ADMIN_FAIL,
+  USER_REGISTER_VERIFY_REQUEST,
+  USER_REGISTER_VERIFY_SUCCESS,
+  USER_REGISTER_VERIFY_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -132,6 +135,37 @@ export const registerPatient =
       });
     }
   };
+
+export const SignUpVerify = (code) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_REGISTER_VERIFY_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "http://127.0.0.1:8000/accounts/signUpVerify/",
+      { code: code },
+      config
+    );
+    dispatch({
+      type: USER_REGISTER_VERIFY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_REGISTER_VERIFY_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const userSendSignUp =
   (user = {}) =>
