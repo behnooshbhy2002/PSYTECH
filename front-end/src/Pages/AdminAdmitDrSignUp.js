@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userSendSignUp } from "../actions/userActions";
+import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
 import "../Components/style/AdminAdmitDrSignUp.css";
@@ -39,7 +40,11 @@ function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
         <td>
           <button
             className="btn btn-success"
-            onClick={() => tableRowAccept(index)}
+            onClick={() => {
+              tableRowAccept(index);
+              // setDisItem();
+              // addQuery("disease", item.id);
+            }}
           >
             Accept
           </button>
@@ -58,47 +63,60 @@ function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
 }
 function AdminAdmitDrSignUp() {
   const [rows, initRow] = useState([]);
-  const [user, setUser] = useState({});
+
+  const loc = useLocation();
+  const par = loc.search;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userSendSignUp(user));
-  }, [dispatch, user]);
+    dispatch(userSendSignUp(par));
+  }, [dispatch, par]);
 
   const signupList = useSelector((state) => state.userSendSignUp);
 
   const { error, loading, userInfo } = signupList;
 
   const addRowTable = () => {
-    // const data = [
-    //   { name: "behnoosh", medicalNumber: "123456" },
-    //   {
-    //     name: "atefeh",
-    //     medicalNumber: "98765",
-    //   },
-    //   {
-    //     name: "faezeh",
-    //     medicalNumber: "818181",
-    //   },
-    // ];
-    // initRow([...rows, ...data]);
-
     initRow(userInfo);
   };
 
+  const location = useLocation();
+  const history = useNavigate();
+
+  const addQuery = (key, value) => {
+    let pathname = location.pathname;
+    let searchParams = new URLSearchParams(location.search);
+    searchParams.set(key, value);
+    history({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+  };
+
+  // const removeQuery = (key) => {
+  //   let pathname = location.pathname;
+  //   let searchParams = new URLSearchParams(location.search);
+  //   searchParams.delete(key);
+  //   history({
+  //     pathname: pathname,
+  //     search: searchParams.toString(),
+  //   });
+  // };
   const tableRowRemove = (index) => {
     const dataRow = [...rows];
     let obj = rows[index];
     obj.active = false;
-    setUser(obj);
+    //console.log(obj);
+    addQuery(obj.medicalNum, "disactive");
     dataRow.splice(index, 1);
     initRow(dataRow);
   };
   const tableRowAccept = (index) => {
     const dataRow = [...rows];
     let obj = rows[index];
-    obj.active = true;
-    setUser(obj);
+    obj.active = false;
+    //console.log(obj);
+    addQuery(obj.medicalNum, "active");
     dataRow.splice(index, 1);
     initRow(dataRow);
   };

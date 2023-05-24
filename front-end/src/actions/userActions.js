@@ -168,12 +168,14 @@ export const SignUpVerify = (code) => async (dispatch) => {
 };
 
 export const userSendSignUp =
-  (user = {}) =>
+  (checkRes = "") =>
   async (dispatch) => {
     try {
-      console.log(user);
+      console.log(checkRes);
       dispatch({ type: USER_REGISTER_SEND_ADMIN_REQUEST });
-      const { data } = await axios.get(`http://localhost:3003/list`);
+      const { data } = await axios.get(
+        `http://localhost:3003/list/${checkRes}`
+      );
 
       dispatch({
         type: USER_REGISTER_SEND_ADMIN_SUCCESS,

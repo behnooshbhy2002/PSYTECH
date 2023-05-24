@@ -2,82 +2,47 @@
   "list": [
     {
       "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
+      "medicalNum": 1,
       "active": false
     },
     {
       "fullname": "noshin behyani",
-      "medicalNum": 98765,
+      "medicalNum": 2,
       "active": false
     },
     {
       "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
+      "medicalNum": 3,
       "active": false
     },
     {
       "fullname": "noshin behyani",
-      "medicalNum": 98765,
+      "medicalNum": 4,
       "active": false
     },
     {
       "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
+      "medicalNum": 5,
       "active": false
     },
     {
       "fullname": "noshin behyani",
-      "medicalNum": 98765,
+      "medicalNum": 6,
       "active": false
     },
     {
       "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
+      "medicalNum": 7,
       "active": false
     },
     {
       "fullname": "noshin behyani",
-      "medicalNum": 98765,
+      "medicalNum": 8,
       "active": false
     },
     {
       "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
-      "active": false
-    },
-    {
-      "fullname": "noshin behyani",
-      "medicalNum": 98765,
-      "active": false
-    },
-    {
-      "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
-      "active": false
-    },
-    {
-      "fullname": "noshin behyani",
-      "medicalNum": 98765,
-      "active": false
-    },
-    {
-      "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
-      "active": false
-    },
-    {
-      "fullname": "noshin behyani",
-      "medicalNum": 98765,
-      "active": false
-    },
-    {
-      "fullname": "bhnoosh behyani",
-      "medicalNum": 12345,
-      "active": false
-    },
-    {
-      "fullname": "noshin behyani",
-      "medicalNum": 98765,
+      "medicalNum": 9,
       "active": false
     }
   ]

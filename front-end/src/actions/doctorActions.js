@@ -10,7 +10,7 @@ export const listDoctors =
   async (dispatch) => {
     try {
       dispatch({ type: DOCTORS_LIST_REQUEST });
-      console.log(searchParams);
+      //console.log(searchParams);
       const { data } = await axios.get(
         `http://127.0.0.1:8000/accounts/psychologists_list/${searchParams}`
       );
