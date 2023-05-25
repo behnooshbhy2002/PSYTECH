@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Toast(props) {
   const notify = () =>
-    toast(
+    toast.success(
       `${props.userFull} با موفقیت ${
         props.messageType == "reject" ? " حذف شد" : " اضافه شد"
       }`,
@@ -37,7 +37,7 @@ function Toast(props) {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
+        theme="light"
       >
         HIIIIIIIIIIIIIIIII
       </ToastContainer>

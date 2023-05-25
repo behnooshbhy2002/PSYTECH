@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
 import "../Components/style/AdminAdmitDrSignUp.css";
-import Toast from "./toast";
+import Toast from "../Components/Error&Loading/toast";
 // function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
 
 // }
@@ -28,6 +28,7 @@ function AdminAdmitDrSignUp() {
   const { error, loading, userInfo } = signupList;
   const addRowTable = () => {
     initRow(userInfo);
+    setButtonclicked(false);
   };
 
   //setButtonclicked(false);
