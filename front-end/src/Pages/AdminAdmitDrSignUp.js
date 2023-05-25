@@ -5,64 +5,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
 import "../Components/style/AdminAdmitDrSignUp.css";
-function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
-  return rows.map((rowsData, index) => {
-    const { fullname, medicalNum } = rowsData;
-    return (
-      <tr key={index}>
-        <td>
-          <input
-            type="text"
-            value={fullname}
-            onChange={(event) => onValUpdate(index, event)}
-            name="name"
-            className="form-control"
-          />
-        </td>
-        <td>
-          <input
-            type="text"
-            value={medicalNum}
-            onChange={(event) => onValUpdate(index, event)}
-            name="medicalNumber"
-            className="form-control"
-          />
-        </td>
-        {/* <td>
-          <input
-            type="text"
-            value={profile}
-            onChange={(event) => onValUpdate(index, event)}
-            name="profile"
-            className="form-control"
-          />
-        </td> */}
-        <td>
-          <button
-            className="btn btn-success"
-            onClick={() => {
-              tableRowAccept(index);
-              // setDisItem();
-              // addQuery("disease", item.id);
-            }}
-          >
-            Accept
-          </button>
-        </td>
-        <td>
-          <button
-            className="btn btn-danger"
-            onClick={() => tableRowRemove(index)}
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    );
-  });
-}
+import Toast from "./toast";
+// function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
+
+// }
 function AdminAdmitDrSignUp() {
   const [rows, initRow] = useState([]);
+  const [userFull, setUserFull] = useState("");
+  const [messageType, SetMessageType] = useState("");
+  const [buttonclicked, setButtonclicked] = useState(false);
 
   const loc = useLocation();
   const par = loc.search;
@@ -75,14 +26,13 @@ function AdminAdmitDrSignUp() {
   const signupList = useSelector((state) => state.userSendSignUp);
 
   const { error, loading, userInfo } = signupList;
-
   const addRowTable = () => {
     initRow(userInfo);
   };
 
+  //setButtonclicked(false);
   const location = useLocation();
   const history = useNavigate();
-
   const addQuery = (key, value) => {
     let pathname = location.pathname;
     let searchParams = new URLSearchParams(location.search);
@@ -102,29 +52,38 @@ function AdminAdmitDrSignUp() {
   //     search: searchParams.toString(),
   //   });
   // };
+  let obj;
   const tableRowRemove = (index) => {
     const dataRow = [...rows];
-    let obj = rows[index];
+    obj = rows[index];
     obj.active = false;
-    //console.log(obj);
     addQuery(obj.medicalNum, "disactive");
     dataRow.splice(index, 1);
     initRow(dataRow);
+    enableNotify(obj, "reject");
   };
+
   const tableRowAccept = (index) => {
     const dataRow = [...rows];
-    let obj = rows[index];
+    obj = rows[index];
     obj.active = false;
-    //console.log(obj);
     addQuery(obj.medicalNum, "active");
     dataRow.splice(index, 1);
     initRow(dataRow);
+    enableNotify(obj, "accept");
   };
+
   const onValUpdate = (i, event) => {
     const { name, value } = event.target;
     const hi = [...rows];
     hi[i][name] = value;
     initRow(hi);
+  };
+
+  const enableNotify = (obj, mess) => {
+    setButtonclicked(true);
+    setUserFull(obj.fullname);
+    SetMessageType(mess);
   };
   return (
     <>
@@ -134,6 +93,12 @@ function AdminAdmitDrSignUp() {
         <Message variant="danger">{error}</Message>
       ) : (
         <div>
+          <Toast
+            userFull={userFull}
+            messageType={messageType}
+            buttonclicked={buttonclicked}
+            setButtonclicked={setButtonclicked}
+          ></Toast>
           <h2 className="text-center">درخواست‌های ثبت‌نام</h2>
 
           <div className="Show-requests-button-div">
@@ -157,12 +122,60 @@ function AdminAdmitDrSignUp() {
                 </tr>
               </thead>
               <tbody>
-                <TableRows
-                  rows={rows}
-                  tableRowRemove={tableRowRemove}
-                  tableRowAccept={tableRowAccept}
-                  onValUpdate={onValUpdate}
-                />
+                {rows.map((rowsData, index) => {
+                  const { fullname, medicalNum } = rowsData;
+                  return (
+                    <tr key={index}>
+                      <td>
+                        <input
+                          type="text"
+                          value={fullname}
+                          // onChange={(event) => onValUpdate(index, event)}
+                          name="name"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          value={medicalNum}
+                          // onChange={(event) => onValUpdate(index, event)}
+                          name="medicalNumber"
+                          className="form-control"
+                        />
+                      </td>
+                      {/* <td>
+          <input
+            type="text"
+            value={profile}
+            onChange={(event) => onValUpdate(index, event)}
+            name="profile"
+            className="form-control"
+          />
+        </td> */}
+                      <td>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => {
+                            tableRowAccept(index);
+                          }}
+                        >
+                          Accept
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            tableRowRemove(index);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
