@@ -171,13 +171,13 @@ export const SignUpVerify = (code) => async (dispatch) => {
 };
 
 export const userGetSignUp =
-  (checkRes = "") =>
+  (checkRes) =>
   async (dispatch) => {
     try {
       console.log(checkRes);
       dispatch({ type: USER_REGISTER_GET_ADMIN_REQUEST });
       const { data } = await axios.get(
-        `http://localhost:3003/list/${checkRes}`
+        `http://127.0.0.1:8000/accounts/active_psychologist/`
       );
 
       dispatch({
@@ -195,21 +195,22 @@ export const userGetSignUp =
     }
   };
 
-export const userSendSignUpStatus = (medNum, status) => async (dispatch) => {
+export const userSendSignUpStatus = (id, status) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_SEND_ADMIN_REQUEST,
     });
+    console.log(id , status)
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
     const { data } = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts/1",
+      "http://127.0.0.1:8000/accounts/active_psychologist/",
       {
-        medNum: medNum,
-        status: status,
+        pk: id,
+        is_active: status,
       },
       config
     );

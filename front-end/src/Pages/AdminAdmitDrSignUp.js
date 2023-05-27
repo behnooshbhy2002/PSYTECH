@@ -14,7 +14,7 @@ function AdminAdmitDrSignUp() {
   const [userFull, setUserFull] = useState("");
   const [messageType, SetMessageType] = useState("");
   const [buttonclicked, setButtonclicked] = useState(false);
-  const [medicNum, setMedicNum] = useState("");
+  const [id, setId] = useState("");
   const [status, setStatus] = useState(false);
 
   const loc = useLocation();
@@ -23,12 +23,14 @@ function AdminAdmitDrSignUp() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userGetSignUp(par));
-    dispatch(userSendSignUpStatus(medicNum, status));
-  }, [dispatch, par, medicNum, status]);
+    dispatch(userSendSignUpStatus(id, status));
+  }, [dispatch, par, id, status]);
 
   const signupList = useSelector((state) => state.userGetSignUp);
 
   const { error, loading, list } = signupList;
+  console.log(list)
+  
   const addRowTable = () => {
     initRow(list);
     setButtonclicked(false);
@@ -43,7 +45,7 @@ function AdminAdmitDrSignUp() {
   const addQuery = (key, value) => {
     let pathname = location.pathname;
     let searchParams = new URLSearchParams(location.search);
-    searchParams.delete(obj.medicalNum);
+    searchParams.delete(obj.medical_number);
     searchParams.set(key, value);
     history({
       pathname: pathname,
@@ -66,10 +68,10 @@ function AdminAdmitDrSignUp() {
     //removeQuery(loc.search);
     const dataRow = [...rows];
     obj = rows[index];
-    obj.active = false;
-    addQuery(obj.medicalNum, "inactive");
+    // obj.active = false;
+    addQuery(obj.medical_number, "inactive");
 
-    setMedicNum(obj.medicalNum);
+    setId(obj.id);
     setStatus(false);
 
     dataRow.splice(index, 1);
@@ -81,10 +83,10 @@ function AdminAdmitDrSignUp() {
     //removeQuery(loc.search);
     const dataRow = [...rows];
     obj = rows[index];
-    obj.active = false;
-    addQuery(obj.medicalNum, "active");
+    // obj.active = false;
+    addQuery(obj.medical_number, "active");
 
-    setMedicNum(obj.medicalNum);
+    setId(obj.id);
     setStatus(true);
 
     dataRow.splice(index, 1);
@@ -101,7 +103,7 @@ function AdminAdmitDrSignUp() {
 
   const enableNotify = (obj, mess) => {
     setButtonclicked(true);
-    setUserFull(obj.fullname);
+    setUserFull(obj.full_name);
     SetMessageType(mess);
   };
   return (
@@ -142,13 +144,13 @@ function AdminAdmitDrSignUp() {
               </thead>
               <tbody>
                 {rows.map((rowsData, index) => {
-                  const { fullname, medicalNum } = rowsData;
+                  const { full_name, medical_number } = rowsData;
                   return (
                     <tr key={index}>
                       <td>
                         <input
                           type="text"
-                          value={fullname}
+                          value={full_name}
                           // onChange={(event) => onValUpdate(index, event)}
                           name="name"
                           className="form-control"
@@ -157,7 +159,7 @@ function AdminAdmitDrSignUp() {
                       <td>
                         <input
                           type="text"
-                          value={medicalNum}
+                          value={medical_number}
                           // onChange={(event) => onValUpdate(index, event)}
                           name="medicalNumber"
                           className="form-control"
