@@ -5,8 +5,9 @@ import {
   userLoginReduser,
   userRegisterDrReduser,
   userRegisterPatientReduser,
-  userSendSignUpReduser,
+  userGetSignUpReduser,
   userSignUpVerifyReduser,
+  userSendSignUpReduser,
 } from "./reducers/userReducers";
 import { drListReducers } from "./reducers/drListReducers";
 import { initializeConnect } from "react-redux/es/components/connect";
@@ -16,8 +17,9 @@ const reducer = combineReducers({
   userRegisterDr: userRegisterDrReduser,
   userRegisterPatient: userRegisterPatientReduser,
   doctorList: drListReducers,
-  userSendSignUp: userSendSignUpReduser,
+  userGetSignUp: userGetSignUpReduser,
   userSignUpVerify: userSignUpVerifyReduser,
+  userSendSignUpStatus: userSendSignUpReduser,
 });
 
 const userInfoFormStorage = localStorage.getItem("userInfo")

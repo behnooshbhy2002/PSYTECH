@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userSendSignUp } from "../actions/userActions";
+import { userGetSignUp, userSendSignUpStatus } from "../actions/userActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
@@ -14,29 +14,36 @@ function AdminAdmitDrSignUp() {
   const [userFull, setUserFull] = useState("");
   const [messageType, SetMessageType] = useState("");
   const [buttonclicked, setButtonclicked] = useState(false);
+  const [medicNum, setMedicNum] = useState("");
+  const [status, setStatus] = useState(false);
 
   const loc = useLocation();
   const par = loc.search;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(userSendSignUp(par));
-  }, [dispatch, par]);
+    dispatch(userGetSignUp(par));
+    dispatch(userSendSignUpStatus(medicNum, status));
+  }, [dispatch, par, medicNum, status]);
 
-  const signupList = useSelector((state) => state.userSendSignUp);
+  const signupList = useSelector((state) => state.userGetSignUp);
 
-  const { error, loading, userInfo } = signupList;
+  const { error, loading, list } = signupList;
   const addRowTable = () => {
-    initRow(userInfo);
+    initRow(list);
     setButtonclicked(false);
   };
 
   //setButtonclicked(false);
   const location = useLocation();
   const history = useNavigate();
+
+  let obj;
+
   const addQuery = (key, value) => {
     let pathname = location.pathname;
     let searchParams = new URLSearchParams(location.search);
+    searchParams.delete(obj.medicalNum);
     searchParams.set(key, value);
     history({
       pathname: pathname,
@@ -44,31 +51,42 @@ function AdminAdmitDrSignUp() {
     });
   };
 
-  // const removeQuery = (key) => {
-  //   let pathname = location.pathname;
-  //   let searchParams = new URLSearchParams(location.search);
-  //   searchParams.delete(key);
-  //   history({
-  //     pathname: pathname,
-  //     search: searchParams.toString(),
-  //   });
-  // };
-  let obj;
+  const removeQuery = (key) => {
+    console.log(key);
+    let pathname = location.pathname;
+    let searchParams = new URLSearchParams(location.search);
+    searchParams.delete(key);
+    history({
+      pathname: pathname,
+      search: searchParams.toString(),
+    });
+  };
+
   const tableRowRemove = (index) => {
+    //removeQuery(loc.search);
     const dataRow = [...rows];
     obj = rows[index];
     obj.active = false;
-    addQuery(obj.medicalNum, "disactive");
+    addQuery(obj.medicalNum, "inactive");
+
+    setMedicNum(obj.medicalNum);
+    setStatus(false);
+
     dataRow.splice(index, 1);
     initRow(dataRow);
     enableNotify(obj, "reject");
   };
 
   const tableRowAccept = (index) => {
+    //removeQuery(loc.search);
     const dataRow = [...rows];
     obj = rows[index];
     obj.active = false;
     addQuery(obj.medicalNum, "active");
+
+    setMedicNum(obj.medicalNum);
+    setStatus(true);
+
     dataRow.splice(index, 1);
     initRow(dataRow);
     enableNotify(obj, "accept");

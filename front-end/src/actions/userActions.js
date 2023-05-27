@@ -10,6 +10,9 @@ import {
   USER_REGISTER_PATIENT_REQUEST,
   USER_REGISTER_PATIENT_SUCCESS,
   USER_REGISTER_PATIENT_FAIL,
+  USER_REGISTER_GET_ADMIN_REQUEST,
+  USER_REGISTER_GET_ADMIN_SUCCESS,
+  USER_REGISTER_GET_ADMIN_FAIL,
   USER_REGISTER_SEND_ADMIN_REQUEST,
   USER_REGISTER_SEND_ADMIN_SUCCESS,
   USER_REGISTER_SEND_ADMIN_FAIL,
@@ -167,23 +170,23 @@ export const SignUpVerify = (code) => async (dispatch) => {
   }
 };
 
-export const userSendSignUp =
+export const userGetSignUp =
   (checkRes = "") =>
   async (dispatch) => {
     try {
       console.log(checkRes);
-      dispatch({ type: USER_REGISTER_SEND_ADMIN_REQUEST });
+      dispatch({ type: USER_REGISTER_GET_ADMIN_REQUEST });
       const { data } = await axios.get(
         `http://localhost:3003/list/${checkRes}`
       );
 
       dispatch({
-        type: USER_REGISTER_SEND_ADMIN_SUCCESS,
+        type: USER_REGISTER_GET_ADMIN_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: USER_REGISTER_SEND_ADMIN_FAIL,
+        type: USER_REGISTER_GET_ADMIN_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -191,3 +194,36 @@ export const userSendSignUp =
       });
     }
   };
+
+export const userSendSignUpStatus = (medNum, status) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_REGISTER_SEND_ADMIN_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "https://jsonplaceholder.typicode.com/posts/1",
+      {
+        medNum: medNum,
+        status: status,
+      },
+      config
+    );
+    dispatch({
+      type: USER_REGISTER_SEND_ADMIN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_REGISTER_SEND_ADMIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
