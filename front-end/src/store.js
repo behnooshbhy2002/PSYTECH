@@ -8,6 +8,7 @@ import {
   userGetSignUpReduser,
   userSignUpVerifyReduser,
   userSendSignUpReduser,
+  userProfileDrReduser
 } from "./reducers/userReducers";
 import { drListReducers } from "./reducers/drListReducers";
 import { initializeConnect } from "react-redux/es/components/connect";
@@ -20,7 +21,9 @@ const reducer = combineReducers({
   userGetSignUp: userGetSignUpReduser,
   userSignUpVerify: userSignUpVerifyReduser,
   userSendSignUpStatus: userSendSignUpReduser,
+  userProfile: userProfileDrReduser
 });
+
 
 const userInfoFormStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))

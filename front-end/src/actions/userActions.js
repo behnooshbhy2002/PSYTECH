@@ -19,6 +19,9 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  USER_PROFILE_DR_REQUEST,
+  USER_PROFILE_DR_SUCCESS,
+  USER_PROFILE_DR_FAIL
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -58,8 +61,7 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
 };
 
-export const registerDr =
-  (fullname, phonenumber, email, gender, medicalNum, password) =>
+export const registerDr = (fullname, phonenumber, email, gender, medicalNum, password) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -99,8 +101,7 @@ export const registerDr =
     }
   };
 
-export const registerPatient =
-  (fullname, phonenumber, email, gender, password) => async (dispatch) => {
+export const registerPatient = (fullname, phonenumber, email, gender, password) => async (dispatch) => {
     try {
       dispatch({
         type: USER_REGISTER_PATIENT_REQUEST,
@@ -170,8 +171,12 @@ export const SignUpVerify = (code) => async (dispatch) => {
   }
 };
 
+<<<<<<< Updated upstream
 export const userGetSignUp =
   (checkRes) =>
+=======
+export const userGetSignUp =(checkRes = "") =>
+>>>>>>> Stashed changes
   async (dispatch) => {
     try {
       console.log(checkRes);
@@ -228,3 +233,44 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
     });
   }
 };
+
+export const getProfileDR =
+  (id) =>
+  async (dispatch,getState) => {
+    try {
+      dispatch({
+        type: USER_PROFILE_DR_REQUEST,
+      });
+
+      const {
+        userLogin:{userInfo},
+
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+         // Authorization: `BAREAR ${userInfo.t oken}`
+        },
+      };
+      
+      const { data } = await axios.get(
+        `/api/users/${id}`,
+        config
+      );
+
+      dispatch({
+        type: USER_PROFILE_DR_SUCCESS,
+        payload: data,
+      });
+     
+    } catch (error) {
+      dispatch({
+        type: USER_PROFILE_DR_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
