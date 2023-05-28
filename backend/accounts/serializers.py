@@ -69,3 +69,23 @@ class DiseaseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disease
         fields = ("title",)
+
+
+class ActivePsychologistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Psychologist
+        fields = ("full_name", "medical_number", "id",)
+
+
+class IsActivePsychologist(serializers.ModelSerializer):
+    pk = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+
+    class Meta:
+        model = Psychologist
+        fields = ("is_active", "pk")
+
+# class TestSerializer(serializers.ModelSerializer):
+#     pk = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+#     class Meta:
+#         model = Psychologist
+#         fields = ("medical_number", "id", "pk")

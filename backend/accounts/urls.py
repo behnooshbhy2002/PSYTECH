@@ -16,6 +16,8 @@ urlpatterns = [
     path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
     path('search_psychologist/', views.PsychologistFilterView.as_view(), name='search_psychologist'),
     path('filter_psychologist/', views.PsychologistsListDisease.as_view(), name='filter_psychologist'),
+    path('active_psychologist/', views.ActivePsychologist.as_view(), name='active_psychologist'),
+    # path('test/', views.Test.as_view(), name='test'),
 ]
 # todo: register url for psychologist
 
