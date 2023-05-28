@@ -84,9 +84,3 @@ class IsActivePsychologist(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
         fields = ("is_active", "pk")
-
-# class TestSerializer(serializers.ModelSerializer):
-#     pk = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
-#     class Meta:
-#         model = Psychologist
-#         fields = ("medical_number", "id", "pk")

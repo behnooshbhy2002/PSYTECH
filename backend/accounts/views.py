@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from .models import User, Psychologist, Disease
 from .models import User, Psychologist
 from .forms import PsychologistRegistrationForm, UserLoginForm, PatientRegistrationForm
@@ -20,7 +19,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .emails import send_otp_via_email
 
 
-class HomeView(APIView):  # todo: link react to rest
+class HomeView(APIView):
     permission_classes = [AllowAny, ]
 
     def get(self, request):
@@ -39,7 +38,8 @@ class PatientRegisterView(APIView):
         return Response(ser_data.errors)
 
 
-class PsychologistRegisterView(APIView):  # todo: first admin must approve psychologist then add it to DB
+class PsychologistRegisterView(APIView):
+
     def post(self, request):
         print(request.data)
         ser_data = PsychologistRegistrationSerializer(data=request.data)
@@ -47,7 +47,7 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
             ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
             print(ser_data.data['email'], ser_data.data['medical_number'])
-            return Response({"successfully"},status=status.HTTP_200_OK)
+            return Response({"successfully"}, status=status.HTTP_200_OK)
         print(ser_data.errors)
         return Response(ser_data.errors)
 
@@ -69,16 +69,6 @@ class ActivePsychologist(APIView):
             psychologist.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# class Test(APIView):
-#     def post(self, request):
-#         ser_data = TestSerializer(data=request.data)
-#         if ser_data.is_valid():
-#             id_1 = ser_data.data.get("pk")
-#             med = ser_data.data.get("medical_number")
-#             print(med, id_1)
-#             return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 class UserLoginView(APIView):
@@ -155,9 +145,6 @@ class PsychologistListView(APIView):
     throttle_scope = 'psychologists'
 
     def get(self, request):
-        # psychologists = Psychologist.objects.filter(is_active=True)
-        # psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
-        # return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
         query = request.query_params.get('disease')
         print(query)
         if not query:
@@ -187,8 +174,6 @@ class DiseaseListView(APIView):
         diseases_serializer = DiseaseListSerializer(diseases, many=True)
         return Response(diseases_serializer.data, status=status.HTTP_200_OK)
 
-
-# Psychologists List According to Disease
 
 class PsychologistsListDisease(APIView):
     def post(self, dis_id):
