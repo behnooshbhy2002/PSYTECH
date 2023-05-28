@@ -13,7 +13,7 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
-    PsychologistListSerializer, DiseaseListSerializer
+    ActivePsychologistSerializer, DiseaseListSerializer, IsActivePsychologist
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
     VerifyAccountSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -47,6 +47,35 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
             send_otp_via_email(ser_data.data['email'])
             return Response(ser_data.data)
         return Response(ser_data.errors)
+
+
+class ActivePsychologist(APIView):
+    def get(self, request):
+        inactive_psychologists = Psychologist.objects.filter(is_active=False)
+        psychologists_serializer = ActivePsychologistSerializer(inactive_psychologists, many=True)
+        return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = IsActivePsychologist(data=request.data)
+        if serializer.is_valid():
+            is_active = serializer.data.get('is_active')
+            pk = serializer.data.get('pk')
+            psychologist = Psychologist.objects.get(pk=pk)
+            print(is_active, pk)
+            psychologist.is_active = True
+            psychologist.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class Test(APIView):
+#     def post(self, request):
+#         ser_data = TestSerializer(data=request.data)
+#         if ser_data.is_valid():
+#             id_1 = ser_data.data.get("pk")
+#             med = ser_data.data.get("medical_number")
+#             print(med, id_1)
+#             return Response(ser_data.data, status=status.HTTP_200_OK)
 
 
 class UserLoginView(APIView):
@@ -133,7 +162,7 @@ class PsychologistListView(APIView):
             psychologists = Psychologist.objects.filter(is_active=True)
         else:
             psychologists = Psychologist.objects.filter(is_active=True, diseases__id=query)
-        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
 
@@ -144,7 +173,7 @@ class PsychologistSearchView(APIView):  # todo: check screen shot of youtube
         if not query:
             query = ''
         psychologists = Psychologist.objects.filter(full_name__icontains=query)
-        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
 
@@ -174,5 +203,5 @@ class PsychologistFilterView(APIView):
         if not query:
             query = ''
         psychologists = Psychologist.objects.filter(diseases__id=query, is_active=True)
-        psychologists_serializer = PsychologistListSerializer(psychologists, many=True)
+        psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
