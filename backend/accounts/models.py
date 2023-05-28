@@ -47,7 +47,7 @@ class Disease(models.Model):
 
 class Psychologist(User):  # todo: add address for psychologist
     medical_number = models.CharField(max_length=7)
-    specialist = models.CharField(max_length=50)
+    specialist = models.CharField(max_length=50, null=True, blank=True)
     rate = models.FloatField(default=0.0)
     rate_counter = models.IntegerField(default=0)
     diseases = models.ManyToManyField(Disease)
