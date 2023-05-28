@@ -29,23 +29,26 @@ class HomeView(APIView):  # todo: link react to rest
 
 class PatientRegisterView(APIView):
     def post(self, request):
-        ser_data = PatientRegisterSerializer(data=request.POST)
+        ser_data = PatientRegisterSerializer(data=request.data)
         if ser_data.is_valid():
             user = ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
             user.is_active = True
             user.save()
-            return Response(ser_data.data)
+            return Response(ser_data.data, status=status.HTTP_200_OK)
         return Response(ser_data.errors)
 
 
 class PsychologistRegisterView(APIView):  # todo: first admin must approve psychologist then add it to DB
     def post(self, request):
-        ser_data = PsychologistRegistrationSerializer(data=request.POST)
+        print(request.data)
+        ser_data = PsychologistRegistrationSerializer(data=request.data)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
-            return Response(ser_data.data)
+            print(ser_data.data['email'], ser_data.data['medical_number'])
+            return Response({"successfully"},status=status.HTTP_200_OK)
+        print(ser_data.errors)
         return Response(ser_data.errors)
 
 
