@@ -1,45 +1,21 @@
 from django.db import models
 from accounts.models import User, Psychologist
 
-
-class Schedule(models.Model):
+class Request(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_request')
+    receiver = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='receiver_request')
     date = models.DateField(auto_now_add=True)
-    start = models.TimeField(blank=True)
-    end = models.TimeField(blank=True)
-
-    class Meta:
-        ordering = ('date',)
+    accept_status = models.BooleanField()
 
     def __str__(self):
-        return f'{self.date}'
+        return f'{self.sender} to {self.receiver}'
 
 
-class Appointment(models.Model):
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='schedule_appointment')
-    start = models.TimeField()
-    end = models.TimeField()
-    reserved = models.BooleanField()
-    display = models.BooleanField()
-
-    def __str__(self):
-        return f'{self.start} - {self.end}'
-
-
-class Booking(models.Model):
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='appointment_booking')
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient_booking')
-    psychologist = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='psychologist_booking')
+class MedicalRecord(models.Model):
+    content = models.TextField()
     date = models.DateField(auto_now_add=True)
+    doctor = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='doctor')
+    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient')
 
     def __str__(self):
-        return f'{self.date} - {self.psychologist} - {self.patient}'
-
-
-class Bill(models.Model):
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='booking_bill')
-    amount = models.FloatField()
-    status = models.BooleanField()
-    date = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f'{self.date} - {self.booking}'
+        return f'doctor:{self.doctor}-patient:{self.patient}'
