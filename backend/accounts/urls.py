@@ -17,6 +17,7 @@ urlpatterns = [
     path('search_psychologist/', views.PsychologistFilterView.as_view(), name='search_psychologist'),
     path('filter_psychologist/', views.PsychologistsListDisease.as_view(), name='filter_psychologist'),
     path('active_psychologist/', views.ActivePsychologist.as_view(), name='active_psychologist'),
+    path('resend_email/', views.ResendOTP.as_view(), name='resend_otp'),
 ]
 
 # for email=fasa.pub@gmail.com, password=123
