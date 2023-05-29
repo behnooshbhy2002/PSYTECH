@@ -35,12 +35,12 @@ class RequestListView(APIView):
 
 class PatientList(APIView):
 
-    def get(self, request):
-        id_dr = request.query_params.get('id')
-        psychologist = Psychologist.objects.get(id=id_dr)
-        patient_lists = psychologist.patients
-        patient_serializer = Patient(requests_lists, many=True)
-        return Response(request_serializer.data, status=status.HTTP_200_OK)
+    # def get(self, request):
+    #     id_dr = request.query_params.get('id')
+    #     psychologist = Psychologist.objects.get(id=id_dr)
+    #     patient_lists = psychologist.patients
+    #     patient_serializer = Patient(requests_lists, many=True)
+    #     return Response(request_serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = PostRequestSerializer(data=request.data)
