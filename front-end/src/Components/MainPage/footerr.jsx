@@ -11,7 +11,7 @@ import "../style/footerStyle.css";
 export default function Footer() {
   return (
     <div className="Footer-style">
-      <hr className="footer-hr"></hr>
+      {/* <hr className="footer-hr"></hr> */}
       <MDBFooter
         bgColor="light"
         className="text-center text-lg-start text-muted"

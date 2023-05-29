@@ -23,7 +23,7 @@ function DoctorPageDetail() {
         return(
           <>
             <div className="detail-doctor-top-page">
-              <div className="main-datail-doctor">
+              <div className="main-datail-doctor ">
         <img
                         src={item.picture}
                         alt=""
@@ -37,7 +37,7 @@ function DoctorPageDetail() {
               </div>
               </div>
               
-              <div className="request-doctor-detail" style={{ backgroundColor: "gainsboro" }}>      
+              <div className="request-doctor-detail" style={{ backgroundColor: "white" }}>      
                 <h5 className="loc-h5-text">آدرس مطب و شماره تماس</h5>
                 <div className="loc-div"><LocationOnIcon className="loc-icon"></LocationOnIcon>{ item.address}</div>
                 <div className="loc-div-buttom loc-div"><LocalPhoneIcon  className="loc-icon loc-icon-phone"></LocalPhoneIcon>{ item.phoneNumber}</div>
@@ -69,7 +69,7 @@ function DoctorPageDetail() {
               <div className="detail-docor-buttom-page-left">
                 <h4 className="main-detail-doctor-about"> ثبت درخواست </h4>   
                <div className="detail-doctor-req" style={{
-                backgroundColor: "gainsboro"
+                backgroundColor: "white"
                 }}>
                   
                   <p className="detail-doctor-req-text">در صورتی که توسط دکتر ویزیت شده اید و تمایل به دریافت نسخه خود دارید، نخست باید برای پزشک مورد نظر خود درخواست ثبت کنید.</p>
@@ -80,7 +80,7 @@ function DoctorPageDetail() {
 
                 {/* <h5>ldcjl</h5> */}
                  <div className="detail-doctor-req detail-doctor-rate " style={{
-                backgroundColor: "gainsboro"
+                backgroundColor: "white"
                 }}>
                  <h5 className="loc-h5-text text-rate-top">میزان رضایت از پزشک</h5>
                   {/* <div className=""> */}
@@ -107,9 +107,7 @@ function DoctorPageDetail() {
         
         )
       })}
-      <div>
-        hiiii
-      </div>
+      
       </>
     );
   }

@@ -16,17 +16,19 @@ import SideBarr from "./Components/SideBarr/SideBarr";
 import PatientsList from "./Components/PatientList/PatientsList";
 import DoctorPanel from "./Pages/DoctorPanel";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import DoctorPageDetail from './Pages/DoctorPageDetail'
 function App() {
   return (
-    <>
+    < div className="main-div-body">
     
       <BrowserRouter>
         <NavBarr></NavBarr>
         {/* <Route path="/" element={<SideBarr></SideBarr>}></Route> */}
-        <ProSidebarProvider>
+        {/* <ProSidebarProvider>
         <SideBarr></SideBarr>
-        </ProSidebarProvider>
+        </ProSidebarProvider> */}
         {/* <PatientsList></PatientsList> */}
+        <DoctorPageDetail></DoctorPageDetail>
         <Routes>
            <Route path="/Login" element={<Login />}></Route>
           <Route path="/PsycologistList" element={<Sign />}></Route>
@@ -46,7 +48,7 @@ function App() {
       <ServiceSlide></ServiceSlide>
       <DoctorSlider></DoctorSlider>
       <Footer></Footer> */}
-    </>
+    </div>
   );
 }
 export default App;
