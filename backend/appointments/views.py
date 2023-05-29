@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from accounts.models import Psychologist, User
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request
-from appointments.serializers import RequestSerializer
+from appointments.serializers import RequestSerializer, PostRequestSerializer
 
 
 class RequestListView(APIView):
@@ -21,7 +21,7 @@ class RequestListView(APIView):
         return Response(request_serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = RequestSerializer(data=request.data)
+        serializer = PostRequestSerializer(data=request.data)
         if serializer.is_valid():
             accept_status = serializer.data.get('accept_status')
             pk = serializer.data.get('pk')

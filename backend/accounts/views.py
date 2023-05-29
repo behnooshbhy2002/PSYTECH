@@ -15,7 +15,7 @@ from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
     ActivePsychologistSerializer, DiseaseListSerializer, IsActivePsychologist
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
-    VerifyAccountSerializer
+    VerifyAccountSerializer, EmailSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .emails import send_otp_via_email
 
@@ -35,7 +35,7 @@ class PatientRegisterView(APIView):
             send_otp_via_email(ser_data.data['email'])
             user.is_active = True
             user.save()
-            return Response(ser_data.data, status=status.HTTP_200_OK)
+            return Response(ser_data.data['email'], status=status.HTTP_200_OK)
         return Response(ser_data.errors)
 
 
@@ -48,7 +48,7 @@ class PsychologistRegisterView(APIView):
             ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
             print(ser_data.data['email'], ser_data.data['medical_number'])
-            return Response({"successfully"}, status=status.HTTP_200_OK)
+            return Response(ser_data.data['email'], status=status.HTTP_200_OK)
         print(ser_data.errors)
         return Response(ser_data.errors)
 
@@ -110,6 +110,7 @@ class VerifyOTP(APIView):
     def post(self, request):
         try:
             ser_data = VerifyAccountSerializer(data=request.data)
+            print(request.data)
 
             if ser_data.is_valid():
                 email = ser_data.data['email']
@@ -201,7 +202,7 @@ class PsychologistFilterView(APIView):
 class ResendOTP(APIView):
     def post(self, request):
         try:
-            ser_data = VerifyAccountSerializer(data=request.data)
+            ser_data = EmailSerializer(data=request.data)
 
             if ser_data.is_valid():
                 email = ser_data.data['email']
@@ -213,7 +214,8 @@ class ResendOTP(APIView):
                 if user.is_verified:
                     return Response({'msg': 'User is already verified'})
 
-                send_otp_via_email(ser_data.data['email'])
+                send_otp_via_email(email)
+                return Response({'msg': 'otp send again'})
 
         except Exception as e:
             print(e)

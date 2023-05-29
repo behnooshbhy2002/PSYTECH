@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User, Psychologist
 
+
 class Request(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_request')
     receiver = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='receiver_request')

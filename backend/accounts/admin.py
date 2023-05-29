@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Psychologist)
 class PsychologistAdmin(admin.ModelAdmin):
-    list_display = ("medical_number", "full_name", "phone_number", "gender")
+    list_display = ("medical_number", "full_name", "phone_number", "gender","id")
     list_filter = ("last_login",)
     search_fields = ("medical_number", "email", "full_name")
     ordering = ("full_name",)
