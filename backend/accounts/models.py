@@ -54,37 +54,6 @@ class Psychologist(User):  # todo: add address for psychologist
     address = models.CharField(max_length=100, blank=True, null=True)
     experience = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
 
-    # rate_value = models.FloatField(default=0.0)
-
-    # DISEASES = (
-    #     ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
-    #     ('وسواس', 'وسواس'),
-    #     ('کابوس', 'اختلال کابوس شبانه'),
-    #     ('هویت', 'اختلال هویت جنسیتی'),
-    #     ('هیستری', 'هیستری'),
-    #     ('پرخوابی', 'پرخوابی ایدیوپاتیک'),
-    #     ('بی‌خوابی', 'بی‌خوابی'),
-    #     ('نافرمانی', 'اختلال نافرمانی مقابله جویانه'),
-    #     ('خلقی', 'اختلال خلقی فصلی'),
-    #     ('اسکیزوفرنی', 'اسکیزوفرنی'),
-    #     ('نشخوار فکری', 'نشخوار فکری'),
-    #     ('شخصیت اسکیزوتایپال', 'اختلال شخصیت اسکیزوتایپال'),
-    #     ('فوبیای اجتماعی', 'فوبیای اجتماعی'),
-    #     ('بی اختیاری عاطفی', 'بی اختیاری عاطفی'),
-    #     ('شخصیت پارانوئید', 'اختلال شخصیت پارانوئید'),
-    #     ('هراس', 'اختلال هراس'),
-    #     ('اضطراب', 'اختلال اضطراب پس از سانحه'),
-    #     ('پرخوری', 'اختلال پرخوری'),
-    #     ('دوقطبی', 'اختلال دوقطبی'),
-    #     ('شخصیت مرزی', 'اختلال شخصیت مرزی'),
-    # )
-    # diseases = models.CharField(max_length=18, choices=DISEASES)
-
-    # class Meta:
-    #     fields = ['diseases']
-    #     widgets = {
-    #         'diseases': forms.CheckboxSelectMultiple(choices=Psychologist.CHOICES),
-    #     }
 
     def count_rate(self, value):
         rate_count = self.rate_counter + 1

@@ -34,11 +34,11 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
 
 
 class PsychologistRegistrationSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(write_only=True, required=True)
+    # confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = Psychologist
-        fields = ('full_name', 'phone_number', 'email', 'gender', 'password', 'confirm_password',
+        fields = ('full_name', 'phone_number', 'email', 'gender', 'password',
                   'medical_number')
         extra_keywords = {
             'password': {'write_only': True, 'validators': (clean_password,)},
@@ -46,7 +46,7 @@ class PsychologistRegistrationSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validate_data):
-        del validate_data['confirm_password']
+        # del validate_data['confirm_password']
         return Psychologist.objects.create_user(**validate_data)
 
 
