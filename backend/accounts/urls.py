@@ -17,9 +17,7 @@ urlpatterns = [
     path('search_psychologist/', views.PsychologistFilterView.as_view(), name='search_psychologist'),
     path('filter_psychologist/', views.PsychologistsListDisease.as_view(), name='filter_psychologist'),
     path('active_psychologist/', views.ActivePsychologist.as_view(), name='active_psychologist'),
-    # path('test/', views.Test.as_view(), name='test'),
 ]
-# todo: register url for psychologist
 
 # for email=fasa.pub@gmail.com, password=123
 # "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY4MzYyODU4MSwiaWF0IjoxNjgzNTQyMTgxLCJqdGkiOiIzZjhmMjg5OWRkYTY0YmY5ODg1NWVjNGE2MGJiY2EzYyIsInVzZXJfaWQiOjJ9.xyqDWJd9ijKGtAb7TB5HStXCtuzDIAQ7one-UukQXf4",
