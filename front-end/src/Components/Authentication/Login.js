@@ -1,5 +1,6 @@
 import "../style/Login.css";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import showPwdImg from "../icons/show-pass.svg";
 import hidePwdImg from "../icons/hide-pass.svg";
 import {
@@ -7,21 +8,38 @@ import {
   Route,
   Link,
   NavLink,
+  useNavigate,
 } from "react-router-dom";
-function Login(props) {
+import { login } from "../../actions/userActions";
+import { useEffect } from "react";
+
+function Login({ location }) {
   const [passwordShown, setPasswordShown] = useState(false);
   const [pwd, setPwd] = useState("");
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+
+  const dispatch = useDispatch();
+
+  const redirect = location?.search ? location?.search.split("=")[1] : "/";
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { error, loading, userInfo } = userLogin;
+  const history = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      //history.push("/profile");
+    }
+  }, [history, userInfo, redirect]);
 
   const handleSubmmit = (e) => {
     e.preventDefault();
-    console.log(email);
+    dispatch(login(email, pwd));
   };
   return (
     <div className="form_model_login">
       <h1>ورود</h1>
-      <form action="post">
+      <form action="post" onSubmit={handleSubmmit}>
         <div className="txt_field-login email">
           <input
             type="text"
@@ -30,7 +48,6 @@ function Login(props) {
             name="email"
             onChange={(e) => {
               setEmail(e.target.value);
-              console.log(email);
             }}
           />
           <span></span>
@@ -66,9 +83,10 @@ function Login(props) {
         <button className="login" type="submit">
           ورود
         </button>
+
         <div className="signup_link">
           <span> عضو نشده‌اید؟</span>
-          <NavLink to="/SignUp">
+          <NavLink to={redirect ? `/SignUp?redirect=${redirect}` : "/SignUp"}>
             <button>ثبت نام</button>
           </NavLink>
         </div>

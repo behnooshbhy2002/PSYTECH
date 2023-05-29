@@ -26,7 +26,7 @@ import img6 from "../../images/sara-payam-shad.png";
 import { useState, useEffect } from "react";
 function DoctorSlider() {
   const [drList, setDrList] = useState([]);
-  const [url, setUrl] = useState("http://localhost:3001/list");
+  const [url, setUrl] = useState("http://localhost:3002/list");
 
   useEffect(() => {
     fetch(url)

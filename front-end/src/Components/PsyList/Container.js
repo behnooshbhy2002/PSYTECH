@@ -1,7 +1,7 @@
 import "../style/Container.css";
 import Filter from "./Filter";
 import PsyList from "./PsyList";
-const Container = (props) => {
+const Container = () => {
   return (
     <>
       <div className="psylist-page">

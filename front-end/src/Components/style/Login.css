@@ -31,10 +31,12 @@
 } */
 .form_model_login {
   position: relative;
-  right: 20%;
-  margin-top: 250px;
-  transform: translate(-50%, -50%);
+
+  /* transform: translate(-50%, -50%); */
+  margin: auto;
+  margin-top: 30px;
   width: 450px;
+  padding-top: 20px;
   height: 400px;
   background: rgb(255, 255, 255);
   border-radius: 10px;
@@ -165,7 +167,7 @@ input:valid ~ .show-hide img {
   transition: 0.5s;
 }
 .signup_link {
-  margin: 30px 0 30px;
+  margin: 10px 0;
   text-align: center;
   font-size: 14px;
   color: #666666;

@@ -1,17 +1,28 @@
 import { hover } from "@testing-library/user-event/dist/hover";
 import "../style/SignUpVerify.css";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { verify } from "../../actions/userActions";
 
-function SignUpVerify(props) {
+function SignUpVerify() {
   const [verifyCode, setverifyCode] = useState("");
+  const dispatch = useDispatch();
 
+  const userSignUpVerify = useSelector((state) => state.userSignUpVerify);
+
+  const { error, loading, result } = userSignUpVerify;
+
+  const email = localStorage.getItem('verifyEmail');
   const handleSubmmit = (e) => {
     e.preventDefault();
-    console.log(verifyCode);
+    //console.log(verifyCode);
+    //console.log(email);
+    dispatch(verify(verifyCode , email));
   };
+
   const [otp, setOtp] = useState("");
   const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(40);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,13 +52,19 @@ function SignUpVerify(props) {
   return (
     <div className="form_model_verify">
       <h1>تایید ایمیل</h1>
-      <form action="post">
+      <form action="post" onSubmit={handleSubmmit}>
         <p className="sendCodetxt">
-          :کد ارسال شده جهت تایید ایمیل را وارد کنید
+          کد ارسال شده جهت تایید ایمیل را وارد کنید:
         </p>
         <div className="txt_field verifyCode">
           <div className="verifyCode-box">
-            <input type="text" value={""} id="verifyCode" name="verifyCode" />
+            <input
+              type="text"
+              value={verifyCode}
+              id="verifyCode"
+              name="verifyCode"
+              onChange={(e) => setverifyCode(e.target.value)}
+            />
             <span></span>
             <label>کد تایید</label>
           </div>

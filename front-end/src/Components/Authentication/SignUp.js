@@ -1,7 +1,18 @@
 import "../style/SignUp.css";
-import { useState } from "react";
-function Sign() {
-  const [role, setRole] = useState("");
+import Loader from "../Error&Loading/Loader";
+import Message from "../Error&Loading/Message";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+import { registerDr, registerPatient } from "../../actions/userActions";
+function Sign({ location, history }) {
+  const [role, setRole] = useState("dr");
   const [fullname, setFullname] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -9,9 +20,45 @@ function Sign() {
   const [medicalNum, setMedicalNum] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [message, setMessage] = useState("");
+
+  const dispatch = useDispatch();
+
+  const redirect = location?.search ? location?.search.split("=")[1] : "/";
+
+  const userRegisterDr = useSelector((state) => state.userRegisterDr);
+  const { errorDr, loadingDr, userInfoDr } = userRegisterDr;
+
+  const userRegisterPatient = useSelector((state) => state.userRegisterPatient);
+  const { errorPatient, loadingPatient, userInfoPatient } = userRegisterPatient;
+
+  const nav = useNavigate();
+  useEffect(() => {
+    if (userInfoDr || userInfoPatient){
+      console.log(userInfoPatient , userInfoDr)
+      nav('/signUp-verify', { replace: true });
+    }
+  }, [history, userInfoDr, redirect , userInfoPatient]);
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+
+    if (password != confirmPass) {
+      setMessage("رمز عبور مطابقت ندارد ");
+    } else {
+      if (role == "dr") {
+        dispatch(
+          registerPatient(fullname, phonenumber, email, gender, password , confirmPass)
+          );
+      } else {
+        dispatch(
+          registerPatient(fullname, phonenumber, email, gender, password , confirmPass)
+        );
+      }
+    }
+  };
 
   const resetForm = () => {
-    // setRole("dr");
     setFullname("");
     setPhoneNumber("");
     setEmail("");
@@ -19,22 +66,23 @@ function Sign() {
     setMedicalNum("");
     setPassword("");
     setConfirmPass("");
+    setMessage("");
   };
 
-  const handlesubmit = (e) => {
-    e.preventDefault();
-    const event = {
-      role: role,
-      fullname: fullname,
-      phonenumber: phonenumber,
-      email: email,
-      gender: gender,
-      medicalNum: medicalNum,
-      password: password,
-    };
-    console.log(event);
-    resetForm();
-  };
+  // const handlesubmit = (e) => {
+  //   e.preventDefault();
+  //   const event = {
+  //     role: role,
+  //     fullname: fullname,
+  //     phonenumber: phonenumber,
+  //     email: email,
+  //     gender: gender,
+  //     medicalNum: medicalNum,
+  //     password: password,
+  //   };
+  //   console.log(event);
+  //   resetForm();
+  // };
   const togglePsignup = () => {
     setRole("patient");
     console.log(role);
@@ -44,8 +92,6 @@ function Sign() {
     document.getElementById("Psignup-toggle").style.color = "#fff";
     document.getElementById("medicalNum").style.display = "none";
     resetForm();
-    // document.getElementById("DrSignup-form").style.display = "none";
-    // document.getElementById("Psignup-form").style.display = "block";
   };
   const toggleDrSignup = () => {
     setRole("dr");
@@ -56,11 +102,10 @@ function Sign() {
     document.getElementById("Psignup-toggle").style.color = "#222";
     document.getElementById("medicalNum").style.display = "block";
     resetForm();
-    // document.getElementById("Psignup-form").style.display = "none";
-    // document.getElementById("DrSignup-form").style.display = "block";
   };
   return (
     <>
+    
       <div className="signUPcontainer">
         <section class="form_model_signup">
           <div class="form_toggle_signup">
@@ -71,6 +116,14 @@ function Sign() {
               ثبت نام بیمار
             </button>
           </div>
+          <div>
+            {message && <Message variant="danger">{message}</Message>}
+            {loadingDr && <Loader></Loader>}
+            {errorDr && <Message variant="danger">{errorDr}</Message>}
+            {loadingPatient && <Loader></Loader>}
+            {errorPatient && <Message variant="danger">{errorPatient}</Message>}
+          </div>
+
           <div id="DrSignup-form">
             <form action="main page.php" id="signup1" onSubmit={handlesubmit}>
               <input
@@ -113,8 +166,8 @@ function Sign() {
                 <option value="default" hidden>
                   جنسیت
                 </option>
-                <option value="1">مرد</option>
-                <option value="2">زن</option>
+                <option value="M">مرد</option>
+                <option value="F">زن</option>
               </select>
               <input
                 type="text"
@@ -144,20 +197,23 @@ function Sign() {
                 }}
                 value={confirmPass}
               />
-              <button type="submit" class="btn login">
+              <button type="submit" class="signUp-btn">
                 ثبت اطلاعات
               </button>
+              <div className="login_link">
+                <span> اکانت دارید؟</span>
+                <NavLink
+                  to={redirect ? `/Login?redirect=${redirect}` : "/Login"}
+                >
+                  <button>ورود </button>
+                </NavLink>
+              </div>
               {/* <p>
                 کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که
                 شما با <a href="#">شرایط خدمات</a> موافق هستید.
               </p> */}
             </form>
           </div>
-          {/* <p>
-            {" "}
-            name : {fullname} , email : {email}
-            gender : {gender}
-          </p> */}
         </section>
       </div>
     </>
