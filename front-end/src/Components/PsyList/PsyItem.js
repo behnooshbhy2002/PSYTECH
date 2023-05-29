@@ -4,17 +4,21 @@ import { listDoctors } from "../../actions/doctorActions";
 import Loader from "../Error&Loading/Loader";
 import Message from "../Error&Loading/Message";
 import "../style/PsyItem.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 const PsyItem = () => {
-  const dispatch = useDispatch();
+  const [itemID, setItemID] = useState();
+  const nav = useNavigate();
+  const handleDetailButton = (id) => {
+    nav(`/PsycologistProfile/${id}`, { replace: true });
+  };
 
+  const dispatch = useDispatch();
   const loc = useLocation();
   const par = loc.search;
 
   console.log(par);
-
   useEffect(() => {
     dispatch(listDoctors(par));
   }, [dispatch, par]);
@@ -47,14 +51,27 @@ const PsyItem = () => {
       {loading ? (
         <Loader></Loader>
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <div>
+          <Message variant="danger">{error}</Message>
+          {/* <button
+            onClick={() => {
+              setItemID(1);
+              handleDetailButton(1);
+            }}
+          >
+            Hiii
+          </button> */}
+        </div>
       ) : (
         <div>
           {doctors.slice(0, numberOfItems).map((item) => {
             return (
               <li key={item.medical_number} className="drShowCard">
                 <div className="list-grid-item mt-4">
-                  <a href="/#" className="grid-item-content p-2">
+                  <Link
+                    to={`/PsycologistProfile/${item.id}`}
+                    className="grid-item-content p-2"
+                  >
                     <div className="doctor-card-right-side">
                       <div className="doctor-card-personal-info-container">
                         <div className="doctor-card-personal-image">
@@ -103,7 +120,13 @@ const PsyItem = () => {
                       </div>
                       <div className="detail">
                         <div className="doctor-card-detail-container">
-                          <button className="doctor-card-detail-view">
+                          <button
+                            className="doctor-card-detail-view"
+                            onClick={() => {
+                              setItemID(item.id);
+                              handleDetailButton(itemID);
+                            }}
+                          >
                             <div className="doctor-card-detail-view-centent">
                               <svg
                                 height="20"
@@ -123,7 +146,7 @@ const PsyItem = () => {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </li>
             );

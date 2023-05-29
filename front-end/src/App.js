@@ -34,7 +34,7 @@ function App() {
             ></Route>
             <Route path="/signUp-verify" element={<SignUpVerify />}></Route>
             <Route
-              path="/PsycologistProfile:id"
+              path="/PsycologistProfile"
               element={<DoctorPageDetail />}
             ></Route>
           </Routes>
