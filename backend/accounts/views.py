@@ -203,7 +203,7 @@ class ResendOTP(APIView):
     def post(self, request):
         try:
             ser_data = EmailSerializer(data=request.data)
-
+            print(request.data)
             if ser_data.is_valid():
                 email = ser_data.data['email']
 
