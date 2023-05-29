@@ -35,7 +35,7 @@ class PatientRegisterView(APIView):
             send_otp_via_email(ser_data.data['email'])
             user.is_active = True
             user.save()
-            return Response(ser_data.data, status=status.HTTP_200_OK)
+            return Response(ser_data.data['email'], status=status.HTTP_200_OK)
         return Response(ser_data.errors)
 
 
@@ -47,7 +47,7 @@ class PsychologistRegisterView(APIView):  # todo: first admin must approve psych
             ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
             print(ser_data.data['email'], ser_data.data['medical_number'])
-            return Response({"successfully"},status=status.HTTP_200_OK)
+            return Response(ser_data.data['email'], status=status.HTTP_200_OK)
         print(ser_data.errors)
         return Response(ser_data.errors)
 
@@ -123,14 +123,14 @@ class VerifyOTP(APIView):
                 otp = ser_data.data['otp']
 
                 user = User.objects.get(email=email)
-                if not user:
-                    user = Psychologist.objects.get(email=email)
-                    if not user:
-                        return Response({
-                            'status': 400,
-                            'message': 'something went wrong',
-                            'data': 'invalid email'
-                        })
+                # if not user:
+                #     user = Psychologist.objects.get(email=email)
+                #     if not user:
+                #         return Response({
+                #             'status': 200,
+                #             'message': 'success',
+                #             'data': 'valid email'
+                #         })/
 
                 if user.otp != otp:
                     return Response({
