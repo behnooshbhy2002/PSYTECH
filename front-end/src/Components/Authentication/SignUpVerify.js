@@ -3,6 +3,7 @@ import "../style/SignUpVerify.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { verify } from "../../actions/userActions";
+import axios from "axios";
 
 function SignUpVerify() {
   const [verifyCode, setverifyCode] = useState("");
@@ -12,12 +13,12 @@ function SignUpVerify() {
 
   const { error, loading, result } = userSignUpVerify;
 
-  const email = localStorage.getItem('verifyEmail');
+  const email = localStorage.getItem("verifyEmail");
   const handleSubmmit = (e) => {
     e.preventDefault();
     //console.log(verifyCode);
     //console.log(email);
-    dispatch(verify(verifyCode , email));
+    dispatch(verify(verifyCode, email));
   };
 
   const [otp, setOtp] = useState("");
@@ -48,6 +49,14 @@ function SignUpVerify() {
   const resendOTP = () => {
     setMinutes(0);
     setSeconds(30);
+    const { data } = axios
+      .post("http://127.0.0.1:8000/accounts/resend_otp/", { email })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="form_model_verify">
