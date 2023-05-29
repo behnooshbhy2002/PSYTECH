@@ -149,13 +149,35 @@ class PsychologistListView(APIView):
     throttle_scope = 'psychologists'
 
     def get(self, request):
-        query = request.query_params.get('disease')
-        print(query)
-        if not query:
+        # query = request.query_params.get('disease')
+
+        query_params = request.query_params
+
+        print(query_params)
+
+        # Extract individual query parameters
+        disease = query_params.get('disease')
+        name = query_params.get('keyword')
+        female = query_params.get('justFemale')
+        male = query_params.get('justMale')
+
+        psychologists = Psychologist.objects.filter(is_active=True)
+
+        # print(query)
+        if not disease:
             # query = ''
-            psychologists = Psychologist.objects.filter(is_active=True)
-        else:
-            psychologists = Psychologist.objects.filter(is_active=True, diseases__id=query)
+            psychologists = psychologists.filter(diseases__id=disease)
+
+        if not name:
+            psychologists = psychologists.filter(full_name__icontains=name)
+
+        if not(male and female):
+            if not male:
+                psychologists = psychologists.filter(gender='M')
+
+            if not female:
+                psychologists = psychologists.filter(gender='F')
+
         psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
@@ -179,24 +201,24 @@ class DiseaseListView(APIView):
         return Response(diseases_serializer.data, status=status.HTTP_200_OK)
 
 
-class PsychologistsListDisease(APIView):
-    def post(self, dis_id):
-        disease = Psychologist.objects.filter(publications__id=1)
-        data = Psychologist.objects.filter(disease=disease)
-        diseases_serializer = DiseaseListSerializer(data, many=True)
-        return Response(diseases_serializer, status=status.HTTP_200_OK)
+# class PsychologistsListDisease(APIView):
+#     def post(self, dis_id):
+#         disease = Psychologist.objects.filter(publications__id=1)
+#         data = Psychologist.objects.filter(disease=disease)
+#         diseases_serializer = DiseaseListSerializer(data, many=True)
+#         return Response(diseases_serializer, status=status.HTTP_200_OK)
 
 
-class PsychologistFilterView(APIView):
-
-    def get(self, request):
-        query = request.query_params.get('searchParams')
-        print(query)
-        if not query:
-            query = ''
-        psychologists = Psychologist.objects.filter(diseases__id=query, is_active=True)
-        psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
-        return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
+# class PsychologistFilterView(APIView):
+#
+#     def get(self, request):
+#         query = request.query_params.get('searchParams')
+#         print(query)
+#         if not query:
+#             query = ''
+#         psychologists = Psychologist.objects.filter(diseases__id=query, is_active=True)
+#         psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
+#         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
 
 class ResendOTP(APIView):
