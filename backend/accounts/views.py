@@ -212,10 +212,10 @@ class ResendOTP(APIView):
                     user = Psychologist.objects.get(email=email)
 
                 if user.is_verified:
-                    return Response({'msg': 'User is already verified'})
+                    return Response({'msg': 'User is already verified'}, status=status.HTTP_400_BAD_REQUEST)
 
                 send_otp_via_email(email)
-                return Response({'msg': 'otp send again'})
+                return Response({'msg': 'otp send again'}, status=status.HTTP_200_OK)
 
         except Exception as e:
             print(e)
