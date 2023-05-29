@@ -60,6 +60,10 @@ class VerifyAccountSerializer(serializers.Serializer):
     otp = serializers.CharField()
 
 
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
 class PsychologistListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
