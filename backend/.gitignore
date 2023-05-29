@@ -42,3 +42,6 @@ apps/karinja/extra/*
 db.sqlite3
 
 data/*
+/accounts/migrations/0001_initial.py
+/appointments/migrations/0001_initial.py
+/chat/migrations/0001_initial.py
