@@ -35,6 +35,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Patient(User):
+    def __str__(self):
+        return self.email
+
+
 class Disease(models.Model):
     title = models.CharField(max_length=100)
 
@@ -53,7 +58,7 @@ class Psychologist(User):  # todo: add address for psychologist
     diseases = models.ManyToManyField(Disease)
     address = models.CharField(max_length=100, blank=True, null=True)
     experience = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-
+    patients = models.ManyToManyField(Patient)
 
     def count_rate(self, value):
         rate_count = self.rate_counter + 1

@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from accounts.models import User
+from accounts.models import  Patient
 from appointments.models import Request
 
 
 class SenderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Patient
         fields = ("full_name",)
 
 
