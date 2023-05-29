@@ -3,7 +3,8 @@ import random
 from django.conf import settings
 from .models import User, Psychologist
 
-def send_otp_via_email(email): # todo: write it for usre
+
+def send_otp_via_email(email):  # todo: write it for usre
     subject = 'Your account verification email'
     otp = random.randint(1000, 9999)
     message = f'Your otp is {otp}'
@@ -12,6 +13,6 @@ def send_otp_via_email(email): # todo: write it for usre
 
     user_obj = User.objects.get(email=email)
     if not user_obj:
-        user_obj = Psychologist.objects.get(email=email) # todo: user model
+        user_obj = Psychologist.objects.get(email=email)
     user_obj.otp = otp
     user_obj.save()
