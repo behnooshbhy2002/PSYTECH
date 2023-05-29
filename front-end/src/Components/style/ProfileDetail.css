@@ -1,0 +1,60 @@
+.profilePicture {
+  height: 170px;
+  width: 150px;
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.profile-container {
+  width: 50%;
+  height: 80%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 30px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 10%;
+}
+
+.personData {
+  color: aliceblue;
+  background-color: rgb(181, 181, 181);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.default-data {
+  padding-right:60px ;
+  margin-left: 50px;
+  margin-right: 10px;
+}
+.data-doctor  {
+  width: 50%;
+ margin-left: 5px;
+ 
+ 
+}
+.default-data p {
+  margin-bottom: 15px;
+}
+
+.data-doctor p {
+  margin-bottom: 15px;
+}

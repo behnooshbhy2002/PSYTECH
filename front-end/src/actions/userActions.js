@@ -20,6 +20,9 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  USER_PROFILE_DR_REQUEST,
+  USER_PROFILE_DR_SUCCESS,
+  USER_PROFILE_DR_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -60,9 +63,9 @@ export const logout = () => async (dispatch) => {
 };
 
 export const registerDr =
-  (fullname, phonenumber, email, gender, medicalNum, password , confirmPass) =>
+  (fullname, phonenumber, email, gender, medicalNum, password, confirmPass) =>
   async (dispatch) => {
-    console.log(fullname , email , password)
+    console.log(fullname, email, password);
     try {
       dispatch({
         type: USER_REGISTER_DR_REQUEST,
@@ -80,8 +83,8 @@ export const registerDr =
         gender: gender,
         medical_number: medicalNum,
         password: password,
-      }
-      console.log(obj)
+      };
+      console.log(obj);
       const { data } = await axios.post(
         "http://127.0.0.1:8000/accounts/register_psychologist/",
         obj,
@@ -123,7 +126,7 @@ export const registerPatient =
         email: email,
         gender: gender,
         password: password,
-      }
+      };
       const { data } = await axios.post(
         "http://127.0.0.1:8000/accounts/register/",
         obj,
@@ -146,7 +149,7 @@ export const registerPatient =
     }
   };
 
-export const verify = (code , email) => async (dispatch) => {
+export const verify = (code, email) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_VERIFY_REQUEST,
@@ -159,7 +162,7 @@ export const verify = (code , email) => async (dispatch) => {
     };
     const { data } = await axios.post(
       "http://127.0.0.1:8000/accounts/verify/",
-      { otp: code  , email:email},
+      { otp: code, email: email },
       config
     );
     dispatch({
@@ -177,37 +180,35 @@ export const verify = (code , email) => async (dispatch) => {
   }
 };
 
-export const userGetSignUp =
-  (checkRes) =>
-  async (dispatch) => {
-    try {
-      console.log(checkRes);
-      dispatch({ type: USER_REGISTER_GET_ADMIN_REQUEST });
-      const { data } = await axios.get(
-        `http://127.0.0.1:8000/accounts/active_psychologist/`
-      );
+export const userGetSignUp = (checkRes) => async (dispatch) => {
+  try {
+    console.log(checkRes);
+    dispatch({ type: USER_REGISTER_GET_ADMIN_REQUEST });
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000/accounts/active_psychologist/`
+    );
 
-      dispatch({
-        type: USER_REGISTER_GET_ADMIN_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: USER_REGISTER_GET_ADMIN_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+    dispatch({
+      type: USER_REGISTER_GET_ADMIN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_REGISTER_GET_ADMIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const userSendSignUpStatus = (id, status) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_SEND_ADMIN_REQUEST,
     });
-    console.log(id , status)
+    console.log(id, status);
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -231,6 +232,40 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getProfileDR = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_PROFILE_DR_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        // Authorization: `BAREAR ${userInfo.t oken}`
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/${id}`, config);
+
+    dispatch({
+      type: USER_PROFILE_DR_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_DR_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
           : error.message,
     });
   }

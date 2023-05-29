@@ -5,9 +5,11 @@ import DoctorSlider from "../Components/MainPage/doctorSlider";
 export default function Home() {
   return (
     <>
-      <SearchBox></SearchBox>
-      <ServiceSlide></ServiceSlide>
-      <DoctorSlider></DoctorSlider>
+      <div style={{ backgroundColor: "white" }}>
+        <SearchBox></SearchBox>
+        <ServiceSlide></ServiceSlide>
+        <DoctorSlider></DoctorSlider>
+      </div>
     </>
   );
 }

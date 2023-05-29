@@ -13,28 +13,39 @@ import Card from "./Components/PsyList/Card";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import AdminAdmitDrSignUp from "./Pages/AdminAdmitDrSignUp";
+import DoctorPageDetail from "./Pages/DoctorPageDetail";
+
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <NavBarr></NavBarr>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/Login" element={<Login />}></Route>
-          <Route path="/PsycologistList" element={<Card />}></Route>
-          <Route path="/SignUp" element={<Sign />}></Route>
-          <Route path="/Profile" element={<Profile />}></Route>
-          <Route path="/Admin-SignUp" element={<AdminAdmitDrSignUp />}></Route>
-          <Route path="/signUp-verify" element={<SignUpVerify />}></Route>
-        </Routes>
-        <Footer></Footer>
-      </BrowserRouter>
-      {/* <NavBarr></NavBarr>
+      <div className="main-div-body">
+        <BrowserRouter>
+          <NavBarr></NavBarr>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/Login" element={<Login />}></Route>
+            <Route path="/PsycologistList" element={<Card />}></Route>
+            <Route path="/SignUp" element={<Sign />}></Route>
+            <Route path="/Profile" element={<Profile />}></Route>
+            <Route
+              path="/Admin-SignUp"
+              element={<AdminAdmitDrSignUp />}
+            ></Route>
+            <Route path="/signUp-verify" element={<SignUpVerify />}></Route>
+            <Route
+              path="/PsycologistProfile:id"
+              element={<DoctorPageDetail />}
+            ></Route>
+          </Routes>
+          <Footer></Footer>
+        </BrowserRouter>
+        {/* <NavBarr></NavBarr>
       <SearchBox></SearchBox>
       <ServiceSlide></ServiceSlide>
       <DoctorSlider></DoctorSlider>
       <Footer></Footer> */}
+      </div>
     </>
   );
 }

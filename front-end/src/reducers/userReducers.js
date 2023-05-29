@@ -18,6 +18,9 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  USER_PROFILE_DR_REQUEST,
+  USER_PROFILE_DR_SUCCESS,
+  USER_PROFILE_DR_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReduser = (state = {}, action) => {
