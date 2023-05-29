@@ -10,6 +10,7 @@ class TestAuth(TestCase):
     def setUp(self):
         self.email = "test@doomain.com"
         self.password = "test"
+        self.user = User.objects.create_superuser(email=self.email, password=self.password)
 
     def test_login_success(self):
         url = "/accounts/login/"
