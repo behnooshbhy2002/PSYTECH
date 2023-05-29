@@ -18,7 +18,9 @@ function SignUpVerify() {
     e.preventDefault();
     //console.log(verifyCode);
     //console.log(email);
-    dispatch(verify(verifyCode, email));
+    let x = email.substring(1 , email.length-1)
+    console.log(x)
+    dispatch(verify(verifyCode, x));
   };
 
   const [otp, setOtp] = useState("");
@@ -49,8 +51,9 @@ function SignUpVerify() {
   const resendOTP = () => {
     setMinutes(0);
     setSeconds(30);
+    let x = email.substring(1 , email.length-1)
     const { data } = axios
-      .post("http://127.0.0.1:8000/accounts/resend_otp/", { email })
+      .post("http://127.0.0.1:8000/accounts/resend_otp/", { email:x })
       .then((response) => {
         console.log(response.data);
       })
