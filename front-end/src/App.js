@@ -19,8 +19,11 @@ import DoctorPanel from "./Pages/DoctorPanel";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import PatientsList from "./Components/PatientList/PatientsList";
 import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
-
+import DrEditProfile from "./Pages/DrEditProfile";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";	
+import "primereact/resources/primereact.min.css";	
+import DRProfile from "./Pages/DRProfile";
 function App() {
   return (
     <>
@@ -52,13 +55,13 @@ function App() {
                 </ProSidebarProvider>
               }
             ></Route>
-            <Route path="/MyProfile" element={<Sign />} />
+            <Route path="/MyProfile" element={<DRProfile />} />
             <Route path="/MyPatientnList" element={<PatientsList />} />
             <Route
               path="/MyPatientRequestList"
               element={<PatientsRequestList />}
             />
-            <Route path="/EditMyProfile" element={<PatientsList />} />
+            <Route path="/EditMyProfile" element={<DrEditProfile />} />	
             <Route path="/Home" element={<Home />} />
           </Routes>
           <Footer></Footer>

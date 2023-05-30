@@ -9,6 +9,7 @@
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
+  box-shadow: 0 0 0 0px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.1);
 }
 
 .profile-container {
@@ -21,12 +22,12 @@
   top: 30px;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 10%;
+  margin-top: 20px;
 }
 
 .personData {
   color: aliceblue;
-  background-color: rgb(181, 181, 181);
+  background-color: rgb(182, 94, 245);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -39,17 +40,16 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  box-shadow: 0 0 0 0px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.1);
 }
 .default-data {
-  padding-right:60px ;
+  padding-right: 60px;
   margin-left: 50px;
   margin-right: 10px;
 }
-.data-doctor  {
+.data-doctor {
   width: 50%;
- margin-left: 5px;
- 
- 
+  margin-left: 5px;
 }
 .default-data p {
   margin-bottom: 15px;

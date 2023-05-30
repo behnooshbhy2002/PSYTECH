@@ -81,7 +81,7 @@ function SideBarr() {
           </MenuItem>
           <MenuItem
             title=" پروفایل من"
-            component={<NavLink to="/Login" className="link" />}
+            component={<NavLink to="/MyProfile" className="link" />}
             icon={<AccountCircleRoundedIcon />}
             className="sidebar-item"
           >

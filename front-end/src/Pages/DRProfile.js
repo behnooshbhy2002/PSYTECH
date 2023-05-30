@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import "../Components/style/ProfileDetail.css";
-import pic from "../images/139801051817237f53d.jpg";
+import pic from "../images/ali-hemati.png";
 import { getProfileDR } from "../actions/userActions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import SideBarr from "../Components/SideBarr/SideBarr";
 
-function ProfileDetail({ history }) {
+function DRProfile({ history }) {
   const [name, setName] = useState("");
   const [telephone, settelePhone] = useState("");
   const [score, setScore] = useState("");
@@ -61,22 +63,41 @@ function ProfileDetail({ history }) {
   }, []);
 
   return (
-    <div className="profile-container">
-      <img className="profilePicture" src={pic} alt=""></img>
-      <Profile
-        name={sampleUser.name}
-        phone={sampleUser.phone}
-        score={sampleUser.score}
-        telephone={sampleUser.telephone}
-        education={sampleUser.education}
-        code={sampleUser.code}
-        address={sampleUser.address}
-        email={sampleUser.email}
-        experiment={sampleUser.experiment}
-      />
-    </div>
+    <>
+      <div className="Kharrr">
+        <SideBarr></SideBarr>
+        <div className="Kharrrchild">
+          <div className="profile-container">
+            <img className="profilePicture" src={pic} alt=""></img>
+            <Profile
+              name={sampleUser.name}
+              phone={sampleUser.phone}
+              score={sampleUser.score}
+              telephone={sampleUser.telephone}
+              education={sampleUser.education}
+              code={sampleUser.code}
+              address={sampleUser.address}
+              email={sampleUser.email}
+              experiment={sampleUser.experiment}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
+
+const sampleUser = {
+  name: "علی قربانی",
+  education: "ارشد بالینی",
+  code: "2256748",
+  address: "باغ فیض، جنب امام زاده حمیده خاتون، موسسه تحقیقات حجامت ایران",
+  telephone: "+972-888-0",
+  phone: "098-333-45-67",
+  email: "ali@gmail.com",
+  experiment: "20سال",
+  score: "4.1",
+};
 
 const Profile = ({
   name,
@@ -103,7 +124,6 @@ const Profile = ({
         <p>شماره موبایل:</p>
         <p>ایمیل:</p>
         <p>تجربه:</p>
-        <p>رمز عبور:</p>
         <p>امتیاز:</p>
       </div>
       <div className="data-doctor">
@@ -111,6 +131,7 @@ const Profile = ({
         <p>{education}</p>
         <p>{code}</p>
         <p>{address}</p>
+        <br></br>
         <p>{telephone}</p>
         <p>{phone}</p>
         <p>{email}</p>
@@ -135,4 +156,4 @@ const personData = {
   score: String,
 };
 
-export default DoctorProfile;
+export default DRProfile;
