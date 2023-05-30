@@ -4,6 +4,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import axios from "axios";
 function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
@@ -13,17 +14,16 @@ function DoctorPageDetail() {
   //     .then((response) => response.json())
   //     .then((json) => setPsyInfo(json));
   // }, [url]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await axios.get("https://api.example.com/user-profile", {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     });
-  //     setUserProfile(response.data);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("https://api.example.com/user-profile", {
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem("token")}`,
+        // },
+      });
+      setPsyInfo(response.data);
+    };
+  }, []);
 
   //console.log(url);
   const numberOfItems = psyInfo ? psyInfo.length : 0;
@@ -35,17 +35,17 @@ function DoctorPageDetail() {
             <div className="detail-doctor-top-page">
               <div className="main-datail-doctor ">
                 <img
-                  src={item.picture}
+                  src={item.image}
                   alt=""
                   className="img-fluid mx-auto d-block rounded-circle main-detail-doctor-img"
                 />
                 <div className="main-detail-doctor-text">
-                  <h4>{item.name}</h4>
+                  <h4>{item.full_name}</h4>
                   <h5>
                     میزان تجربه:
                     {item.experience}
                   </h5>
-                  <p> شماره نظام پزشکی: {item.medicalNum}</p>
+                  <p> شماره نظام پزشکی: {item.medical_number}</p>
                 </div>
               </div>
 
@@ -60,7 +60,7 @@ function DoctorPageDetail() {
                 </div>
                 <div className="loc-div-buttom loc-div">
                   <LocalPhoneIcon className="loc-icon loc-icon-phone"></LocalPhoneIcon>
-                  {item.phoneNumber}
+                  {item.phone_number}
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@ function DoctorPageDetail() {
                   <div className="bio-doctor-text">
                     <h5>بیوگرافی:</h5>
 
-                    {item.diseaseArr.map((item) => {
+                    {item.diseases_list.map((item) => {
                       return (
                         <>
                           <div className="bio-item-doctor">
@@ -101,7 +101,7 @@ function DoctorPageDetail() {
                     کنید.
                   </p>
                   <button className="detail-doctor-req-button">
-                    ثبت درخواست برای {item.name}
+                    ثبت درخواست برای {item.full_name}
                   </button>
                 </div>
 
@@ -130,7 +130,7 @@ function DoctorPageDetail() {
 
                   <button className="detail-doctor-req-button">
                     {" "}
-                    رای دادن به {item.name}
+                    رای دادن به {item.full_name}
                   </button>
                   {/* </div> */}
                 </div>
