@@ -80,7 +80,10 @@ class ShowPsychologistDetailView(APIView):
         diseases_lists = psychologist.diseases.all()
         ser_disease = DiseaseSerializer(diseases_lists, many=True)
         ser_psychologist = PsychologistDetailSerializer(psychologist)
-        print(ser_psychologist.data)
+        print({'psychologist': ser_psychologist.data, 'disease': ser_disease.data})
         return Response({'psychologist': ser_psychologist.data, 'disease': ser_disease.data}, status=status.HTTP_200_OK)
 
 
+class EditPsychologistProfile(APIView):
+    def post(self, request):
+        pass
