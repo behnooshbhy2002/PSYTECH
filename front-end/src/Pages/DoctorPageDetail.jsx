@@ -8,11 +8,22 @@ function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
 
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => setPsyInfo(json));
-  }, [url]);
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((json) => setPsyInfo(json));
+  // }, [url]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios.get("https://api.example.com/user-profile", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
+  //     setUserProfile(response.data);
+  //   };
+  //   fetchData();
+  // }, []);
 
   //console.log(url);
   const numberOfItems = psyInfo ? psyInfo.length : 0;

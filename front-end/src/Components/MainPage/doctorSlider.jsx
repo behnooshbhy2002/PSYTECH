@@ -14,7 +14,7 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DoctorCard from "../MainPage/doctorCard";
-
+import axios from "axios";
 import "../style/doctorSlider.css";
 //import images
 import img1 from "../../images/zahra-etemadi.png";
@@ -26,13 +26,24 @@ import img6 from "../../images/sara-payam-shad.png";
 import { useState, useEffect } from "react";
 function DoctorSlider() {
   const [drList, setDrList] = useState([]);
-  const [url, setUrl] = useState("http://localhost:3003/list");
+  const [url, setUrl] = useState("http://localhost:3001/list");
 
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((json) => setDrList(json));
+  // }, [url]);
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => setDrList(json));
-  }, [url]);
+    const { data } = axios
+      .get("http://127.0.0.1:8000/accounts/resend_otp/")
+      .then((response) => {
+        console.log(response.data);
+        setDrList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
   const numberOfItems = drList.length;
   return (
     <div>
