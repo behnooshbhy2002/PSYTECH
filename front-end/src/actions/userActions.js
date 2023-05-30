@@ -171,12 +171,10 @@ export const SignUpVerify = (code) => async (dispatch) => {
   }
 };
 
-<<<<<<< Updated upstream
+
 export const userGetSignUp =
   (checkRes) =>
-=======
-export const userGetSignUp =(checkRes = "") =>
->>>>>>> Stashed changes
+
   async (dispatch) => {
     try {
       console.log(checkRes);
