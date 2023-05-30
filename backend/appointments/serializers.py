@@ -5,6 +5,12 @@ from accounts.models import Patient, Psychologist, Disease
 from appointments.models import Request, MedicalRecord
 
 
+def clean_password(data):
+    if data['password'] != data['confirm_password']:
+        raise ValidationError('confirm password does not match password')
+    return data
+
+
 class SenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
@@ -64,21 +70,42 @@ class DiseaseSerializer(serializers.ModelSerializer):
         model = Disease
         fields = "__all__"
 
-class DiseaseList(serializers.ModelSerializer):
-    list = serializers.ListField(child=DiseaseSerializer())
-
-    class Meta:
-        model = Disease
-        fields = "__all__"
-
 
 class PsychologistDetailSerializer(serializers.ModelSerializer):
-    # diseases_list = serializers.SerializerMethodField()
-
     class Meta:
         model = Psychologist
         fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number", "id")
 
-    # def get_diseases_list(self, obj):
-    #     diseases_list = serializers.ListField(child=DiseaseSerializer(),default=obj.diseases)
-    #     return diseases_list
+
+class PatientUpdateInfoSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = Patient
+        fields = ("image", "full_name", "experience", "password", "address", "phone_number", "confirm_password")
+        extra_keywords = {
+            'password': {'write_only': True, 'validators': (clean_password,)},
+        }
+
+    def validate_phone_number(self, value):
+        user = self.context['request'].user
+        if Patient.objects.exclude(pk=user.pk).filter(phone_number=value).exists():
+            raise serializers.ValidationError({"email": "This phone_number is already in use."})
+        return value
+
+    def update(self, instance, validated_data):
+        user = self.context['request'].user
+
+        if user.pk != instance.pk:
+            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+
+        instance.full_name = validated_data['full_name']
+        instance.image = validated_data['image']
+        instance.experience = validated_data['experience']
+        instance.password = validated_data['password']
+        instance.address = validated_data['address']
+        instance.phone_number = validated_data['phone_number']
+
+        instance.save()
+
+        return instance
