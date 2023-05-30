@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from accounts.models import  Patient
-from appointments.models import Request
+from accounts.models import Patient, Psychologist
+from appointments.models import Request, MedicalRecord
 
 
 class SenderSerializer(serializers.ModelSerializer):
@@ -28,3 +28,43 @@ class PostRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = ("accept_status", "pk")
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ("full_name",)
+
+
+class PsychologistIdSerializer(serializers.ModelSerializer):
+    pk = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+
+    class Meta:
+        model = Psychologist
+        fields = ("pk",)
+
+
+class GetMedicalRecordSerializer(serializers.ModelSerializer):
+    pk_doctor = PsychologistIdSerializer(read_only=True)
+    pk_patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+
+    class Meta:
+        model = Patient
+        fields = ("pk_doctor", "pk_patient")
+
+
+class MedicalRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicalRecord
+        fields = "__all__"
+
+
+class PsychologistDetailSerializer(serializers.ModelSerializer):
+    diseases_list = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Psychologist
+        fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number")
+
+    def get_diseases_list(self, obj):
+        return obj.diseases

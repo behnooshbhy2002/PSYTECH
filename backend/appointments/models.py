@@ -19,4 +19,4 @@ class MedicalRecord(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patients')
 
     def __str__(self):
-        return f'doctor:{self.doctor}-patient:{self.patient}'
+        return f'doctor:{self.doctor}-patient:{self.patient} content:{self.content}'
