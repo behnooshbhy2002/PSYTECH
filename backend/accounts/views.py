@@ -79,7 +79,6 @@ class UserLoginView(APIView):
             email = serializer.data.get('email')
             password = serializer.data.get('password')
             user = authenticate(email=email, password=password)
-            # token =
             # todo: return access token
 
             if user:
@@ -149,7 +148,6 @@ class PsychologistListView(APIView):
     throttle_scope = 'psychologists'
 
     def get(self, request):
-        # query = request.query_params.get('disease')
 
         query_params = request.query_params
 
@@ -161,21 +159,24 @@ class PsychologistListView(APIView):
         female = query_params.get('justFemale')
         male = query_params.get('justMale')
 
+        print('disease', disease)
+        print('name', name)
+        print('female', female)
+        print('male', male)
+
         psychologists = Psychologist.objects.filter(is_active=True)
 
-        # print(query)
-        if not disease:
-            # query = ''
+        if disease:
             psychologists = psychologists.filter(diseases__id=disease)
 
-        if not name:
+        if name:
             psychologists = psychologists.filter(full_name__icontains=name)
 
         if not(male and female):
-            if not male:
+            if male:
                 psychologists = psychologists.filter(gender='M')
 
-            if not female:
+            if female:
                 psychologists = psychologists.filter(gender='F')
 
         psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
@@ -241,3 +242,8 @@ class ResendOTP(APIView):
 
         except Exception as e:
             print(e)
+
+
+
+class ShowTopPsychologist(APIView):
+    pass
