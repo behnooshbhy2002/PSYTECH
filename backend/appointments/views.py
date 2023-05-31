@@ -84,6 +84,17 @@ class ShowPsychologistDetailView(APIView):
         return Response({'psychologist': ser_psychologist.data, 'disease': ser_disease.data}, status=status.HTTP_200_OK)
 
 
-class EditPsychologistProfile(APIView):
+class PsychologistProfile(APIView):
     def post(self, request):
+        pass
+
+    def get(self, request):
+        pass
+
+
+class PatientProfile(APIView):
+    def post(self, request):
+        pass
+
+    def get(self, request):
         pass

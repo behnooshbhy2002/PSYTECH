@@ -42,14 +42,11 @@ class PatientRegisterView(APIView):
 class PsychologistRegisterView(APIView):
 
     def post(self, request):
-        print(request.data)
         ser_data = PsychologistRegistrationSerializer(data=request.data)
         if ser_data.is_valid():
             ser_data.create(ser_data.validated_data)
             send_otp_via_email(ser_data.data['email'])
-            print(ser_data.data['email'], ser_data.data['medical_number'])
             return Response(ser_data.data['email'], status=status.HTTP_200_OK)
-        print(ser_data.errors)
         return Response(ser_data.errors)
 
 
@@ -82,8 +79,10 @@ class UserLoginView(APIView):
             # todo: return access token
 
             if user:
+                token = RefreshToken.for_user(user)
+                data = {'tokens': {'refresh': str(token), 'access': str(token.access_token)}}
                 login(request, user)
-                return Response({"msg": "Login Successful"}, status=status.HTTP_200_OK)
+                return Response(data, status=status.HTTP_200_OK)
             else:
                 return Response(
                     {
@@ -99,17 +98,25 @@ class UserLoginView(APIView):
 class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated, ]
 
-    def get(self, request):
-        request.user.auth_token.delete()
-        logout(request)
-        return Response('User Logged out successfully')
+    # def get(self, request):
+    #     request.user.auth_token.delete()
+    #     logout(request)
+    #     return Response('User Logged out successfully')
+
+    def post(self, request):
+        try:
+            refresh_token = request.data['refresh']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyOTP(APIView):
     def post(self, request):
         try:
             ser_data = VerifyAccountSerializer(data=request.data)
-            print(request.data)
 
             if ser_data.is_valid():
                 email = ser_data.data['email']
@@ -172,7 +179,7 @@ class PsychologistListView(APIView):
         if name:
             psychologists = psychologists.filter(full_name__icontains=name)
 
-        if not(male and female):
+        if not (male and female):
             if male:
                 psychologists = psychologists.filter(gender='M')
 
@@ -226,7 +233,6 @@ class ResendOTP(APIView):
     def post(self, request):
         try:
             ser_data = EmailSerializer(data=request.data)
-            print(request.data)
             if ser_data.is_valid():
                 email = ser_data.data['email']
 
@@ -244,14 +250,5 @@ class ResendOTP(APIView):
             print(e)
 
 
-
 class ShowTopPsychologist(APIView):
-    pass
-
-
-class UpdatePatientView(APIView):
-    pass
-
-
-class UpdatePsychologistView(APIView):
     pass
