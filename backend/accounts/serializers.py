@@ -88,3 +88,7 @@ class IsActivePsychologist(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
         fields = ("is_active", "pk")
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    pass

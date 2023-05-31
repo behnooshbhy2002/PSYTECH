@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from accounts.models import Patient, Psychologist
+from accounts.models import Patient, Psychologist, Disease
 from appointments.models import Request, MedicalRecord
 
 
@@ -59,12 +59,26 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class DiseaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disease
+        fields = "__all__"
+
+class DiseaseList(serializers.ModelSerializer):
+    list = serializers.ListField(child=DiseaseSerializer())
+
+    class Meta:
+        model = Disease
+        fields = "__all__"
+
+
 class PsychologistDetailSerializer(serializers.ModelSerializer):
-    diseases_list = serializers.SerializerMethodField()
+    # diseases_list = serializers.SerializerMethodField()
 
     class Meta:
         model = Psychologist
-        fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number")
+        fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number", "id")
 
-    def get_diseases_list(self, obj):
-        return obj.diseases
+    # def get_diseases_list(self, obj):
+    #     diseases_list = serializers.ListField(child=DiseaseSerializer(),default=obj.diseases)
+    #     return diseases_list
