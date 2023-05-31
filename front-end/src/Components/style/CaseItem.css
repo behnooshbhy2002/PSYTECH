@@ -48,5 +48,7 @@
 }
 
 .caseItem-info{
+    padding: 10px;
     padding-bottom: 10px;
+    height: 110px;
 }

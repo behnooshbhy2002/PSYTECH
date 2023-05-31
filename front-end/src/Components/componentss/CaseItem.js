@@ -18,7 +18,7 @@ function CaseItem({ clickhandler }) {
       </div>
       <div className="caseItem-info" dir="rtl">
         <h3>جلسه اول</h3>
-        <p>{dateTime.toLocaleString()}</p>
+        <p className="time-text-case-item">{dateTime.toLocaleString()}</p>
       </div>
     </div>
   );

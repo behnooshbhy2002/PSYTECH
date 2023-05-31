@@ -51,3 +51,8 @@
   -ms-transform: scale(0.9);
   -o-transform: scale(0.9);
 }
+.text-case-history
+{
+  margin-right: 20px;
+  margin-top: 20px;
+}

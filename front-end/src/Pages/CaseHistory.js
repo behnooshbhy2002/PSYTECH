@@ -19,10 +19,10 @@ function CaseHistory() {
 
   return (
     <div className="case-history" dir="rtl">
-      <h1>شرح حال</h1>
+      <h1 className="text-case-history">شرح حال</h1>
       <div className="general-status-div">
-        <h4>شرح کلی:</h4>
-        <p>
+        <h4 className="text-case-history">شرح کلی:</h4>
+        <p className="text-case-history">
           بیمار دارای افسردگی خفیف همراه با اضطراب اجتماعی است که ریشه در کوکی
           وی دارد و....................
         </p>
