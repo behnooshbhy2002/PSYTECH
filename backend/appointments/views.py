@@ -9,7 +9,7 @@ from accounts.models import Psychologist, Patient
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request, MedicalRecord
 from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
-    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer
+    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
 
 
 class RequestListView(APIView):
@@ -75,22 +75,31 @@ class MedicalReportView(APIView):
 class ShowPsychologistDetailView(APIView):
     def get(self, request):
         id_dr = request.query_params.get('id')
-        print(id_dr)
         psychologist = Psychologist.objects.get(id=id_dr)
         diseases_lists = psychologist.diseases.all()
         ser_disease = DiseaseSerializer(diseases_lists, many=True)
         ser_psychologist = PsychologistDetailSerializer(psychologist)
-        print({'psychologist': ser_psychologist.data, 'disease': ser_disease.data})
         return Response({'psychologist': ser_psychologist.data, 'disease': ser_disease.data}, status=status.HTTP_200_OK)
 
 
 class PsychologistProfile(APIView):
     def post(self, request):
-        return Response(request.data)
+        psychologist_data = {
+                             request.data.get('specialist'),
+                             request.data['address'],
+                             request.data['phone_number'],
+                             request.data.get('experience'),
+                             request.data['image'],
+                             request.data['password'],
+                             request.data['confirm_password'],
+                             }
+        ser_data = PsychologistUpdateInfoSerializer(psychologist_data)
+        return Response(ser_data.data)
 
     def get(self, request):
         try:
-            psychologist = Psychologist.objects.get(id=request.user.id)
+            id_dr = request.query_params.get('id')
+            psychologist = Psychologist.objects.get(id=id_dr)
             ser_data = PsychologistProfileSerializer(psychologist)
             return Response(ser_data.data, status=status.HTTP_200_OK)
         except Exception as e:
