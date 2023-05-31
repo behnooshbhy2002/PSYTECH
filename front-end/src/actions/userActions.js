@@ -250,7 +250,7 @@ export const getProfileDR = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-type": "application/json",
-        // Authorization: `BAREAR ${userInfo.t oken}`
+         Authorization: `BAREAR ${userInfo.token}`
       },
     };
 

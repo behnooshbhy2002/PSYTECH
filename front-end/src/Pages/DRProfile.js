@@ -6,8 +6,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SideBarr from "../Components/SideBarr/SideBarr";
-
-function DRProfile({ history }) {
+import Loader from "../Components/Error&Loading/Loader";
+import Message from "../Components/Error&Loading/Message";
+import { useNavigate } from "react-router-dom";
+import AudioRecorderr from "../Components/componentss/AudioRecorderr";
+function DRProfile() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [telephone, settelePhone] = useState("");
   const [score, setScore] = useState("");
@@ -15,40 +19,40 @@ function DRProfile({ history }) {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [education, setEducation] = useState("");
-  const [adress, setAddress] = useState("");
+  const [address, setAddress] = useState("");
   const [experiment, setExperiment] = useState("");
-  const [userProfile, setUserProfile] = useState(null);
-
+  
   const dispatch = useDispatch();
 
-  // const userData = useSelector((state) => state.userData);
-  // const { error, loading, user } = userData;
+   const userProfile = useSelector((state) => state.userProfile);
+   const { error, loading, user } = userProfile;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // useEffect(() => {
-  //   if (!userInfo) {
-  //     history.push("/login");
-  //   }
-  //   else {
-  //     if(!user || !user.name)
-  //     {
-  //      dispatch(getProfileDR('profile'));
-  //     }
-  //     else {
-  //       setName(user.name)
-  //       setPhone(user.phone)
-  //       settelePhone(user.telephone)
-  //       setEmail(user.email)
-  //       setEducation(user.education)
-  //       setScore(user.score)
-  //       setCode(user.code)
-  //       setAddress(user.adress)
-  //       setExperiment(user.experiment)
-  //     }
-  //   }
-  // }, [dispatch,history, userInfo, user]);
+   useEffect(() => {
+     if (!userInfo) {
+      navigate("../Login");
+      //history.push("/login");
+    }
+    else {
+      if(!user || !user.name)
+       {
+        dispatch(getProfileDR('profile'));
+       }
+       else {
+        setName(user.name)
+         setPhone(user.phone)
+         settelePhone(user.telephone)
+        setEmail(user.email)
+        setEducation(user.education)
+        setScore(user.score)
+        setCode(user.code)
+        setAddress(user.adress)
+        setExperiment(user.experiment)
+      }
+    }
+   }, [dispatch,history, userInfo, user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,15 +74,15 @@ function DRProfile({ history }) {
           <div className="profile-container">
             <img className="profilePicture" src={pic} alt=""></img>
             <Profile
-              name={sampleUser.name}
-              phone={sampleUser.phone}
-              score={sampleUser.score}
-              telephone={sampleUser.telephone}
-              education={sampleUser.education}
-              code={sampleUser.code}
-              address={sampleUser.address}
-              email={sampleUser.email}
-              experiment={sampleUser.experiment}
+              name={name}
+              phone={phone}
+              score={score}
+              telephone={telephone}
+              education={education}
+              code={code}
+              address={address}
+              email={email}
+              experiment={experiment}
             />
           </div>
         </div>
@@ -113,6 +117,7 @@ const Profile = ({
 }) => {
   return (
     <div className="personData" dir="rtl">
+      <AudioRecorderr></AudioRecorderr>
       <div className="default-data">
         <p>نام و نام خانوادگی:</p>
         <p>تحصیلات:</p>

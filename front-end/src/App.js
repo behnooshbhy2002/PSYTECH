@@ -24,6 +24,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import DRProfile from "./Pages/DRProfile";
+import CaseHistory from "./Pages/CaseHistory";
+import AudioRecorderr from "./Components/componentss/AudioRecorderr";
 function App() {
   return (
     <>
@@ -37,6 +39,7 @@ function App() {
             <Route path="/PsycologistList" element={<Card />}></Route>
             <Route path="/SignUp" element={<Sign />}></Route>
             <Route path="/Profile" element={<Profile />}></Route>
+            <Route path="/Edit" element={<CaseHistory />}></Route>
             <Route
               path="/Admin-SignUp"
               element={<AdminAdmitDrSignUp />}
