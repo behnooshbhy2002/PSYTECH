@@ -18,7 +18,7 @@ function CaseInput({ closing }) {
   return (
     <div dir="rtl">
       <div>
-        <form className="form-history" >
+        <form className="form-history">
           <RxCross2 id="cross-input-status" onClick={closing}></RxCross2>
           <input
             id="date-caseInput"
@@ -34,8 +34,13 @@ function CaseInput({ closing }) {
             id="description-caseInput"
             placeholder="توضیحات.."
           ></textarea>
+          <br></br>
           <AudioRecorderr></AudioRecorderr>
-          <button id="submit-btn-caseInput">ثبت اطلاعات</button>
+          <button id="submit-btn-caseInput"  onClick={(event) =>
+        {
+          event.preventDefault();
+          console.log("sub")} 
+          }>ثبت اطلاعات</button>
         </form>
       </div>
     </div>

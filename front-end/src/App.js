@@ -40,6 +40,7 @@ function App() {
             <Route path="/SignUp" element={<Sign />}></Route>
             <Route path="/Profile" element={<Profile />}></Route>
             <Route path="/Edit" element={<CaseHistory />}></Route>
+            
             <Route
               path="/Admin-SignUp"
               element={<AdminAdmitDrSignUp />}

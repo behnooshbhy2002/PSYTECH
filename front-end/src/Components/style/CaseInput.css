@@ -14,11 +14,6 @@
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
 }
-
-
-
-
-
 #date-caseInput{
     margin-top: 40px;
     width:45%;
@@ -29,6 +24,7 @@
     width: 35%;
     height: 25px;
     margin-top: 20px;
+    border-radius: 10px;
 }
 
 #description-caseInput{
@@ -36,6 +32,7 @@
     height: 400px;
     margin-top: 20px;
     font-size: 18px;
+    border-radius: 10px;
 }
 
 #submit-btn-caseInput{

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../style/AudioRecorderr.css";
+import { BsFillMicFill } from 'react-icons/bs';
+import {BsFillMicMuteFill} from 'react-icons/bs'
 import {
   useReactMediaRecorder,
   ReactMediaRecorder,
@@ -21,19 +23,21 @@ function AudioRecorderr() {
         }) => {
           return (
             <div className="audio-record-main-div">
-              <p>
+              <p className="p-rec" style={{color:"blueviolet"}}>
                     {status === "recording"
                       ? "در حال ضبط صدای شما"
-                      : " برای ضبط صدای خود روی شروع کلیک کنید"}
-                  </p>
+                      : " برای ضبط صدای خود روی میکروفون کلیک کنید"}
+              </p>
+              <div className="div-rec">
               {status === "recording" ? (
-                <>
-                  
-                  <button onClick={stopRecording}> توقف</button>
+                  <>  
+                    <br></br>
+                   <BsFillMicMuteFill size={20} className="mic-icon" onClick={stopRecording}>sdvsd</BsFillMicMuteFill>
                 </>
               ) : (
-                <>
-                  <button onClick={startRecording}>شروع</button>
+                    <>
+                      <br></br>
+                    <BsFillMicFill size={20} className="mic-icon" onClick={startRecording} >rth</BsFillMicFill>
                 </>
               )}
               <audio
@@ -42,7 +46,8 @@ function AudioRecorderr() {
                 controls
                 autoPlay
               ></audio>
-            </div>
+              </div>
+              </div>
           );
         }}
       ></ReactMediaRecorder>
