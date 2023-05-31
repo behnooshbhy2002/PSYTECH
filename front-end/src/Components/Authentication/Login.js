@@ -30,7 +30,7 @@ function Login({ location }) {
     if (userInfo) {
       nav(`/Profile/${userInfo?.id}`, { replace: true });
     }
-  }, [history, userInfo, redirect]);
+  }, [userInfo]);
 
   const handleSubmmit = (e) => {
     e.preventDefault();
