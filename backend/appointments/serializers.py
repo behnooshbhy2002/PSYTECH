@@ -82,7 +82,9 @@ class PsychologistUpdateInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
-        fields = ("image", "full_name", "experience", "password", "address", "phone_number", "confirm_password")
+        fields = (
+            'full_name', 'specialist', 'medical_number', 'address', 'phone_number', 'email', 'experience',
+            'image', 'password', 'confirm_password')
         extra_keywords = {
             'password': {'write_only': True, 'validators': (clean_password,)},
         }
