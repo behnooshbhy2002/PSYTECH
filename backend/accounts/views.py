@@ -76,11 +76,17 @@ class UserLoginView(APIView):
             email = serializer.data.get('email')
             password = serializer.data.get('password')
             user = authenticate(email=email, password=password)
+
+            if Psychologist.objects.get(email=email):
+                role = 'psychologist'
+            else:
+                role = 'patient'
+
             # todo: return access token
 
             if user:
                 token = RefreshToken.for_user(user)
-                data = {'tokens': {'refresh': str(token), 'access': str(token.access_token)}}
+                data = {'tokens': {'refresh': str(token), 'access': str(token.access_token)}, 'role': role}
                 login(request, user)
                 return Response(data, status=status.HTTP_200_OK)
             else:
@@ -207,26 +213,6 @@ class DiseaseListView(APIView):
         diseases = Disease.objects.all()
         diseases_serializer = DiseaseListSerializer(diseases, many=True)
         return Response(diseases_serializer.data, status=status.HTTP_200_OK)
-
-
-# class PsychologistsListDisease(APIView):
-#     def post(self, dis_id):
-#         disease = Psychologist.objects.filter(publications__id=1)
-#         data = Psychologist.objects.filter(disease=disease)
-#         diseases_serializer = DiseaseListSerializer(data, many=True)
-#         return Response(diseases_serializer, status=status.HTTP_200_OK)
-
-
-# class PsychologistFilterView(APIView):
-#
-#     def get(self, request):
-#         query = request.query_params.get('searchParams')
-#         print(query)
-#         if not query:
-#             query = ''
-#         psychologists = Psychologist.objects.filter(diseases__id=query, is_active=True)
-#         psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
-#         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
 
 class ResendOTP(APIView):

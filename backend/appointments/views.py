@@ -9,7 +9,7 @@ from accounts.models import Psychologist, Patient
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request, MedicalRecord
 from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
-    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer
+    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer
 
 
 class RequestListView(APIView):
@@ -86,10 +86,15 @@ class ShowPsychologistDetailView(APIView):
 
 class PsychologistProfile(APIView):
     def post(self, request):
-        pass
+        return Response(request.data)
 
     def get(self, request):
-        pass
+        try:
+            psychologist = Psychologist.objects.get(id=request.user.id)
+            ser_data = PsychologistProfileSerializer(psychologist)
+            return Response(ser_data.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class PatientProfile(APIView):
