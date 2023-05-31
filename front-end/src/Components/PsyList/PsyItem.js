@@ -10,22 +10,50 @@ import { useSearchParams } from "react-router-dom";
 const PsyItem = () => {
   const [itemID, setItemID] = useState();
   const nav = useNavigate();
+
   const handleDetailButton = (id) => {
-    nav(`/PsycologistProfile/${id}`, { replace: true });
+       console.log(id);
+       history(`/PsycologistProfile`);
+       addQuery("id", id, history);
   };
 
+  const history = useNavigate();
+
+  const addQuery = (key, value, url) => {
+    let searchParams = new URLSearchParams(url.search);
+    searchParams.set(key, value);
+    url({
+      pathname: "/PsycologistProfile",
+      search: searchParams.toString(),
+    });
+  };
+
+  const removeQuery = (key, url) => {
+    let searchParams = new URLSearchParams(url.search);
+    searchParams.delete(key);
+    url({
+      pathname: "/PsycologistProfile",
+      search: searchParams.toString(),
+    });
+  };
+
+  // const handleKeyDown = (event) => {
+  //   if (event.key === "Enter") {
+      
+  //   }
+  // };
   const dispatch = useDispatch();
   const loc = useLocation();
   const par = loc.search;
 
-  console.log(par);
+  //console.log(par);
   useEffect(() => {
     dispatch(listDoctors(par));
   }, [dispatch, par]);
 
   const dr = useSelector((state) => state.doctorList);
   const { error, loading, doctors } = dr;
-  // console.log(doctors);
+   console.log(doctors);
 
   // const [drList, setDrList] = useState([]);
   // const [url, setUrl] = useState("http://localhost:3001/list");
@@ -68,9 +96,13 @@ const PsyItem = () => {
             return (
               <li key={item.medical_number} className="drShowCard">
                 <div className="list-grid-item mt-4">
-                  <Link
-                    to={`/PsycologistProfile/${item.id}`}
+                  <a
                     className="grid-item-content p-2"
+                    onClick={() => {
+                      console.log(item.id)
+                      setItemID(item.id);
+                      handleDetailButton(item.id);
+                    }}
                   >
                     <div className="doctor-card-right-side">
                       <div className="doctor-card-personal-info-container">
@@ -124,7 +156,7 @@ const PsyItem = () => {
                             className="doctor-card-detail-view"
                             onClick={() => {
                               setItemID(item.id);
-                              handleDetailButton(itemID);
+                              handleDetailButton(item.id);
                             }}
                           >
                             <div className="doctor-card-detail-view-centent">
@@ -146,7 +178,7 @@ const PsyItem = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </a>
                 </div>
               </li>
             );

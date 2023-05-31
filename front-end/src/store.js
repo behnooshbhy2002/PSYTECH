@@ -10,7 +10,7 @@ import {
   userSendSignUpReduser,
   // userProfileDrReduser,
 } from "./reducers/userReducers";
-import { drListReducers } from "./reducers/drListReducers";
+import { drListReducers,  drDetailsReducers} from "./reducers/drListReducers";
 import { initializeConnect } from "react-redux/es/components/connect";
 
 const reducer = combineReducers({
@@ -21,6 +21,7 @@ const reducer = combineReducers({
   userGetSignUp: userGetSignUpReduser,
   userSignUpVerify: userSignUpVerifyReduser,
   userSendSignUpStatus: userSendSignUpReduser,
+  drDetails :drDetailsReducers,
   // userProfile: userProfileDrReduser,
 });
 
