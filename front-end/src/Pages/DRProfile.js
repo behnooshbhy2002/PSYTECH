@@ -52,7 +52,7 @@ function DRProfile() {
         setExperiment(user.experiment)
       }
     }
-   }, [dispatch,history, userInfo, user]);
+   }, [dispatch, userInfo, user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +61,7 @@ function DRProfile() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setUserProfile(response.data);
+     // setUserProfile(response.data);
     };
     fetchData();
   }, []);
