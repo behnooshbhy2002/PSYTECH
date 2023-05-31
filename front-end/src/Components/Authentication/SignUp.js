@@ -34,29 +34,79 @@ function Sign({ location, history }) {
 
   const nav = useNavigate();
   useEffect(() => {
-    if (userInfoDr || userInfoPatient){
-      console.log(userInfoPatient , userInfoDr)
-      nav('/signUp-verify', { replace: true });
+    if (userInfoDr || userInfoPatient) {
+      console.log(userInfoPatient, userInfoDr);
+      nav("/signUp-verify", { replace: true });
     }
-  }, [history, userInfoDr, redirect , userInfoPatient]);
+  }, [history, userInfoDr, redirect, userInfoPatient]);
 
-  const handlesubmit = (e) => {
+  const handlesubmmitDr = (e) => {
     e.preventDefault();
-
     if (password != confirmPass) {
       setMessage("رمز عبور مطابقت ندارد ");
-    } else {
-      if (role == "dr") {
-        dispatch(
-          registerPatient(fullname, phonenumber, email, gender, password , confirmPass)
-          );
-      } else {
-        dispatch(
-          registerPatient(fullname, phonenumber, email, gender, password , confirmPass)
-        );
-      }
     }
+    dispatch(
+      registerDr(
+        fullname,
+        phonenumber,
+        email,
+        gender,
+        medicalNum,
+        password,
+        confirmPass
+      )
+    );
   };
+
+  const handlesubmmitPatient = (e) => {
+    e.preventDefault();
+    //console.log(e);
+    if (password != confirmPass) {
+      setMessage("رمز عبور مطابقت ندارد ");
+    }
+    dispatch(
+      registerPatient(
+        fullname,
+        phonenumber,
+        email,
+        gender,
+        password,
+        confirmPass
+      )
+    );
+  };
+
+  // const handlesubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (password != confirmPass) {
+  //     setMessage("رمز عبور مطابقت ندارد ");
+  //   } else {
+  //     if (role == "dr") {
+  //       dispatch(
+  //         registerPatient(
+  //           fullname,
+  //           phonenumber,
+  //           email,
+  //           gender,
+  //           password,
+  //           confirmPass
+  //         )
+  //       );
+  //     } else {
+  //       dispatch(
+  //         registerPatient(
+  //           fullname,
+  //           phonenumber,
+  //           email,
+  //           gender,
+  //           password,
+  //           confirmPass
+  //         )
+  //       );
+  //     }
+  //   }
+  // };
 
   const resetForm = () => {
     setFullname("");
@@ -85,7 +135,7 @@ function Sign({ location, history }) {
   // };
   const togglePsignup = () => {
     setRole("patient");
-    console.log(role);
+    //console.log(role);
     document.getElementById("DrSignup-toggle").style.background = "#fff";
     document.getElementById("DrSignup-toggle").style.color = "#222";
     document.getElementById("Psignup-toggle").style.background = "#9F74F2";
@@ -95,7 +145,7 @@ function Sign({ location, history }) {
   };
   const toggleDrSignup = () => {
     setRole("dr");
-    console.log(role);
+    //console.log(role);
     document.getElementById("DrSignup-toggle").style.background = "#9F74F2";
     document.getElementById("DrSignup-toggle").style.color = "#fff";
     document.getElementById("Psignup-toggle").style.background = "#fff";
@@ -105,7 +155,6 @@ function Sign({ location, history }) {
   };
   return (
     <>
-    
       <div className="signUPcontainer">
         <section class="form_model_signup">
           <div class="form_toggle_signup">
@@ -125,7 +174,7 @@ function Sign({ location, history }) {
           </div>
 
           <div id="DrSignup-form">
-            <form action="main page.php" id="signup1" onSubmit={handlesubmit}>
+            <form action="main page.php" id="signup1">
               <input
                 className="signup_txt_field"
                 type="text"
@@ -197,9 +246,23 @@ function Sign({ location, history }) {
                 }}
                 value={confirmPass}
               />
-              <button type="submit" class="signUp-btn">
-                ثبت اطلاعات
-              </button>
+              {role == "dr" ? (
+                <button
+                  type="submit"
+                  class="signUp-btn"
+                  onClick={handlesubmmitDr}
+                >
+                  ثبت اطلاعات دکتر
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  class="signUp-btn"
+                  onClick={handlesubmmitPatient}
+                >
+                  ثبت اطلاعات بیمار
+                </button>
+              )}
               <div className="login_link">
                 <span> اکانت دارید؟</span>
                 <NavLink
@@ -208,10 +271,6 @@ function Sign({ location, history }) {
                   <button>ورود </button>
                 </NavLink>
               </div>
-              {/* <p>
-                کلیک کردن روی <strong> ثبت اطلاعات </strong> به این معنی است که
-                شما با <a href="#">شرایط خدمات</a> موافق هستید.
-              </p> */}
             </form>
           </div>
         </section>

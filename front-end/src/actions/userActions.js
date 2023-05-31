@@ -65,7 +65,7 @@ export const logout = () => async (dispatch) => {
 export const registerDr =
   (fullname, phonenumber, email, gender, medicalNum, password, confirmPass) =>
   async (dispatch) => {
-    console.log(fullname, email, password);
+    //console.log("d");
     try {
       dispatch({
         type: USER_REGISTER_DR_REQUEST,
@@ -84,7 +84,7 @@ export const registerDr =
         medical_number: medicalNum,
         password: password,
       };
-      console.log(obj);
+      //console.log(obj);
       const { data } = await axios.post(
         "http://127.0.0.1:8000/accounts/register_psychologist/",
         obj,
@@ -110,6 +110,7 @@ export const registerDr =
 
 export const registerPatient =
   (fullname, phonenumber, email, gender, password) => async (dispatch) => {
+    //console.log("p");
     try {
       dispatch({
         type: USER_REGISTER_PATIENT_REQUEST,
