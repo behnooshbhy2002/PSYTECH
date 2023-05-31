@@ -86,7 +86,8 @@ class UserLoginView(APIView):
 
             if user:
                 token = RefreshToken.for_user(user)
-                data = {'tokens': {'refresh': str(token), 'access': str(token.access_token)}, 'role': role}
+                data = {'tokens': {'refresh': str(token), 'access': str(token.access_token)}, 'role': role,
+                        'id': user.id}
                 login(request, user)
                 return Response(data, status=status.HTTP_200_OK)
             else:
