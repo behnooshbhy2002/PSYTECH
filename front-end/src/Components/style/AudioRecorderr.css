@@ -1,0 +1,28 @@
+.mic-icon
+{
+  size: 50%;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-top: 15px;
+}
+.mic-icon:hover
+{
+  color: blueviolet;
+}
+.audio-record-main-div
+{
+  display: flex;
+  flex-direction: row;
+  margin-right: 50px;
+}
+.div-rec
+{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+}
+.p-rec
+{
+  width: 50%;
+  margin-top: 13px;
+}

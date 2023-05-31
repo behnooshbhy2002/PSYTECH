@@ -58,6 +58,22 @@ export const userRegisterDrReduser = (state = {}, action) => {
   }
 };
 
+export const userProfileDrReduser = (state = {user:{}}, action) => {
+  switch (action.type) {
+    case USER_PROFILE_DR_REQUEST:
+      return {...state, loadingDr: true };
+
+    case USER_PROFILE_DR_SUCCESS:
+      return { loadingDr: false, user: action.payload };
+
+    case USER_PROFILE_DR_FAIL:
+      return { loadingDr: false, errorDr: action.payload };
+
+    default:
+      return state;
+  }
+};
+
 export const userRegisterPatientReduser = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_PATIENT_REQUEST:
