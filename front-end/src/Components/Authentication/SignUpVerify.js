@@ -4,14 +4,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { verify } from "../../actions/userActions";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 function SignUpVerify() {
   const [verifyCode, setverifyCode] = useState("");
   const dispatch = useDispatch();
 
-  const userSignUpVerify = useSelector((state) => state.userSignUpVerify);
-
-  const { error, loading, result } = userSignUpVerify;
 
   const email = localStorage.getItem("verifyEmail");
   const handleSubmmit = (e) => {
@@ -22,6 +20,14 @@ function SignUpVerify() {
     console.log(x)
     dispatch(verify(verifyCode, x));
   };
+  
+  const userSignUpVerify = useSelector((state) => state.userSignUpVerify);
+  const { error, loading, result } = userSignUpVerify;
+  const nav = useNavigate();
+  if(result?.data == "valid otp"){
+    nav("/", { replace: true });
+  }
+
 
   const [otp, setOtp] = useState("");
   const [minutes, setMinutes] = useState(0);
@@ -55,7 +61,12 @@ function SignUpVerify() {
     const { data } = axios
       .post("http://127.0.0.1:8000/accounts/resend_otp/", { email:x })
       .then((response) => {
-        console.log(response.data);
+        if(response?.data == "valid otp"){
+          nav("/", { replace: true });
+        }
+        else if(response?.data == "wrong otp"){
+          error = "wrong otp";
+        }
       })
       .catch((error) => {
         console.log(error);

@@ -33,21 +33,35 @@ function DoctorPageDetail() {
   const { error, loading, details } = dr;
   //console.log(error)
 
-  const { psychologist, disease } = details;
-  //console.log(details);
-  //console.log(Object.keys(details));
-  console.log(disease);
-  console.log(psychologist);
+  if(details){
+    const { psychologist, disease } = details;
+    setPsyInfo(psychologist)
+    console.log(details);
+    //console.log(Object.keys(details));
+    console.log(psyInfo);
+    //const x = psyInfo['0'];
+    //console.log(x)
+    console.log(typeof psychologist)
+    //const {khar} = psychologist
+  }
+  
+  
+  //const x = psychologist
+  // console.log(x)
+  // console.log(x.image)
+  
 
-  setPsyInfo(psychologist[0]);
-  setSickness(disease);
+  
 
-  const item = psychologist;
-  console.log(item[0].full_name);
+  // setPsyInfo(psychologist[0]);
+  // setSickness(disease);
+
+  // const item = psychologist;
+  // console.log(item[0].full_name);
 
   return (
     <>
-      {psyInfo.slice(0, 2).map((item) => {
+      {/* {psyInfo.slice(0, 2).map((item) => {
         return (
           <>
             <div className="detail-doctor-top-page">
@@ -151,7 +165,7 @@ function DoctorPageDetail() {
             </div>
           </>
         );
-      })}
+      })} */}
     </>
   );
 }

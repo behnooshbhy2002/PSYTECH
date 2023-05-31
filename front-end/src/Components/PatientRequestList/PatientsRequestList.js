@@ -2,17 +2,30 @@ import React, { Component } from "react";
 import PatientRequestCard from "./PatientRequestCard";
 import { useState, useEffect } from "react";
 import SideBarr from "../SideBarr/SideBarr";
+import axios from "axios";
 function PatientsRequestList() {
   const [drList, setDrList] = useState([]);
-  const [url, setUrl] = useState("http://localhost:3001/list");
 
+  //const [url, setUrl] = useState("http://localhost:3001/list");
+
+
+  const fetchInfo = () => {
+    return axios
+    .get("http://127.0.0.1:8000/appointments/request_list/")
+    .then((response) => {
+      console.log(response.data);
+      //doctor = response.data;
+     setDrList(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => setDrList(json));
-  }, [url]);
+    fetchInfo();
+  } , []);
 
-  const DrArr_lenght = drList.length;
+  const DrArr_lenght = drList?.length;
   console.log(DrArr_lenght);
   const [isShowMore, setIsShowMore] = useState(true);
   const toggleReadMoreLess = () => {
@@ -34,12 +47,14 @@ function PatientsRequestList() {
             <div className="list-div-patient">
               {drList.slice(0, numberOfItems).map((item) => {
                 return (
-                  <PatientRequestCard
+                  <div key={item.id}>
+                    <PatientRequestCard
                     data={{
                       gender: item.gender,
-                      name: item.name,
+                      name: item.full_name,
                     }}
                   />
+                  </div>
                 );
               })}
             </div>

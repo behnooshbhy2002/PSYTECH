@@ -39,7 +39,6 @@ export default function Home() {
         <ServiceSlide></ServiceSlide>
         <DoctorSlider></DoctorSlider>
       </div>
-      <div>{psy[0].name}</div>
     </>
   );
 }
