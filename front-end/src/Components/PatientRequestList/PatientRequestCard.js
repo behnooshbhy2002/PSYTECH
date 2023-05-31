@@ -21,6 +21,21 @@ const PatientRequestCard = (props) => {
         console.log(error);
       });
   };
+  const handleReject = (id) => {
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        pk: id,
+        accept_status: false,
+      })
+      .then((response) => {
+        console.log(response);
+        //setDrList(response.data);
+        //console.log(drList)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="patient-card">
       <span className="patient-details">
@@ -47,7 +62,12 @@ const PatientRequestCard = (props) => {
           پذیرش درخواست{" "}
         </button>
         <br></br>
-        <button className="patient-card-button not-accept">
+        <button
+          className="patient-card-button not-accept"
+          onClick={() => {
+            handleReject(id);
+          }}
+        >
           عدم پذیرش درخواست
         </button>
       </div>
