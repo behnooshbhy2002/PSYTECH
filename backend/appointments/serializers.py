@@ -77,7 +77,7 @@ class PsychologistDetailSerializer(serializers.ModelSerializer):
         fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number", "id")
 
 
-class PatientUpdateInfoSerializer(serializers.ModelSerializer):
+class PsychologistUpdateInfoSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
@@ -109,3 +109,17 @@ class PatientUpdateInfoSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class PsychologistProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Psychologist
+        fields = (
+            'full_name', 'specialist', 'medical_number', 'address', 'phone_number', 'email', 'experience', 'rate',
+            'image')
+
+
+class PatientProfileSerializer(serializers.ModelSerializer):  # todo: fields will change
+    class Meta:
+        model = Patient
+        fields = ('full_name', 'phone_number', 'email', '')
