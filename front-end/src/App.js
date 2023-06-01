@@ -32,21 +32,38 @@ import DoctorList from "./Components/PatientPanel/DoctorList";
 import PPanelDoctorCard from "./Components/PatientPanel/PPanelDoctorCard";
 import PPanelReqList from './Components/PatientPanel/PPanelReqList'
 import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
+import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
+import UserProfile from "./Components/PatientPanel/UserProfile";
 function App() {
   return (
     <>
       <div className="main-div-body">
         <BrowserRouter>
           <NavBarr></NavBarr>
+
           {/* <PPanelReqList></PPanelReqList> */}
           {/* <PatientsRequestList></PatientsRequestList> */}
           {/* <SideBarrPatient></SideBarrPatient> */}
           <Routes>
             <Route path="/MyDoctor" element={<DoctorList></DoctorList>}></Route>
-            <Route path="/PPanelSidebar" element={<SideBarrPatient></SideBarrPatient>}></Route>
-            <Route path="/MyRequestForDoctor" element={<PPanelReqList></PPanelReqList>}></Route>
+            <Route
+              path="/PPanelSidebar"
+              element={<SideBarrPatient></SideBarrPatient>}
+            ></Route>
+            <Route
+              path="/MyRequestForDoctor"
+              element={<PPanelReqList></PPanelReqList>}
+            ></Route>
+            <Route
+              path="/EditMyProfileP"
+              element={<UserEditProfile></UserEditProfile>}
+            ></Route>
+            <Route
+              path="/MyProfileP"
+              element={<UserProfile></UserProfile>}
+            ></Route>
           </Routes>
-          
+
           {/* <SideBarr></SideBarr> */}
           {/* <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -69,8 +86,8 @@ function App() {
               path="/sideBar"
               element={
                 <ProSidebarProvider> */}
-                  {/* <DoctorPanel></DoctorPanel> */}
-                  {/* <SideBarr></SideBarr>
+          {/* <DoctorPanel></DoctorPanel> */}
+          {/* <SideBarr></SideBarr>
                 </ProSidebarProvider>
               }
             ></Route>

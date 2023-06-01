@@ -48,7 +48,7 @@ function SideBarrPatient() {
           </MenuItem>
           <MenuItem
             title=" پروفایل من"
-            component={<NavLink to="/MyProfile" className="link" />}
+            component={<NavLink to="/MyProfileP" className="link" />}
             icon={<AccountCircleRoundedIcon />}
             className="sidebar-item"
           >
@@ -75,7 +75,7 @@ function SideBarrPatient() {
           </MenuItem>
           <MenuItem
             title="ویرایش پروفایل"
-            component={<NavLink to="/EditMyProfile" />}
+            component={<NavLink to="/EditMyProfileP" />}
             icon={<DriveFileRenameOutlineRoundedIcon />}
             className="sidebar-item"
           >
