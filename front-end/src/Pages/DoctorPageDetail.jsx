@@ -48,7 +48,7 @@ function DoctorPageDetail() {
         name = psychologist[0].full_name
         address = psychologist[0].address
         exprience = psychologist[0].exprience
-        //rate = psychologist[0].
+        rate = psychologist[0].rate
         medical = psychologist[0].medical_number
         phone = psychologist[0].phone_number
         //console.log(image , name)
