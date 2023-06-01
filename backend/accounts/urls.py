@@ -18,6 +18,7 @@ urlpatterns = [
     path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
     path('active_psychologist/', views.ActivePsychologist.as_view(), name='active_psychologist'),
     path('resend_otp/', views.ResendOTP.as_view(), name='resend_otp'),
+    path('top_psychologist/', views.TopPsychologistView.as_view(), name='resend_otp'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
