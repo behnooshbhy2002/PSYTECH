@@ -31,11 +31,15 @@ const NavBarr = () => {
         <NavLink to="/SignUp">
           <button id="signup">ثبت نام</button>
         </NavLink>
-        {userInfo ? (
-          <NavLink to="/profile">
-            <button id="login">پروفایل</button>
+        {userInfo?.role=="patient" ? (
+          <NavLink to="/PatientProfile">
+            <button id="login"> پروفایل </button>
           </NavLink>
-        ) : (
+        ) : userInfo?.role=="psychologist" ? (
+          <NavLink to="/sideBar">
+            <button id="login"> پروفایل دکتر </button>
+          </NavLink>
+        ): (
           <NavLink to="/Login">
             <button id="login">ورود</button>
           </NavLink>

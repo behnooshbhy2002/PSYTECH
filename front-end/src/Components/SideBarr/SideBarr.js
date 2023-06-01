@@ -19,6 +19,9 @@ import PatientList from "../PatientList/PatientsList";
 import Sign from "../Authentication/SignUp";
 import Home from "../../Pages/Home";
 import PatientsRequestList from "../../Components/PatientRequestList/PatientsRequestList";
+import { logout } from "../../actions/userActions";
+import { useDispatch , useSelector } from "react-redux";
+
 function SideBarr() {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
@@ -44,6 +47,23 @@ function SideBarr() {
   //   }
   //   setHamber(!hamber);
   // }
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const id = userInfo?.id
+  // const addQuery = (key, value, url) => {
+  //   let searchParams = new URLSearchParams(url.search);
+  //   searchParams.set(key, value);
+  //   url({
+  //     pathname: url,
+  //     search: searchParams.toString(),
+  //   });
+  // };
+  // addQuery("id", id, history);
+  const handleLogOut = () =>{
+    dispatch(logout())
+  }
   return (
     <div
       className="div-sidebar-cont"
@@ -99,7 +119,7 @@ function SideBarr() {
           </MenuItem>
           <MenuItem
             title="درخواست های من"
-            component={<NavLink to="/MyPatientRequestList" className="link" />}
+            component={<NavLink to="/MyPatientRequestList/" className="link" />}
             icon={<NotificationsRoundedIcon />}
             className="sidebar-item"
           >
@@ -119,9 +139,10 @@ function SideBarr() {
             component={<NavLink to="/" className="link" />}
             icon={<LogoutRoundedIcon />}
             className="sidebar-item"
+            onClick={handleLogOut}
           >
             {" "}
-            <div id="logout-sidebar">خروج </div>
+            <div id="logout-sidebar" >خروج </div>
           </MenuItem>
         </Menu>
       </Sidebar>

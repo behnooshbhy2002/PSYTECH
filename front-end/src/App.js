@@ -24,6 +24,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";	
 import "primereact/resources/primereact.min.css";	
 import DRProfile from "./Pages/DRProfile";
+import PatientProfile from "./Pages/PatientProfile";
 function App() {
   return (
     <>
@@ -63,6 +64,7 @@ function App() {
             />
             <Route path="/EditMyProfile" element={<DrEditProfile />} />	
             <Route path="/Home" element={<Home />} />
+            <Route path="/PatientProfile" element={<PatientProfile/>}></Route>
           </Routes>
           <Footer></Footer>
         </BrowserRouter>

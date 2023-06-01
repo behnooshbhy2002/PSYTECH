@@ -24,11 +24,11 @@ function Login({ location }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
-  const history = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
     if (userInfo) {
-      //history.push("/profile");
+      nav(`/Profile/${userInfo?.id}`, { replace: true });
     }
   }, [history, userInfo, redirect]);
 
