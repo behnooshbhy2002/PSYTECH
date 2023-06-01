@@ -16,12 +16,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Rating from "../Components/Rating";
+import Toast from "../Components/Error&Loading/toast";
 import { enable } from "debug";
 function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState({});
   const [sickness, setSickness] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
-  const [anable , setEnable] = useState(true)
+  const [anable, setEnable] = useState(true);
 
   const dispatch = useDispatch();
   const loc = useLocation();
@@ -48,7 +49,7 @@ function DoctorPageDetail() {
       name = psychologist[0].full_name;
       address = psychologist[0].address;
       exprience = psychologist[0].exprience;
-      rate = psychologist[0].rate
+      rate = psychologist[0].rate;
       medical = psychologist[0].medical_number;
       phone = psychologist[0].phone_number;
       id = psychologist[0].id;
@@ -71,46 +72,59 @@ function DoctorPageDetail() {
   };
 
   function addItem(add_item) {
+    if (add_item) {
+      // parse existing storage key or string representation of empty array
+      var existingEntries = JSON.parse(
+        localStorage.getItem("list_items") || "[]"
+      );
 
-    // parse existing storage key or string representation of empty array
-    var existingEntries = JSON.parse(localStorage.getItem("list_items") || '[]');
-  
-    // Add item if it's not already in the array, then store array again
-    if (!existingEntries.includes(add_item)) {
-      existingEntries.push(add_item);
-      localStorage.setItem("list_items", JSON.stringify(existingEntries));
-    }else{
-       // or tell user it's already there
-       console.log(add_item + ' already exists')
+      // Add item if it's not already in the array, then store array again
+      if (!existingEntries.includes(add_item)) {
+        existingEntries.push(add_item);
+        localStorage.setItem("list_items", JSON.stringify(existingEntries));
+      } else {
+        // or tell user it's already there
+        console.log(add_item + " already exists");
+      }
     }
   }
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const handleRequest = (pk_dr) => {
-    console.log(userInfo?.id , pk_dr)
+    console.log(userInfo?.id, pk_dr);
     dispatch(SendRequest(userInfo?.id, pk_dr));
   };
 
   const requestStatus = useSelector((state) => state.sendRequest);
   const { reqResult } = requestStatus;
   console.log(reqResult?.data);
-  addItem(reqResult?.data)
+  addItem(reqResult?.data);
 
-  let en=true;
-  useEffect( () => {
-    let l = JSON.parse(localStorage.getItem("list_items"))
-    console.log(Array.isArray(l))
-    l.map((item) => {
-      console.log(item)
-      if(item==id){
-        console.log(item)
-        en = false
-        setEnable(false)
-      }
-    })
-  })
-  
+  if (reqResult?.msg == "successfuly") {
+    return (
+      <>
+        <Toast
+          userFull={name}
+          messageType={true}
+          buttonclicked={buttonclicked}
+        ></Toast>
+      </>
+    );
+  }
+
+  let en = true;
+
+  let l = JSON.parse(localStorage.getItem("list_items"));
+  console.log(Array.isArray(l));
+  l.map((item) => {
+    console.log(item);
+    if (item == id) {
+      console.log(item);
+      en = false;
+      setEnable(false);
+    }
+  });
 
   //rating
   const [stars, setStars] = useState(5);
@@ -233,22 +247,22 @@ function DoctorPageDetail() {
               در صورتی که توسط دکتر ویزیت شده اید و تمایل به دریافت نسخه خود
               دارید، نخست باید برای پزشک مورد نظر خود درخواست ثبت کنید.
             </p>
-            { en ? (<button
-              className="detail-doctor-req-button"
-              
-              onClick={() => {
-                console.log(id)
-                handleRequest(id);
-                handleClose();
-              }}
-            >
-              ثبت درخواست برای {name}
-            </button>) : <button
-              className="detail-doctor-req-button-disable"
-            >
-              ثبت درخواست برای {name} انجام شده است
-            </button>}
-            
+            {en ? (
+              <button
+                className="detail-doctor-req-button"
+                onClick={() => {
+                  console.log(id);
+                  handleRequest(id);
+                  handleClose();
+                }}
+              >
+                ثبت درخواست برای {name}
+              </button>
+            ) : (
+              <button className="detail-doctor-req-button-disable">
+                ثبت درخواست برای {name} انجام شده است
+              </button>
+            )}
           </div>
 
           <div
@@ -298,8 +312,8 @@ function DoctorPageDetail() {
                             handleSetHovered(rated);
                           }}
                           onClick={() => {
-                            handleSetRated(i+1);
-                            console.log(i+1)
+                            handleSetRated(i + 1);
+                            console.log(i + 1);
                           }}
                           className={i <= hoverd ? "hovered" : ""}
                         >
@@ -314,10 +328,10 @@ function DoctorPageDetail() {
               <DialogActions>
                 <Button onClick={handleClose}>Disagree</Button>
                 <Button
-                 onClick={() => {
-                  console.log(rated)
-                  handleSubmitRate(rated);
-                }}
+                  onClick={() => {
+                    console.log(rated);
+                    handleSubmitRate(rated);
+                  }}
                   autoFocus
                 >
                   Agree
