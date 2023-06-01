@@ -8,6 +8,7 @@ import axios from "axios";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { DrDetails } from "../actions/doctorActions";
+import { SendRequest } from "../actions/requestActions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -37,6 +38,7 @@ function DoctorPageDetail() {
 
   const dr = useSelector((state) => state.drDetails);
   const { error, loading, details } = dr;
+
   //console.log(error)
   let image, name, address, exprience, rate, id, medical, phone;
   let diseaseArr = [];
@@ -56,6 +58,7 @@ function DoctorPageDetail() {
       //rate = psychologist[0].
       medical = psychologist[0].medical_number;
       phone = psychologist[0].phone_number;
+      id = psychologist[0].id;
       //console.log(image , name)
     }
     if (Array.isArray(disease)) {
@@ -73,6 +76,48 @@ function DoctorPageDetail() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const handleRequest = (pk_dr) => {
+    dispatch(SendRequest(userInfo?.id, pk_dr));
+  };
+
+  const requestStatus = useSelector((state) => state.sendRequest);
+  const { reqResult } = requestStatus;
+  console.log(reqResult);
+
+  //rating
+  const [stars, setStars] = useState(5);
+  const [hoverd, setHovered] = useState(-1);
+  const [rated, setRated] = useState(-1);
+
+  const handleSetRated = (value) => {
+    setRated(value);
+  };
+  const handleSetHovered = (value) => {
+    setHovered(value);
+  };
+
+  const handleReset = () => {
+    setRated(-1);
+    setHovered(-1);
+  };
+
+  const handleSubmitRate = (value) => {
+    const { data } = axios
+      .post("", {
+        pk: id,
+        rate: value,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   //console.log(Object.keys(details));
   // console.log(psyInfo);
   //const x = psyInfo['0'];
@@ -96,7 +141,7 @@ function DoctorPageDetail() {
   // console.log(item[0].full_name);
 
   return (
-    <>
+    <div key={id}>
       <div className="detail-doctor-top-page">
         <div className="main-datail-doctor ">
           <img
@@ -162,7 +207,12 @@ function DoctorPageDetail() {
               در صورتی که توسط دکتر ویزیت شده اید و تمایل به دریافت نسخه خود
               دارید، نخست باید برای پزشک مورد نظر خود درخواست ثبت کنید.
             </p>
-            <button className="detail-doctor-req-button">
+            <button
+              className="detail-doctor-req-button"
+              onClick={() => {
+                handleRequest(rated);
+              }}
+            >
               ثبت درخواست برای {name}
             </button>
           </div>
@@ -203,12 +253,39 @@ function DoctorPageDetail() {
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                  <Rating totalStar={5} />
+                  <div className="star-container">
+                    <div>
+                      {[...Array(stars)].map((each, i) => (
+                        <span
+                          key={i}
+                          onMouseOver={() => {
+                            handleSetHovered(i);
+                          }}
+                          onMouseOut={() => {
+                            handleSetHovered(rated);
+                          }}
+                          onClick={() => {
+                            handleSetRated(i);
+                          }}
+                          className={i <= hoverd ? "hovered" : ""}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                    <button onClick={() => handleReset()}>Reset Rating</button>
+                  </div>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose} autoFocus>
+                <Button
+                  onClick={() => {
+                    handleClose();
+                    handleSubmitRate();
+                  }}
+                  autoFocus
+                >
                   Agree
                 </Button>
               </DialogActions>
@@ -216,7 +293,7 @@ function DoctorPageDetail() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
