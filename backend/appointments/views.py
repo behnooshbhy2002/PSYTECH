@@ -9,20 +9,22 @@ from accounts.models import Psychologist, Patient
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request, MedicalRecord
 from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
-    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer
+    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
+    PostRequestSerializer
 
 
 class RequestListView(APIView):
 
     def get(self, request):
         id_dr = request.query_params.get('id')
+
         psychologist = Psychologist.objects.get(id=id_dr)
-        requests_lists = Request.objects.filter(receiver=psychologist)
+        requests_lists = Request.objects.filter(receiver=psychologist, accept_status=False)
         request_serializer = RequestSerializer(requests_lists, many=True)
         return Response(request_serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = GetMedicalRecordSerializer(data=request.data)
+        serializer = PostRequestSerializer(data=request.data)
         if serializer.is_valid():
             accept_status = serializer.data.get('accept_status')
             pk = serializer.data.get('pk')
@@ -80,8 +82,10 @@ class ShowPsychologistDetailView(APIView):
         diseases_lists = psychologist.diseases.all()
         ser_disease = DiseaseSerializer(diseases_lists, many=True)
         ser_psychologist = PsychologistDetailSerializer(psychologist)
-        print({'psychologist': ser_psychologist.data, 'disease': ser_disease.data})
-        return Response({'psychologist': ser_psychologist.data, 'disease': ser_disease.data}, status=status.HTTP_200_OK)
+        psychologist_data = list()
+        psychologist_data.append(ser_psychologist.data)
+        print(psychologist_data)
+        return Response({'psychologist': psychologist_data, 'disease': ser_disease.data}, status=status.HTTP_200_OK)
 
 
 class PsychologistProfile(APIView):

@@ -19,6 +19,8 @@ class SenderSerializer(serializers.ModelSerializer):
 
 class RequestSerializer(serializers.ModelSerializer):
     sender_name = serializers.SerializerMethodField()
+    sender_gender = serializers.SerializerMethodField()
+    sender_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Request
@@ -26,6 +28,12 @@ class RequestSerializer(serializers.ModelSerializer):
 
     def get_sender_name(self, obj):
         return obj.sender.full_name
+
+    def get_sender_gender(self, obj):
+        return obj.sender.gender
+
+    def get_sender_id(self, obj):
+        return obj.sender.id
 
 
 class PostRequestSerializer(serializers.ModelSerializer):
@@ -66,6 +74,14 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
 
 
 class DiseaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disease
+        fields = "__all__"
+
+
+class DiseaseList(serializers.ModelSerializer):
+    list = serializers.ListField(child=DiseaseSerializer())
+
     class Meta:
         model = Disease
         fields = "__all__"

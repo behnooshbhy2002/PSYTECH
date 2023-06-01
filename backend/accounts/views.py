@@ -13,7 +13,7 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
-    ActivePsychologistSerializer, DiseaseListSerializer, IsActivePsychologist
+    ActivePsychologistSerializer, DiseaseListSerializer, IsActivePsychologist, TopPsychologistsSerializer
 from .serializers import PatientRegisterSerializer, PsychologistRegistrationSerializer, UserLoginSerializer, \
     VerifyAccountSerializer, EmailSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -237,5 +237,10 @@ class ResendOTP(APIView):
             print(e)
 
 
+class TopPsychologistView(APIView):
+    def get(self, request):
+        psychologists = Psychologist.objects.all()[:6]
+        serializer_psy = TopPsychologistsSerializer(psychologists, many=True)
+        return Response(serializer_psy.data, status=status.HTTP_200_OK)
 class ShowTopPsychologist(APIView):
     pass
