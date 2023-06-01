@@ -260,7 +260,7 @@ function Sign({ location, history }) {
                   class="signUp-btn"
                   onClick={handlesubmmitPatient}
                 >
-                  ثبت اطلاعات بیمار
+                  ثبت اطلاعات کاربر
                 </button>
               )}
               <div className="login_link">

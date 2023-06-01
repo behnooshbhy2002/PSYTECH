@@ -156,10 +156,10 @@ form .txt_field {
 }
 /* .countdown-text {
 } */
-*:focus {
+/* *:focus {
   color: #495057;
   background-color: #fff;
   border-color: #80bdff;
   outline: 0;
   box-shadow: none !important;
-}
+} */
