@@ -17,15 +17,16 @@ function DoctorList() {
   }, [url]);
     
   const DrArr_lenght = drList.length;
-  console.log(DrArr_lenght);
   const [isShowMore, setIsShowMore] = useState(true);
   const toggleReadMoreLess = () => {
-    setIsShowMore(!isShowMore);
+    setIsShowMore(false);
   };
 
-  const numberOfItems = !isShowMore ? drList.length : 10;
-  numberOfItems < 10 && setIsShowMore(!isShowMore);
-
+  let numberOfItems;
+  if (drList) {
+    const DrArr_lenght = drList.length;
+    numberOfItems = !isShowMore ? DrArr_lenght : 10;
+  }
     return (
          <>
       <div className="Kharrr">
@@ -49,9 +50,9 @@ function DoctorList() {
             </div>
           </div>
           <div>
-            {isShowMore && (
+            {isShowMore && drList.length > 10 && (
               <button onClick={toggleReadMoreLess} className="showAllDrBtn">
-                <span className="showAllDrBtn__show_all">
+                <span className="showAllDrBtn__show_all_text">
                   {isShowMore && "بیشتر"}
                 </span>
               </button>
