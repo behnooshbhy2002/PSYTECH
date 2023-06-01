@@ -1,0 +1,58 @@
+.form-history {
+  border: 2px solid rgba(126, 78, 246, 0.7);
+  border-radius: 20px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20%;
+  padding:20px;
+  align-items: right;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+#date-caseInput{
+    margin-top: 40px;
+    width:45%;
+    height: 25px;
+}
+
+#subject-caseInput{
+    width: 35%;
+    height: 25px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+#description-caseInput{
+    width:98%;
+    height: 400px;
+    margin-top: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+#submit-btn-caseInput{
+   background-color: rgb(95, 43, 226);
+   font-size: 16px;
+   color: white;
+   border-radius: 15px;
+   border-width: 0.5px;
+   width: 200px;
+   height: 25px;
+   margin-top: 15px;
+}
+
+#cross-input-status{
+    font-size: 25px;
+    float: right;
+    border-radius: 15px;
+    background-color: rgb(125, 39, 255);
+    color: white;
+}
+
+
+

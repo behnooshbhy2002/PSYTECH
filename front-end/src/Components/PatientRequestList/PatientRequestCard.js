@@ -7,17 +7,35 @@ const PatientRequestCard = (props) => {
   let { id, gender, name } = props.data;
   //console.log(props);
   const handleAccept = (id) => {
-    const {data} = axios
-    .post(`http://127.0.0.1:8000/appointments/request_list/` , { pk:id , accept_status:true })
-    .then((response) => {
-      console.log(response);
-     setDrList(response.data);
-     console.log(drList)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        pk: id,
+        accept_status: true,
+      })
+      .then((response) => {
+        console.log(response);
+        //setDrList(response.data);
+        //console.log(drList)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleReject = (id) => {
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        pk: id,
+        accept_status: false,
+      })
+      .then((response) => {
+        console.log(response);
+        //setDrList(response.data);
+        //console.log(drList)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="patient-card">
       <span className="patient-details">
@@ -35,11 +53,21 @@ const PatientRequestCard = (props) => {
         </div>
       </span>
       <div className="patient-list-buttons">
-        <button className="patient-card-button" onClick={() => {
-          handleAccept(id)
-        }} >پذیرش درخواست </button>
+        <button
+          className="patient-card-button"
+          onClick={() => {
+            handleAccept(id);
+          }}
+        >
+          پذیرش درخواست{" "}
+        </button>
         <br></br>
-        <button className="patient-card-button not-accept">
+        <button
+          className="patient-card-button not-accept"
+          onClick={() => {
+            handleReject(id);
+          }}
+        >
           عدم پذیرش درخواست
         </button>
       </div>
