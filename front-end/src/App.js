@@ -34,6 +34,8 @@ import PPanelReqList from './Components/PatientPanel/PPanelReqList'
 import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
 import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
 import UserProfile from "./Components/PatientPanel/UserProfile";
+import Rulse from "./Components/MainPage/Rules";
+import AboutUs from "./Components/MainPage/AboutUs";
 function App() {
   return (
     <>
@@ -46,6 +48,8 @@ function App() {
           {/* <SideBarrPatient></SideBarrPatient> */}
           <Routes>
             <Route path="/MyDoctor" element={<DoctorList></DoctorList>}></Route>
+            <Route path="/AboutUs" element={<AboutUs></AboutUs>}></Route>
+            <Route path="/Rules" element={<Rulse></Rulse>}></Route>
             <Route
               path="/PPanelSidebar"
               element={<SideBarrPatient></SideBarrPatient>}
