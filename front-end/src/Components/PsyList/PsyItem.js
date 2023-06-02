@@ -12,9 +12,9 @@ const PsyItem = () => {
   const nav = useNavigate();
 
   const handleDetailButton = (id) => {
-       console.log(id);
-       //history(`/PsycologistProfile`);
-       addQuery("id", id, history);
+    console.log(id);
+    //history(`/PsycologistProfile`);
+    addQuery("id", id, history);
   };
 
   const history = useNavigate();
@@ -39,7 +39,7 @@ const PsyItem = () => {
 
   // const handleKeyDown = (event) => {
   //   if (event.key === "Enter") {
-      
+
   //   }
   // };
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const PsyItem = () => {
 
   const dr = useSelector((state) => state.doctorList);
   const { error, loading, doctors } = dr;
-   console.log(doctors);
+  console.log(doctors);
 
   // const [drList, setDrList] = useState([]);
   // const [url, setUrl] = useState("http://localhost:3001/list");
@@ -90,6 +90,10 @@ const PsyItem = () => {
             Hiii
           </button> */}
         </div>
+      ) : doctors?.length != 0 ? (
+        <Message variant="info">
+          {"روانشناس با اطلاعات خواسته‌شده یافت نشد"}
+        </Message>
       ) : (
         <div>
           {doctors.slice(0, numberOfItems).map((item) => {
@@ -99,7 +103,7 @@ const PsyItem = () => {
                   <a
                     className="grid-item-content p-2"
                     onClick={() => {
-                      console.log(item.id)
+                      console.log(item.id);
                       setItemID(item.id);
                       handleDetailButton(item.id);
                     }}

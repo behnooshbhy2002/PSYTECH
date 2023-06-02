@@ -30,7 +30,7 @@ export default function AlertDialog() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"میزان رضایت خود را مشخص کنید"}
+          <h4>{"میزان رضایت خود را مشخص کنید"}</h4>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -38,9 +38,11 @@ export default function AlertDialog() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>
+            <p>تایید</p>
+          </Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            <p>بستن</p>
           </Button>
         </DialogActions>
       </Dialog>
