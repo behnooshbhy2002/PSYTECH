@@ -30,7 +30,7 @@ export const drListReducers = (state = { doctors: [] }, action) => {
   }
 };
 
-export const drDetailsReducers = (state = { details:[] }, action) => {
+export const drDetailsReducers = (state = { details: [] }, action) => {
   switch (action.type) {
     case DOCTOR_DETAILS_REQUEST:
       return { loading: true, details: [] };
@@ -46,38 +46,37 @@ export const drDetailsReducers = (state = { details:[] }, action) => {
   }
 };
 
-export const userProfileDrReduser = (state = {user:{}}, action) => {
+export const userProfileDrReduser = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_PROFILE_DR_REQUEST:
-      return {...state, loadingDr: true };
+      return { ...state, loadingDr: true };
 
     case USER_PROFILE_DR_SUCCESS:
       return { loadingDr: false, user: action.payload };
 
     case USER_PROFILE_DR_FAIL:
       return { loadingDr: false, errorDr: action.payload };
-    
-      case USER_PROFILE_DR_RESET:
-        return {user:{}}
+
+    case USER_PROFILE_DR_RESET:
+      return { user: {} };
     default:
       return state;
   }
 };
 
-
-export const DrEditProfilee = (state = {user:{}}, action) => {
+export const DrEditProfilee = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_EDIT_PROFILE_DR_REQUEST:
       return { loadingDr: true };
 
     case USER_EDIT_PROFILE_DR_SUCCESS:
-      return { loadingDr: false,success:true, user: action.payload };
+      return { loadingDr: false, success: true, user: action.payload };
 
     case USER_EDIT_PROFILE_DR_FAIL:
       return { loadingDr: false, errorDr: action.payload };
-    
+
     case USER_EDIT_PROFILE_DR_RESET:
-      return {}
+      return {};
     default:
       return state;
   }

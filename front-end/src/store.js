@@ -8,9 +8,14 @@ import {
   userGetSignUpReduser,
   userSignUpVerifyReduser,
   userSendSignUpReduser,
- 
 } from "./reducers/userReducers";
-import { drListReducers,  drDetailsReducers, userProfileDrReduser,DrEditProfile} from "./reducers/drListReducers";
+import {
+  drListReducers,
+  drDetailsReducers,
+  userProfileDrReduser,
+  DrEditProfile,
+  DrEditProfilee,
+} from "./reducers/drListReducers";
 import { initializeConnect } from "react-redux/es/components/connect";
 
 const reducer = combineReducers({
@@ -21,11 +26,10 @@ const reducer = combineReducers({
   userGetSignUp: userGetSignUpReduser,
   userSignUpVerify: userSignUpVerifyReduser,
   userSendSignUpStatus: userSendSignUpReduser,
-  drDetails :drDetailsReducers,
+  drDetails: drDetailsReducers,
   // userProfile: userProfileDrReduser,
-   userProfile: userProfileDrReduser,
-   drEdit:DrEditProfile,
-   
+  userProfile: userProfileDrReduser,
+  drEdit: DrEditProfilee,
 });
 
 const userInfoFormStorage = localStorage.getItem("userInfo")

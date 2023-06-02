@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import {USER_EDIT_PROFILE_DR_RESET} from "../Components/style/DrEditProfile.css";
+import "../Components/style/DrEditProfile.css";
 import profilepic from "../images/ali-hemati.png";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import SideBarr from "../Components/SideBarr/SideBarr";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 import axios from "axios";
-import SideBarr from "../Components/SideBarr/SideBarr";
 import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
+import { USER_EDIT_PROFILE_DR_RESET } from "../constants/doctorConstants";
 import {
   Form,
   Button,
@@ -19,15 +19,17 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import {getDrProfile, DrEditProfilee } from "../reducers/drListReducers";
+//import { getDrProfile, DrEditProfilee } from "../reducers/drListReducers";
 import { FileUpload } from "primereact";
-import '../constants/doctorConstants';
+import "../constants/doctorConstants";
 import { MultiSelect } from "primereact/multiselect";
-import { Alert } from "bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+//import { Alert } from "bootstrap";
 
 function EditProfile() {
+  const dispatch = useDispatch();
   const [selectedillnesses, setSelectedillnesses] = useState(null);
-  const [uploading,setUploading]=useState("");
+  const [uploading, setUploading] = useState("");
   const illness = [
     { name: "اختلال شخصیت خودشیفته", id: "1" },
     { name: "وسواس", id: "2" },
@@ -51,66 +53,62 @@ function EditProfile() {
     { name: "اختلال شخصیت مرزی", id: "20" },
   ];
 
-  const  specialist =[
-    {name:"کودک",id:"1"},
-    {name:"ازدواج",id:"2"},
-    {name:"تحصیلی",id:"3"},
-    {name:"فردی",id:"4"},
-    {name:"خانواده",id:"5"},
-  ]
+  const specialist = [
+    { name: "کودک", id: "1" },
+    { name: "ازدواج", id: "2" },
+    { name: "تحصیلی", id: "3" },
+    { name: "فردی", id: "4" },
+    { name: "خانواده", id: "5" },
+  ];
 
   const handleClick = (e) => {
     e.preventDefault();
-    if(password != confirmPassword){
-      setIsValid(false)
-    }
-    else{
-      dispatch(DrEditProfilee({
-        'id':user.id,
-        'name':user.full_name,
-        'email':email,
-        'phone':phone,
-        'address':address,
-        'password':password,
-        'specialist':specialist,
-        'experiment':experiment,
-        'score':user.score,
-        
-    }));
+    if (password != confirmPassword) {
+      setIsValid(false);
+    } else {
+      dispatch(
+        DrEditProfilee({
+          id: user.id,
+          name: user.full_name,
+          email: email,
+          phone: phone,
+          address: address,
+          password: password,
+          specialist: specialist,
+          experiment: experiment,
+          score: user.score,
+        })
+      );
     }
   };
 
-
-  const handleUploadImg=async(e)=>{
+  const handleUploadImg = async (e) => {
     console.log("File is Uploading....");
-   const file=e.target.files[0];
-   const formData=new FormData();
-   
-   formData.append('image',file);
-    formData.append('id',user.id);
-   setUploading(true);
+    const file = e.target.files[0];
+    const formData = new FormData();
 
-   try{
+    formData.append("image", file);
+    formData.append("id", user.id);
+    setUploading(true);
 
-   const {data}=await axios.post('./api/images',formData);
-   setImage(data);
-   setUploading(false);
+    try {
+      const { data } = await axios.post("./api/images", formData);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      setUploading(false);
+    }
+  };
 
-   }catch(error){
-     setUploading(false);
-   }
-  }
-
-  
-  const [isValid,setIsValid]=useState(true);
-  const [image,setImage]=useState("");
+  const [isValid, setIsValid] = useState(true);
+  const [image, setImage] = useState("");
   const [education, setEducation] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [sickness, setSickness] = useState([]);
-  const [experiment,setExperiment]=useState("");
+  const [experiment, setExperiment] = useState("");
 
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
@@ -163,8 +161,6 @@ function EditProfile() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-    
-
   const drEdit = useSelector((state) => state.drEdit);
   const { success } = drEdit;
 
@@ -176,8 +172,8 @@ function EditProfile() {
       if (!user || !user.full_name || success) {
         const id = userInfo?.id;
         const par = `?id=${id}`;
-        
-        dispatch({type:USER_EDIT_PROFILE_DR_RESET})
+
+        dispatch({ type: USER_EDIT_PROFILE_DR_RESET });
         dispatch(getDrProfile(par, userInfo));
       } else {
         setImage(user.image);
@@ -192,14 +188,15 @@ function EditProfile() {
         //selectedillnesses(user.disease);
       }
     }
-  }, [dispatch, userInfo, user,success]);
+  }, [dispatch, userInfo, user, success]);
 
   return (
     <>
-    {isValid 
-      ? <Alert variant="success">Hurray! You're a genius.</Alert>
-      : <Alert variant="danger">Oops! Try again</Alert>
-}
+      {isValid ? (
+        <Alert variant="success">Hurray! You're a genius.</Alert>
+      ) : (
+        <Alert variant="danger">Oops! Try again</Alert>
+      )}
       <div className="Kharrr">
         <SideBarr></SideBarr>
         <div className="Kharrrchild">
@@ -227,7 +224,9 @@ function EditProfile() {
                     className="input-edit"
                     type="text"
                     placeholder="تخصص"
-                    onChange={(e)=>{setEducation(e.target.value)}}
+                    onChange={(e) => {
+                      setEducation(e.target.value);
+                    }}
                   />
                 </Col>
               </Row>
@@ -242,18 +241,20 @@ function EditProfile() {
                     type="password"
                     placeholder="رمز عبور"
                     value={password}
-                     onChange={(e) => setPassword(e.value)}
+                    onChange={(e) => setPassword(e.value)}
                   />
                 </Col>
                 <Col>
-                  <Form.Label htmlFor="inputPassword5">رمز جدید تکرار:</Form.Label>
+                  <Form.Label htmlFor="inputPassword5">
+                    رمز جدید تکرار:
+                  </Form.Label>
                 </Col>
                 <Col>
                   <input
                     className="input-edit"
                     type="password"
                     placeholder="رمز عبور تکرار"
-                     onChange={(e) => setConfirmPassword(e.value)}
+                    onChange={(e) => setConfirmPassword(e.value)}
                   />
                 </Col>
               </Row>
@@ -274,8 +275,8 @@ function EditProfile() {
                   as="textarea"
                   placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
                   value={address}
-                   onChange={(e) => setAddress(e.value)}
-               />
+                  onChange={(e) => setAddress(e.value)}
+                />
               </FormGroup>
               <br></br>
               <hr></hr>
@@ -289,7 +290,7 @@ function EditProfile() {
                     type="text"
                     placeholder="03122222"
                     value={phone}
-                     onChange={(e) => setPhone(e.value)}
+                    onChange={(e) => setPhone(e.value)}
                   />
                 </Col>
               </Row>
@@ -304,7 +305,7 @@ function EditProfile() {
                     type="text"
                     placeholder="10 سال"
                     value={experiment}
-                     onChange={(e) => setExperiment(e.value)}
+                    onChange={(e) => setExperiment(e.value)}
                   />
                 </Col>
               </Row>
@@ -321,7 +322,6 @@ function EditProfile() {
                   placeholder="انتخاب کنید.."
                   maxSelectedLabels={10}
                   className="w-full md:w-20rem"
-                  
                 />
               </FormGroup>
               <Button id="Edit-btn" type="submit" onClick={handleClick}>
