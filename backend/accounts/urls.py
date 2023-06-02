@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from rest_framework.authtoken import views as auth_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'accounts'
 urlpatterns = [
@@ -14,10 +16,11 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('psychologists_list/', views.PsychologistListView.as_view(), name='psychologists_list'),
-    path('search_psychologist/', views.PsychologistFilterView.as_view(), name='search_psychologist'),
-    path('filter_psychologist/', views.PsychologistsListDisease.as_view(), name='filter_psychologist'),
     path('active_psychologist/', views.ActivePsychologist.as_view(), name='active_psychologist'),
+    path('resend_otp/', views.ResendOTP.as_view(), name='resend_otp'),
+    path('top_psychologist/', views.TopPsychologistView.as_view(), name='resend_otp'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # for email=fasa.pub@gmail.com, password=123
 # "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY4MzYyODU4MSwiaWF0IjoxNjgzNTQyMTgxLCJqdGkiOiIzZjhmMjg5OWRkYTY0YmY5ODg1NWVjNGE2MGJiY2EzYyIsInVzZXJfaWQiOjJ9.xyqDWJd9ijKGtAb7TB5HStXCtuzDIAQ7one-UukQXf4",

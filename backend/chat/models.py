@@ -1,9 +1,9 @@
 from django.db import models
-from accounts.models import User, Psychologist
+from accounts.models import Patient, Psychologist
 
 
 class Chat(models.Model):
-    patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_user')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='sender_user')
     doctor = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='receiver_user')
     created = models.DateTimeField(auto_now=True, blank=True)
     # is_read = models.BooleanField()

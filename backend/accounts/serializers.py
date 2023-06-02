@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from accounts.models import User, Psychologist, Disease
+from accounts.models import Psychologist, Disease, Patient
 from django.contrib.auth import authenticate
 
 
 def clean_email(email):
-    user = User.objects.filter(email=email).exists()
-    if user:
+    patient = Patient.objects.filter(email=email).exists()
+    if patient:
         raise ValidationError('email already exists')
     return email
 
@@ -21,7 +21,7 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
     # confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = User
+        model = Patient
         fields = ('full_name', 'phone_number', 'email', 'gender', 'password',)
         extra_keywords = {
             'password': {'write_only': True},
@@ -30,7 +30,7 @@ class PatientRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validate_data):
         # del validate_data['confirm_password']
-        return User.objects.create_user(**validate_data)
+        return Patient.objects.create_user(**validate_data)
 
 
 class PsychologistRegistrationSerializer(serializers.ModelSerializer):
@@ -60,6 +60,10 @@ class VerifyAccountSerializer(serializers.Serializer):
     otp = serializers.CharField()
 
 
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
 class PsychologistListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
@@ -75,7 +79,7 @@ class DiseaseListSerializer(serializers.ModelSerializer):
 class ActivePsychologistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
-        fields = ("full_name", "medical_number", "id",)
+        fields = ("full_name", "medical_number", "id", "rate")
 
 
 class IsActivePsychologist(serializers.ModelSerializer):
@@ -84,3 +88,13 @@ class IsActivePsychologist(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
         fields = ("is_active", "pk")
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    pass
+
+
+class TopPsychologistsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Psychologist
+        fields = ("full_name", "rate", "id", "image", "specialist")

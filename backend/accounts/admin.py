@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Psychologist, Disease
+from .models import User, Psychologist, Disease, Patient
 
 
 @admin.register(User)
@@ -13,7 +13,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Psychologist)
 class PsychologistAdmin(admin.ModelAdmin):
-    list_display = ("medical_number", "full_name", "phone_number", "gender")
+    list_display = ("medical_number", "full_name", "phone_number", "gender","id")
     list_filter = ("last_login",)
     search_fields = ("medical_number", "email", "full_name")
     ordering = ("full_name",)
@@ -24,3 +24,11 @@ class PsychologistAdmin(admin.ModelAdmin):
     list_display = ("title",)
     search_fields = ("title",)
     ordering = ("id",)
+
+
+@admin.register(Patient)
+class PatientAdmin(admin.ModelAdmin):
+    list_display = ("email", "full_name", "phone_number", "gender", "id")
+    list_filter = ("last_login",)
+    search_fields = ("email", "full_name")
+    ordering = ("full_name",)

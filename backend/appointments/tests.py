@@ -7,7 +7,7 @@ from appointments.models import Request
 User = get_user_model()
 
 
-class TestAuth(TestCase):
+class TestAppointments(TestCase):
 
     def setUp(self):
         self.email = "test@doomain.com"
