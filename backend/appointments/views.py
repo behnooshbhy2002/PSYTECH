@@ -12,7 +12,8 @@ from appointments.models import Request, Session, MedicalRecorder
 from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
     PostRequestSerializer, PsychologistUpdateInfoSerializer, \
-    PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer, DoctorSerializer
+    PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer, DoctorSerializer, \
+    SessionSerializer
 
 # MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
 from appointments.serializers import RequestSerializer, PatientSerializer, \
@@ -227,3 +228,11 @@ class DoctorListView(APIView):
         doctor_list = patient.psychologist_patient.all()
         doctor_serializer = DoctorSerializer(doctor_list, many=True)
         return Response(doctor_serializer.data, status=status.HTTP_200_OK)
+
+
+class SessionView(APIView):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        session_serialized = SessionSerializer(request.data)
