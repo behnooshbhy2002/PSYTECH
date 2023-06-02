@@ -4,9 +4,9 @@ import women from '../../images/woman.png'
 import men from '../../images/men.png'
 // import 
 const PatientCard = (props) => {
-  let{name , gender}=props.data;
+  let{name , gender , id}=props.data;
   return (
-    <div className="patient-card">
+    <div className="patient-card" key={id}>
       <span className='patient-details'>
       <div >
         <img src={gender=='2' ? women : men} alt="women" height="110" width="110" className='patient-card-img'/>
