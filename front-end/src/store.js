@@ -8,9 +8,9 @@ import {
   userGetSignUpReduser,
   userSignUpVerifyReduser,
   userSendSignUpReduser,
-  userProfileDrReduser,
+ 
 } from "./reducers/userReducers";
-import { drListReducers,  drDetailsReducers} from "./reducers/drListReducers";
+import { drListReducers,  drDetailsReducers, userProfileDrReduser} from "./reducers/drListReducers";
 import { initializeConnect } from "react-redux/es/components/connect";
 
 const reducer = combineReducers({
