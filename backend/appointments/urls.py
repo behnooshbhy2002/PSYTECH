@@ -9,4 +9,5 @@ urlpatterns = [
     path('send_requset/', views.RequestView.as_view(), name='send_request'),
     path('rating/', views.RatingView.as_view(), name='rating'),
     path('medical_recorder/', views.MedicalRecordView.as_view(), name='medical_recorder'),
+    path('patient_list/', views.PatientListView.as_view(), name='patient_list'),
 ]

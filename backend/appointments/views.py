@@ -7,11 +7,11 @@ from rest_framework.views import APIView
 
 from accounts.models import Psychologist, Patient
 from accounts.serializers import ActivePsychologistSerializer
-from appointments.models import Request, MedicalRecord
-from appointments.serializers import RequestSerializer, GetPsychologistPatientIdSerializer, PatientSerializer, \
+from appointments.models import Request, Session, MedicalRecorder
+from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
-    PostRequestSerializer, PsychologistUpdateInfoSerializer, GetIdPsyPatientCustomizeSerializer, \
-    PsychologistIdSerializer, PatientIdSerializer, RateSerializer
+    PostRequestSerializer, PsychologistUpdateInfoSerializer, \
+    PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer
 
 
 # MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
@@ -71,18 +71,21 @@ class MedicalRecordView(APIView):
         serializer_psychologist = PsychologistIdSerializer(data={'pk': request.data.get("id_psychologist")})
         serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
         if serializer_psychologist.is_valid() and serializer_patient.is_valid():
-            print(serializer_psychologist.data)
             pk_doctor = serializer_psychologist.data.get('pk')
+            print(pk_doctor,'goal')
             psychologist = Psychologist.objects.get(pk=pk_doctor)
-            print(psychologist.full_name)
             pk_patient = serializer_patient.data.get('pk')
-            print(pk_patient)
+            print(pk_patient,'goal2')
             patient = Patient.objects.get(pk=pk_patient)
-            medical_report = MedicalRecord.objects.get(doctor=psychologist, patient=patient)
-            print(medical_report)
-            print("shoot")
-            serializer = MedicalRecordSerializer(medical_report)
-            return Response({'msg': "successfully", 'data': serializer.data}, status=status.HTTP_200_OK)
+            medical_record = MedicalRecorder.objects.get(doctor=psychologist, patient=patient)
+            print(medical_record)
+            medical_record_serialized = MedicalRecordSerializer(medical_record)
+            print(medical_record_serialized.data, 'hooooo')
+            session_list = Session.objects.filter(medical_recorde=medical_record)
+            session_list_serialized = SessionListSerializer(session_list, many=True)
+            print(session_list_serialized.data)
+            return Response({'medical_record': medical_record_serialized.data,
+                             'session_list': session_list_serialized.data}, status=status.HTTP_200_OK)
         errors = {}
         if not serializer_psychologist.is_valid():
             errors["serializer_psychologist"] = serializer_psychologist.errors

@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Patient(User):
     def __str__(self):
-        return self.email
+        return f'full_name: {self.full_name},email:{self.email}'
 
 
 class Disease(models.Model):
