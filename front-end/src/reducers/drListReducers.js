@@ -8,6 +8,11 @@ import {
   USER_PROFILE_DR_REQUEST,
   USER_PROFILE_DR_SUCCESS,
   USER_PROFILE_DR_FAIL,
+  USER_PROFILE_DR_RESET,
+  USER_EDIT_PROFILE_DR_REQUEST,
+  USER_EDIT_PROFILE_DR_SUCCESS,
+  USER_EDIT_PROFILE_DR_FAIL,
+  USER_EDIT_PROFILE_DR_RESET,
 } from "../constants/doctorConstants";
 export const drListReducers = (state = { doctors: [] }, action) => {
   switch (action.type) {
@@ -51,7 +56,28 @@ export const userProfileDrReduser = (state = {user:{}}, action) => {
 
     case USER_PROFILE_DR_FAIL:
       return { loadingDr: false, errorDr: action.payload };
+    
+      case USER_PROFILE_DR_RESET:
+        return {user:{}}
+    default:
+      return state;
+  }
+};
 
+
+export const DrEditProfilee = (state = {user:{}}, action) => {
+  switch (action.type) {
+    case USER_EDIT_PROFILE_DR_REQUEST:
+      return { loadingDr: true };
+
+    case USER_EDIT_PROFILE_DR_SUCCESS:
+      return { loadingDr: false,success:true, user: action.payload };
+
+    case USER_EDIT_PROFILE_DR_FAIL:
+      return { loadingDr: false, errorDr: action.payload };
+    
+    case USER_EDIT_PROFILE_DR_RESET:
+      return {}
     default:
       return state;
   }

@@ -20,8 +20,11 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  
 
 } from "../constants/userConstants";
+
+import { USER_PROFILE_DR_RESET } from "../constants/doctorConstants";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -58,6 +61,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  dispatch({type: USER_PROFILE_DR_RESET});
 };
 
 export const registerDr =
@@ -225,6 +229,11 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
       type: USER_REGISTER_SEND_ADMIN_SUCCESS,
       payload: data,
     });
+    dispatch({
+      type:USER_LOGIN_SUCCESS,
+      payload:data,
+    })
+     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_SEND_ADMIN_FAIL,
