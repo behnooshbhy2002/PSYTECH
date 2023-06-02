@@ -56,7 +56,7 @@ function PatientsList() {
     <>
       {!userInfo ? (
         <div>
-          <Message>{"access denied"}</Message>
+          <Message>دسترسی غیرمجاز</Message>
         </div>
       ) : (
         <div className="Kharrr">
@@ -71,8 +71,9 @@ function PatientsList() {
                   return (
                     <PatientCard
                       data={{
-                        name: item.name,
+                        name: item.full_name,
                         gender: item.gender,
+                        id: item.id,
                       }}
                     />
                   );

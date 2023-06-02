@@ -21,38 +21,35 @@ function DRProfile() {
   const [education, setEducation] = useState("");
   const [address, setAddress] = useState("");
   const [experiment, setExperiment] = useState("");
-  
+
   const dispatch = useDispatch();
 
-   const userProfile = useSelector((state) => state.userProfile);
-   const { error, loading, user } = userProfile;
+  const userProfile = useSelector((state) => state.userProfile);
+  const { error, loading, user } = userProfile;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-   useEffect(() => {
-     if (!userInfo) {
-      navigate("../Login");
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("./Login");
       //history.push("/login");
-    }
-    else {
-      if(!user || !user.name)
-       {
-        dispatch(getProfileDR('profile'));
-       }
-       else {
-        setName(user.name)
-         setPhone(user.phone)
-         settelePhone(user.telephone)
-        setEmail(user.email)
-        setEducation(user.education)
-        setScore(user.score)
-        setCode(user.code)
-        setAddress(user.adress)
-        setExperiment(user.experiment)
+    } else {
+      if (!user || !user.name) {
+        dispatch(getProfileDR("profile"));
+      } else {
+        setName(user.name);
+        setPhone(user.phone);
+        settelePhone(user.telephone);
+        setEmail(user.email);
+        setEducation(user.education);
+        setScore(user.score);
+        setCode(user.code);
+        setAddress(user.adress);
+        setExperiment(user.experiment);
       }
     }
-   }, [dispatch, userInfo, user]);
+  }, [dispatch, userInfo, user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +58,7 @@ function DRProfile() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-     // setUserProfile(response.data);
+      // setUserProfile(response.data);
     };
     fetchData();
   }, []);
