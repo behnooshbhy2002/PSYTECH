@@ -79,7 +79,7 @@ class DiseaseListSerializer(serializers.ModelSerializer):
 class ActivePsychologistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
-        fields = ("full_name", "medical_number", "id",)
+        fields = ("full_name", "medical_number", "id", "rate")
 
 
 class IsActivePsychologist(serializers.ModelSerializer):

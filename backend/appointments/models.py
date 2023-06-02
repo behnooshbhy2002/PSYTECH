@@ -6,7 +6,8 @@ class Request(models.Model):
     sender = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='sender_request')
     receiver = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='receiver_request')
     date = models.DateField(auto_now_add=True)
-    accept_status = models.BooleanField()
+    accept_status = models.BooleanField(null=True, blank=True)
+    # check = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.sender} to {self.receiver}'

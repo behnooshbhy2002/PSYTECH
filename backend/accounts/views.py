@@ -77,7 +77,7 @@ class UserLoginView(APIView):
             password = serializer.data.get('password')
             user = authenticate(email=email, password=password)
 
-            if Psychologist.objects.get(email=email):
+            if Psychologist.objects.filter(email=email).exists():
                 role = 'psychologist'
             else:
                 role = 'patient'
