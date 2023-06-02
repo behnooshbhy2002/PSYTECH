@@ -17,7 +17,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Rating from "../Components/Rating";
 import Toast from "../Components/Error&Loading/toast";
-import { enable } from "debug";
 function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState({});
   const [sickness, setSickness] = useState([]);
@@ -99,32 +98,32 @@ function DoctorPageDetail() {
   const requestStatus = useSelector((state) => state.sendRequest);
   const { reqResult } = requestStatus;
   console.log(reqResult?.data);
-  addItem(reqResult?.data);
+  //addItem(reqResult?.data);
 
-  if (reqResult?.msg == "successfuly") {
-    return (
-      <>
-        <Toast
-          userFull={name}
-          messageType={true}
-          buttonclicked={buttonclicked}
-        ></Toast>
-      </>
-    );
-  }
+  // if (reqResult?.msg == "successfuly") {
+  //   return (
+  //     <>
+  //       <Toast
+  //         userFull={name}
+  //         messageType={true}
+  //         buttonclicked={buttonclicked}
+  //       ></Toast>
+  //     </>
+  //   );
+  // }
 
-  let en = true;
+  //let en = true;
 
-  let l = JSON.parse(localStorage.getItem("list_items"));
-  console.log(Array.isArray(l));
-  l.map((item) => {
-    console.log(item);
-    if (item == id) {
-      console.log(item);
-      en = false;
-      setEnable(false);
-    }
-  });
+  // let l = JSON.parse(localStorage.getItem("list_items"));
+  // console.log(Array.isArray(l));
+  // l.map((item) => {
+  //   console.log(item);
+  //   if (item == id) {
+  //     console.log(item);
+  //     en = false;
+  //     setEnable(false);
+  //   }
+  // });
 
   //rating
   const [stars, setStars] = useState(5);
@@ -247,7 +246,7 @@ function DoctorPageDetail() {
               در صورتی که توسط دکتر ویزیت شده اید و تمایل به دریافت نسخه خود
               دارید، نخست باید برای پزشک مورد نظر خود درخواست ثبت کنید.
             </p>
-            {en ? (
+            {enable ? (
               <button
                 className="detail-doctor-req-button"
                 onClick={() => {
