@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       {/* <Rating totalStar={5} />
       <AlertDialogSlide></AlertDialogSlide> */}
-      <AlertDialogSlide></AlertDialogSlide>
+      {/* <AlertDialogSlide></AlertDialogSlide> */}
     </>
   );
 }
