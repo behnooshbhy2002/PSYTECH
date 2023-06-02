@@ -21,17 +21,10 @@ function DoctorPageDetail() {
   const [sickness, setSickness] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
 
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((json) => setPsyInfo(json));
-  // }, [url]);
-
   const dispatch = useDispatch();
   const loc = useLocation();
   const par = loc.search;
 
-  //console.log(par);
   useEffect(() => {
     dispatch(DrDetails(par));
   }, [dispatch, par]);
@@ -39,7 +32,6 @@ function DoctorPageDetail() {
   const dr = useSelector((state) => state.drDetails);
   const { error, loading, details } = dr;
 
-  //console.log(error)
   let image, name, address, exprience, rate, id, medical, phone;
   let diseaseArr = [];
 
@@ -47,7 +39,6 @@ function DoctorPageDetail() {
   console.log("out");
   if (!Array.isArray(details)) {
     console.log("gol is here");
-    //const { psychologist : [{name , gender}]} = details
     const { psychologist, disease } = details;
     if (Array.isArray(psychologist)) {
       console.log(psychologist[0]);
@@ -55,7 +46,7 @@ function DoctorPageDetail() {
       name = psychologist[0].full_name;
       address = psychologist[0].address;
       exprience = psychologist[0].exprience;
-      //rate = psychologist[0].
+      rate = psychologist[0].rate
       medical = psychologist[0].medical_number;
       phone = psychologist[0].phone_number;
       id = psychologist[0].id;
@@ -67,7 +58,7 @@ function DoctorPageDetail() {
     }
   }
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleCommentButton = () => {};
   const handleClickOpen = () => {
     setOpen(true);
@@ -80,12 +71,13 @@ function DoctorPageDetail() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const handleRequest = (pk_dr) => {
+    console.log(userInfo?.id , pk_dr)
     dispatch(SendRequest(userInfo?.id, pk_dr));
   };
 
   const requestStatus = useSelector((state) => state.sendRequest);
   const { reqResult } = requestStatus;
-  console.log(reqResult);
+  //console.log(reqResult);
 
   //rating
   const [stars, setStars] = useState(5);
@@ -105,8 +97,9 @@ function DoctorPageDetail() {
   };
 
   const handleSubmitRate = (value) => {
+    //console.log(id)
     const { data } = axios
-      .post("", {
+      .post("http://127.0.0.1:8000/appointments/rating/", {
         pk: id,
         rate: value,
       })
@@ -210,6 +203,7 @@ function DoctorPageDetail() {
             <button
               className="detail-doctor-req-button"
               onClick={() => {
+                console.log(rated)
                 handleRequest(rated);
               }}
             >
@@ -230,7 +224,6 @@ function DoctorPageDetail() {
                 className="mdi mdi-star f-19"
                 style={{ marginLeft: "2px" }}
               ></i>
-
               {rate}
             </div>
 
@@ -265,7 +258,8 @@ function DoctorPageDetail() {
                             handleSetHovered(rated);
                           }}
                           onClick={() => {
-                            handleSetRated(i);
+                            handleSetRated(i+1);
+                            console.log(i+1)
                           }}
                           className={i <= hoverd ? "hovered" : ""}
                         >
@@ -281,8 +275,8 @@ function DoctorPageDetail() {
                 <Button onClick={handleClose}>Disagree</Button>
                 <Button
                   onClick={() => {
+                    handleSubmitRate(rated);
                     handleClose();
-                    handleSubmitRate();
                   }}
                   autoFocus
                 >

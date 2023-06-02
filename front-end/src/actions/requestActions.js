@@ -5,6 +5,7 @@ import {
   DOCTOR_SEND_FAIL,
 } from "../constants/requestConstants";
 export const SendRequest = (p_id, dr_id) => async (dispatch) => {
+  console.log(dr_id)
   try {
     dispatch({
       type: DOCTOR_SEND_REQUEST,
@@ -16,8 +17,8 @@ export const SendRequest = (p_id, dr_id) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://127.0.0.1:8000/accounts/verify/",
-      { id_patient: p_id, id_psycologist: dr_id },
+      "http://127.0.0.1:8000/appointments/send_requset/",
+      { "id_patient": p_id, "id_psychologist": dr_id },
       config
     );
     dispatch({

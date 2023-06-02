@@ -13,7 +13,7 @@ const PsyItem = () => {
 
   const handleDetailButton = (id) => {
        console.log(id);
-       history(`/PsycologistProfile`);
+       //history(`/PsycologistProfile`);
        addQuery("id", id, history);
   };
 
