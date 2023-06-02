@@ -18,7 +18,7 @@ class SessionAdmin(admin.ModelAdmin):
 
 @admin.register(MedicalRecorder)
 class MedicalRecorderAdmin(admin.ModelAdmin):
-    list_display = ("date", "patient", "doctor")
+    list_display = ("date", "patient", "doctor", "id")
     search_fields = ("date",)
     ordering = ("date",)
 

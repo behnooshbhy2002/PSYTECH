@@ -12,6 +12,7 @@ urlpatterns = [
     path('patient_list/', views.PatientListView.as_view(), name='patient_list'),
     path('patient_profile/', views.PatientProfile.as_view(), name='patient_profile'),
     path('doctor_list/', views.DoctorListView.as_view(), name='doctor_list'),
+    path('create_session/', views.CreateSessionView.as_view(), name='create_session'),
     path('create_prescription/', views.CreatePrescriptionView.as_view(), name='create_prescription'),
     path('prescription_list/', views.PrescriptionListView.as_view(), name='prescription_list'),
 ]

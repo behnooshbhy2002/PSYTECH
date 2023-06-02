@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Patient, Psychologist
+from datetime import date
 
 
 def user_directory_path(instance, filename):

@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from .validators import MinAgeValidator
+from datetime import date
 
 
 class User(AbstractBaseUser, PermissionsMixin):
