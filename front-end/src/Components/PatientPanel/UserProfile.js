@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import pic from "../../images/maryam-montazeri.png";
-//import { getProfileDR } from "../actions/userActions";
+import { getUserProfile } from "../actions/userActions";
 import "../style/ProfileDetail.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SideBarrPatient from "./SideBarrPatient";
-//import Loader from "../Components/Error&Loading/Loader";
-//import Message from "../Components/Error&Loading/Message";
+import Loader from "../Components/Error&Loading/Loader";
+import Message from "../Components/Error&Loading/Message";
 import { useNavigate } from "react-router-dom";
 function UserProfile() {
   const navigate = useNavigate();
@@ -23,40 +23,48 @@ function UserProfile() {
     email: "tzirw@example.com",
     gender: "خانم",
   };
-  //   const dispatch = useDispatch();
+     const dispatch = useDispatch();
 
-  //   const userProfile = useSelector((state) => state.userProfile);
-  //   const { error, loading, user } = userProfile;
+    const userProfile = useSelector((state) => state.userProfile);
+    const { error, loading, user } = userProfile;
 
-  //   const userLogin = useSelector((state) => state.userLogin);
-  //   const { userInfo } = userLogin;
+    const userLogin = useSelector((state) => state.userLogin);
+   const { userInfo } = userLogin;
 
-  //   useEffect(() => {
-  //     if (!userInfo) {
-  //       navigate("../Login");
+   useEffect(() => {
+    if (!userInfo) {
+     navigate("../Login");
+     //history.push("/login");
+   }
+   else {
+     if(!user || !user.full_name)
+      {
+       const id = userInfo?.id;
+       const par = `?id=${id}`;
+       console.log(user , user?.full_name)
+       dispatch(getUserProfile(par , userInfo));
+      }
+      else {
+       
+       setName(user.full_name)
+       setPhone(user.phone_number)
+       setEmail(user.email)
+       setGender(user.gender)
+     }
+   }
+  }, [dispatch, userInfo, user]);
 
-  //     } else {
-  //       if (!user || !user.name) {
-  //         dispatch(getProfileDR("profile"));
-  //       } else {
-  //         setName(user.name);
-  //         setPhone(user.phone);
-  //         setEmail(user.email);
-  //         setGender(user.gender);
-  //     }
-  //   }, [dispatch, userInfo, user]);
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const response = await axios.get("https://api.example.com/user-profile", {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       });
-  //       // setUserProfile(response.data);
-  //     };
-  //     fetchData();
-  //   }, []);
+    useEffect(() => {
+      const fetchData = async () => {
+       const response = await axios.get("https://api.example.com/user-profile", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+         getUserProfile(response.data);
+    };
+      fetchData();
+     }, []);
 
   return (
     <>
@@ -66,10 +74,10 @@ function UserProfile() {
           <div className="profile-container">
             <img className="profilePicture" src={pic} alt=""></img>
             <Profile
-              name={smapleUser.name}
-              phone={smapleUser.phone}
-              email={smapleUser.email}
-              gender={smapleUser.gender}
+              name={name}
+              phone={phone}
+              email={email}
+              gender={gender}
             />
           </div>
         </div>

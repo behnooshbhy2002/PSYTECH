@@ -20,6 +20,9 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  USER_GET_PROFILE_REQUEST,
+  USER_GET_PROFILE_SUCCESS,
+  USER_GET_PROFILE_FAIL
 
 } from "../constants/userConstants";
 
@@ -236,37 +239,36 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
   }
 };
 
-// export const getProfileDR = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: USER_PROFILE_DR_REQUEST,
-//     });
+export const getUserProfile = (par , userInfo) =>
+async (dispatch) => {
+  try {
+    console.log(userInfo)
+    dispatch({ type: USER_GET_PROFILE_REQUEST });
+    
+    
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+         Authorization: `BAREAR ${userInfo.tokens.access}`
+      },
+    };
+    console.log(config)
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000/appointments/patient_profile/${par}`, config);
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState();
-
-//     const config = {
-//       headers: {
-//         "Content-type": "application/json",
-//          Authorization: `BAREAR ${userInfo.token}`
-//       },
-//     };
-
-//     const { data } = await axios.get(`http://127.0.0.1:8000/appointments/psychologist_profile/${id}`);
-
-//     dispatch({
-//       type: USER_PROFILE_DR_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: USER_PROFILE_DR_FAIL,
-//       payload:
-//         error.response && error.response.data.detail
-//           ? error.response.data.detail
-//           : error.message,
-//     });
-//   }
-// };
+    dispatch({
+      type: USER_GET_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } 
+  catch (error) {
+    dispatch({
+      type: USER_GET_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 

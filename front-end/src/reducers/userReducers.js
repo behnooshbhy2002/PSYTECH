@@ -18,6 +18,8 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
+  USER_GET_PROFILE_FAIL,
+  USER_GET_PROFILE_REQUEST,
  
 } from "../constants/userConstants";
 
@@ -114,6 +116,22 @@ export const userSendSignUpReduser = (state = {}, action) => {
 
     case USER_REGISTER_SEND_ADMIN_FAIL:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const userProfileReducer = (state = {user:{}}, action) => {
+  switch (action.type) {
+    case USER_GET_PROFILE_REQUEST:
+      return {...state, loading: true };
+
+    case USER_GET_PROFILE_SUCCESS:
+      return { loading: false, user: action.payload };
+
+    case USER_GET_PROFILE_FAIL:
+      return { loading: false, errorDr: action.payload };
 
     default:
       return state;
