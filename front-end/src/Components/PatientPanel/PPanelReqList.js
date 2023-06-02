@@ -3,6 +3,7 @@ import PPanelReqCard from "./PPanelReqCard";
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import Message from "../Error&Loading/Message";
+import { useSelector } from "react-redux";
 
 import SideBarrPatient from "./SideBarrPatient";
 function DoctorList() {

@@ -9,7 +9,6 @@ import {
   Form,
   Button,
   FormGroup,
-  FormControl,
   ControlLabel,
   FormLabel,
   Col,
@@ -20,8 +19,26 @@ import { FileUpload } from "primereact";
 
 import { MultiSelect } from "primereact/multiselect";
 
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+
+import { useSelector } from "react-redux";
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 function EditProfile() {
   const [selectedillnesses, setSelectedillnesses] = useState(null);
+  const [opt, setOpt] = React.useState("");
+
+  const handleChange = (event) => {
+    setOpt(event.target.value);
+  };
+
   const illness = [
     { name: "اختلال شخصیت خودشیفته", id: "1" },
     { name: "وسواس", id: "2" },
@@ -65,8 +82,12 @@ function EditProfile() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
   // Handling the name change
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,7 +129,7 @@ function EditProfile() {
 
   return (
     <>
-      {!userInfo ? (
+      {userInfo ? (
         <div>
           <Message>دسترسی غیرمجاز</Message>
         </div>
@@ -118,29 +139,67 @@ function EditProfile() {
           <div className="Kharrrchild">
             <div className="Editprofile-div" dir="rtl">
               <img id="edit-pic" src={profilepic} alt=""></img>
-              <FileUpload
-                mode="basic"
-                name="demo[]"
-                url="/api/upload"
-                accept="image/*"
-                customUpload
-                // uploadHandler={customBase64Uploader}
-              >
-                change
-              </FileUpload>
+              <Row>
+                <Col>
+                  <FileUpload
+                    mode="basic"
+                    name="demo[]"
+                    url="/api/upload"
+                    accept="image/*"
+                    customUpload
+                    // uploadHandler={customBase64Uploader}
+                  >
+                    change
+                  </FileUpload>
+                </Col>
+                <Col>
+                  <FormControl sx={{ m: 1, minWidth: 300 }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">
+                      <p>تخصص</p>
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={opt}
+                      onChange={handleChange}
+                      autoWidth
+                      label="Age"
+                    >
+                      <MenuItem value={0}>
+                        <p>هیچ‌کدام</p>
+                      </MenuItem>
+                      <MenuItem value={1}>
+                        <p>مشاوره فردی</p>
+                      </MenuItem>
+                      <MenuItem value={2}>
+                        <p>مشاوره خانواده</p>
+                      </MenuItem>
+                      <MenuItem value={3}>
+                        <p>مشاوره تحصیلی</p>
+                      </MenuItem>
+                      <MenuItem value={4}>
+                        <p>مشاوره ازدواج</p>
+                      </MenuItem>
+                      <MenuItem value={5}>
+                        <p>مشاوره کودک</p>
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                </Col>
+              </Row>
+
               <Form onSubmit={handleSubmit}>
-                <Row>
-                  <Col>
-                    <Form.Label>تحصیلات: </Form.Label>
-                  </Col>
-                  <Col>
-                    <input
+                {/* <Select
+                      defaultValue={selectedOption}
+                      onChange={setSelectedOption}
+                      options={options}
+                    /> */}
+                {/* <input
                       className="input-edit"
                       type="text"
                       placeholder="تحصیلات"
-                    />
-                  </Col>
-                </Row>
+                    /> */}
+
                 <hr></hr>
                 <Row>
                   <Col>

@@ -4,6 +4,8 @@ import "../style/DrEditProfile.css";
 import profilepic from "../../images/men.png";
 import SideBarrPatient from "./SideBarrPatient";
 import Message from "../Error&Loading/Message";
+import { useSelector } from "react-redux";
+
 import {
   Form,
   Button,
