@@ -1,7 +1,9 @@
 .recipe-wrapper{
-  display: grid;
+  display: flex;
+  flex-direction: wrap;
+  /* display: grid;
  grid-template-columns: repeat(3, minmax(300px, 1fr));
- gap: 2rem;
+ gap: 2rem; */
   margin: 20px;
 }
 
