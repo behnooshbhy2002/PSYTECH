@@ -138,15 +138,23 @@ function EditProfile() {
               <hr></hr>
               <Row>
                 <Col>
-                  <Form.Label htmlFor="inputPassword5">
-                    رمز عبور جدید:
-                  </Form.Label>
+                  <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
                 </Col>
                 <Col>
                   <input
                     className="input-edit"
                     type="password"
                     placeholder="رمز عبور"
+                  />
+                </Col>
+                <Col>
+                  <Form.Label htmlFor="inputPassword5">رمز جدید تکرار:</Form.Label>
+                </Col>
+                <Col>
+                  <input
+                    className="input-edit"
+                    type="password"
+                    placeholder="رمز عبور تکرار"
                   />
                 </Col>
               </Row>

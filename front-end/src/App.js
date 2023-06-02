@@ -14,10 +14,19 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import AdminAdmitDrSignUp from "./Pages/AdminAdmitDrSignUp";
 import DoctorPageDetail from "./Pages/DoctorPageDetail";
-import SideBarr from "./Components/SideBarr/SideBarr";
-import DoctorPanel from "./Pages/DoctorPanel";
+// import SideBarr from "./Components/SideBarr/SideBarr";
+// import DoctorPanel from "./Pages/DoctorPanel";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import PatientsList from "./Components/PatientList/PatientsList";
+// import PatientsList from "./Components/PatientList/PatientsList";
+// import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
+// import DrEditProfile from "./Pages/DrEditProfile";
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import "primereact/resources/themes/lara-light-indigo/theme.css";
+// import "primereact/resources/primereact.min.css";
+// import DRProfile from "./Pages/DRProfile";
+// import CaseHistory from "./Pages/CaseHistory";
+// import AudioRecorderr from "./Components/componentss/AudioRecorderr";
+// import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
 import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
 import DrEditProfile from "./Pages/DrEditProfile";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -28,14 +37,48 @@ import CaseHistory from "./Pages/CaseHistory";
 import AudioRecorderr from "./Components/componentss/AudioRecorderr";
 import PatientProfile from "./Pages/PatientProfile";
 
+import DoctorList from "./Components/PatientPanel/DoctorList";
+import PPanelDoctorCard from "./Components/PatientPanel/PPanelDoctorCard";
+import PPanelReqList from "./Components/PatientPanel/PPanelReqList";
+import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
+import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
+import UserProfile from "./Components/PatientPanel/UserProfile";
+import Rulse from "./Components/MainPage/Rules";
+import AboutUs from "./Components/MainPage/AboutUs";
 function App() {
   return (
     <>
       <div className="main-div-body">
         <BrowserRouter>
           <NavBarr></NavBarr>
-          {/* <SideBarr></SideBarr> */}
+
+          {/* <PPanelReqList></PPanelReqList> */}
+          {/* <PatientsRequestList></PatientsRequestList> */}
+          {/* <SideBarrPatient></SideBarrPatient> */}
           <Routes>
+            <Route path="/MyDoctor" element={<DoctorList></DoctorList>}></Route>
+            <Route path="/AboutUs" element={<AboutUs></AboutUs>}></Route>
+            <Route path="/Rules" element={<Rulse></Rulse>}></Route>
+            <Route
+              path="/PPanelSidebar"
+              element={<SideBarrPatient></SideBarrPatient>}
+            ></Route>
+            <Route
+              path="/MyRequestForDoctor"
+              element={<PPanelReqList></PPanelReqList>}
+            ></Route>
+            <Route
+              path="/EditMyProfileP"
+              element={<UserEditProfile></UserEditProfile>}
+            ></Route>
+            <Route
+              path="/MyProfileP"
+              element={<UserProfile></UserProfile>}
+            ></Route>
+          </Routes>
+
+          {/* <SideBarr></SideBarr> */}
+          {/* <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/PsycologistList" element={<Card />}></Route>
@@ -55,9 +98,9 @@ function App() {
             <Route
               path="/sideBar"
               element={
-                <ProSidebarProvider>
-                  {/* <DoctorPanel></DoctorPanel> */}
-                  <SideBarr></SideBarr>
+                <ProSidebarProvider> */}
+          {/* <DoctorPanel></DoctorPanel> */}
+          {/* <SideBarr></SideBarr>
                 </ProSidebarProvider>
               }
             ></Route>
@@ -69,8 +112,12 @@ function App() {
             />
             <Route path="/EditMyProfile" element={<DrEditProfile />} />	
             <Route path="/Home" element={<Home />} />
+
             <Route path="/PatientProfile" element={<PatientProfile/>}></Route>
           </Routes>
+
+          </Routes> */}
+
           <Footer></Footer>
         </BrowserRouter>
         {/* <NavBarr></NavBarr>

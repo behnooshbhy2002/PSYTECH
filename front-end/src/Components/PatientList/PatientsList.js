@@ -56,7 +56,7 @@ function PatientsList() {
     <>
       {!userInfo ? (
         <div>
-          <Message>{"access denied"}</Message>
+          <Message>دسترسی غیرمجاز</Message>
         </div>
       ) : (
         <div className="Kharrr">
@@ -73,7 +73,7 @@ function PatientsList() {
                       data={{
                         name: item.full_name,
                         gender: item.gender,
-                        id: item.id
+                        id: item.id,
                       }}
                     />
                   );

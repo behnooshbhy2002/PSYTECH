@@ -5,6 +5,9 @@ import {
   DOCTOR_DETAILS_REQUEST,
   DOCTOR_DETAILS_SUCCESS,
   DOCTOR_DETAILS_FAIL,
+  USER_PROFILE_DR_REQUEST,
+  USER_PROFILE_DR_SUCCESS,
+  USER_PROFILE_DR_FAIL,
 } from "../constants/doctorConstants";
 export const drListReducers = (state = { doctors: [] }, action) => {
   switch (action.type) {
@@ -32,6 +35,22 @@ export const drDetailsReducers = (state = { details:[] }, action) => {
 
     case DOCTOR_DETAILS_SUCCESS:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const userProfileDrReduser = (state = {user:{}}, action) => {
+  switch (action.type) {
+    case USER_PROFILE_DR_REQUEST:
+      return {...state, loadingDr: true };
+
+    case USER_PROFILE_DR_SUCCESS:
+      return { loadingDr: false, user: action.payload };
+
+    case USER_PROFILE_DR_FAIL:
+      return { loadingDr: false, errorDr: action.payload };
 
     default:
       return state;

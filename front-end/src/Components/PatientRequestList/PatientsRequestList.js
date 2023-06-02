@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import SideBarr from "../SideBarr/SideBarr";
 import { useNavigate, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-
+import Message from "../Error&Loading/Message";
 import axios from "axios";
 function PatientsRequestList() {
   const [drList, setDrList] = useState([]);
@@ -49,40 +49,44 @@ function PatientsRequestList() {
 
   return (
     <>
-      <div className="Kharrr">
-        <SideBarr></SideBarr>
-        <div className="Kharrrchild">
-          <div className="container patient-list">
-            <h3 className="patient-h3" style={{ alignItems: "center" }}>
-              درخواست‌های من
-            </h3>
-            <div className="list-div-patient">
-              {drList.slice(0, numberOfItems).map((item) => {
-                return (
-                  <div key={item.id}>
-                    <PatientRequestCard
-                      data={{
-                        id: item.id,
-                        gender: item.sender_gender,
-                        name: item.sender_name,
-                      }}
-                    />
-                  </div>
-                );
-              })}
+      {userInfo ? (
+        <div className="Kharrr">
+          <SideBarr></SideBarr>
+          <div className="Kharrrchild">
+            <div className="container patient-list">
+              <h3 className="patient-h3" style={{ alignItems: "center" }}>
+                درخواست‌های من
+              </h3>
+              <div className="list-div-patient">
+                {drList.slice(0, numberOfItems).map((item) => {
+                  return (
+                    <div key={item.id}>
+                      <PatientRequestCard
+                        data={{
+                          id: item.id,
+                          gender: item.sender_gender,
+                          name: item.sender_name,
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              {isShowMore && drList.length > 10 && (
+                <button onClick={toggleReadMoreLess} className="showAllDrBtn">
+                  <span className="showAllDrBtn__show_all_text">
+                    {isShowMore && "بیشتر"}
+                  </span>
+                </button>
+              )}
             </div>
           </div>
-          <div>
-            {isShowMore && drList.length > 10 && (
-              <button onClick={toggleReadMoreLess} className="showAllDrBtn">
-                <span className="showAllDrBtn__show_all_text">
-                  {isShowMore && "بیشتر"}
-                </span>
-              </button>
-            )}
-          </div>
         </div>
-      </div>
+      ) : (
+        <Message>دسترسی غیرمجاز</Message>
+      )}
     </>
   );
 }

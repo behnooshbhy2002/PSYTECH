@@ -25,8 +25,8 @@ const NavBarr = () => {
         <NavLink to="/PsycologistList" className="list">
           لیست مشاوران
         </NavLink>
-        <NavLink className="list">درباره ما</NavLink>
-        <NavLink className="list">تماس با ما</NavLink>
+        <NavLink to='/AboutUs' className="list">درباره ما</NavLink>
+        <NavLink to='/Rules' className="list"> قوانین </NavLink>
 
         <NavLink to="/SignUp">
           <button id="signup">ثبت نام</button>
