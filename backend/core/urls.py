@@ -18,13 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
                   path('admin/', admin.site.urls, name='admin'),
                   path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
                   path('appointments/', include(('appointments.urls', 'appointments'), namespace='appointments')),
-                  # path('password_reset/', include(('django_rest_passwordreset.urls', 'password_reset'),
-                  #      namespace='password_reset')),
-                  # path('auth/', include('djoser.urls')),
-                  # path('auth/', include('djoser.jwt.urls')),
+                  path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+                  path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -197,17 +197,6 @@ class PsychologistListView(APIView):
         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
 
 
-# class PsychologistSearchView(APIView):
-#
-#     def get(self, request):
-#         query = request.query_params.get('keyword')
-#         if not query:
-#             query = ''
-#         psychologists = Psychologist.objects.filter(full_name__icontains=query)
-#         psychologists_serializer = ActivePsychologistSerializer(psychologists, many=True)
-#         return Response(psychologists_serializer.data, status=status.HTTP_200_OK)
-
-
 class DiseaseListView(APIView):
 
     def get(self, request):
