@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from .validators import MinAgeValidator
+from datetime import date
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -35,6 +36,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+class Patient(User):
+    def __str__(self):
+        return f'full_name: {self.full_name},email:{self.email}'
+
+
 class Disease(models.Model):
     title = models.CharField(max_length=100)
 
@@ -47,44 +53,13 @@ class Disease(models.Model):
 
 class Psychologist(User):  # todo: add address for psychologist
     medical_number = models.CharField(max_length=7)
-    specialist = models.CharField(max_length=50)
+    specialist = models.CharField(max_length=50, null=True, blank=True)
     rate = models.FloatField(default=0.0)
     rate_counter = models.IntegerField(default=0)
     diseases = models.ManyToManyField(Disease)
     address = models.CharField(max_length=100, blank=True, null=True)
     experience = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-
-    # rate_value = models.FloatField(default=0.0)
-
-    # DISEASES = (
-    #     ('شخصیت خودشیف', 'اختلال شخصیت خودشیف'),
-    #     ('وسواس', 'وسواس'),
-    #     ('کابوس', 'اختلال کابوس شبانه'),
-    #     ('هویت', 'اختلال هویت جنسیتی'),
-    #     ('هیستری', 'هیستری'),
-    #     ('پرخوابی', 'پرخوابی ایدیوپاتیک'),
-    #     ('بی‌خوابی', 'بی‌خوابی'),
-    #     ('نافرمانی', 'اختلال نافرمانی مقابله جویانه'),
-    #     ('خلقی', 'اختلال خلقی فصلی'),
-    #     ('اسکیزوفرنی', 'اسکیزوفرنی'),
-    #     ('نشخوار فکری', 'نشخوار فکری'),
-    #     ('شخصیت اسکیزوتایپال', 'اختلال شخصیت اسکیزوتایپال'),
-    #     ('فوبیای اجتماعی', 'فوبیای اجتماعی'),
-    #     ('بی اختیاری عاطفی', 'بی اختیاری عاطفی'),
-    #     ('شخصیت پارانوئید', 'اختلال شخصیت پارانوئید'),
-    #     ('هراس', 'اختلال هراس'),
-    #     ('اضطراب', 'اختلال اضطراب پس از سانحه'),
-    #     ('پرخوری', 'اختلال پرخوری'),
-    #     ('دوقطبی', 'اختلال دوقطبی'),
-    #     ('شخصیت مرزی', 'اختلال شخصیت مرزی'),
-    # )
-    # diseases = models.CharField(max_length=18, choices=DISEASES)
-
-    # class Meta:
-    #     fields = ['diseases']
-    #     widgets = {
-    #         'diseases': forms.CheckboxSelectMultiple(choices=Psychologist.CHOICES),
-    #     }
+    patients = models.ManyToManyField(Patient, related_name='psychologist_patient')
 
     def count_rate(self, value):
         rate_count = self.rate_counter + 1

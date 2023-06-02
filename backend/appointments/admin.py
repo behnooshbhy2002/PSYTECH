@@ -1,40 +1,35 @@
 from django.contrib import admin
-from .models import Schedule, Appointment, Booking, Bill
+from .models import Request, Session, MedicalRecorder, Prescription, PrescriptionPage
 
 
-@admin.register(Schedule)
-class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ("date", "start", "end")
-    search_fields = ("date", "start")
+@admin.register(Request)
+class RequestAdmin(admin.ModelAdmin):
+    list_display = ("sender", "receiver", "date", "accept_status")
+    search_fields = ("date", "accept_status")
     ordering = ("date",)
 
 
-@admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ("start", "end", "reserved")
-    search_fields = ("start", "reserved")
-    ordering = ("start",)
-
-
-@admin.register(Booking)
-class BookingAdmin(admin.ModelAdmin):
-    list_display = ("date", "psychologist", "patient")
-
-    # def psychologist_name(self, obj):
-    #     return obj.psychologist
-    #
-    # def patient_name(self, obj):
-    #     return obj.patient
-    #
-    # psychologist_name.short_description = 'psychologist'
-    # patient_name.short_description = 'patient'
-
-    search_fields = ("date", "appointment")
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ("title", "date", "medical_recorde", "content")
+    search_fields = ("date",)
     ordering = ("date",)
 
 
-@admin.register(Bill)
-class BillAdmin(admin.ModelAdmin):
-    list_display = ("date", "amount", "status")
-    search_fields = ("date", "booking")
-    ordering = ("status",)
+@admin.register(MedicalRecorder)
+class MedicalRecorderAdmin(admin.ModelAdmin):
+    list_display = ("date", "patient", "doctor", "id")
+    search_fields = ("date",)
+    ordering = ("date",)
+
+
+@admin.register(Prescription)
+class PrescriptionAdmin(admin.ModelAdmin):
+    list_display = ("content",)
+    search_fields = ("date",)
+    ordering = ("date",)
+
+
+@admin.register(PrescriptionPage)
+class PrescriptionPageAdmin(admin.ModelAdmin):
+    list_display = ("doctor", "patient", "pk")
