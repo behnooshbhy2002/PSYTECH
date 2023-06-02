@@ -6,10 +6,24 @@ import {
   useReactMediaRecorder,
   ReactMediaRecorder,
 } from "react-media-recorder";
+import { useEffect } from "react";
 function AudioRecorderr(props) {
   //   const { recordstatus, startRecording, stopRecording, mediaBlobUrl } =
   //     useReactMediaRecorder({ audio: true });
   const [audio, setAudio] = useState();
+  const handleSave = async () => {
+    const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
+    const audioFile = new File([audioBlob], "voice.wav", { type: "audio/wav" });
+    const formData = new FormData(); // preparing to send to the server
+
+    formData.append("file", audioFile); // preparing to send to the server
+
+    props.onDataReceived(formData);
+    //onSaveAudio(formData); // sending to the server
+  };
+  const { mediaBlobUrl } = useReactMediaRecorder({
+    audio: true,
+  });
   return (
     <div>
       <ReactMediaRecorder
@@ -37,7 +51,10 @@ function AudioRecorderr(props) {
                     <BsFillMicMuteFill
                       size={20}
                       className="mic-icon"
-                      onClick={stopRecording}
+                      onClick={() => {
+                        stopRecording();
+                        handleSave(mediaBlobUrl);
+                      }}
                     >
                       sdvsd
                     </BsFillMicMuteFill>
@@ -58,7 +75,6 @@ function AudioRecorderr(props) {
                   className="audio-tag"
                   src={mediaBlobUrl}
                   controls
-                  autoPlay
                 ></audio>
               </div>
             </div>

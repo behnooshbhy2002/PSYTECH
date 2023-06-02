@@ -13,10 +13,12 @@ function CaseInput(props) {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDateTime] = useState(new Date());
+  const [audioFile, setAudioFile] = useState({});
 
   let contentM = "";
   let titleM = "";
   let dateTimeM = new Date();
+  let sessionID = "";
   //console.log(FileList);
 
   FileList?.map((item) => {
@@ -24,6 +26,7 @@ function CaseInput(props) {
       contentM = item?.content;
       titleM = item?.title;
       dateTimeM = item?.date;
+      sessionID = item?.sessionID;
     } else if (fileId == -1) {
       contentM = "";
       titleM = "";
@@ -37,15 +40,26 @@ function CaseInput(props) {
   // };
 
   const handleSubmitFile = () => {
-    console.log(title);
-    console.log(content);
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        sessionID: sessionID,
+        content: content,
+        title: title,
+        ...audioFile,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   // const userLogin = useSelector((state) => state.userLogin);
   // const { userInfo } = userLogin;
   // const id = userInfo?.id;
   //const par = `?fileId=${fileId}`;
   //let fileItem;
-  const [fileItem, setFileItem] = useState();
+  // const [fileItem, setFileItem] = useState();
   // useEffect(() => {
   //   FileList?.map((item) => {
   //     if (item.id == fileId) {
@@ -71,6 +85,11 @@ function CaseInput(props) {
   //   return () => clearInterval(interval);
   // }
 
+  const handleDataReceived = (audio) => {
+    console.log(audio);
+    setAudioFile(audio);
+  };
+  //const formData = new FormData();
   return (
     <div dir="rtl">
       <div key={fileId}>
@@ -99,7 +118,13 @@ function CaseInput(props) {
             value={fileId != -1 ? contentM : content}
           ></textarea>
           <br></br>
-          <AudioRecorderr fileId></AudioRecorderr>
+          {fileId == -1 ? (
+            <AudioRecorderr
+              onDataReceived={handleDataReceived}
+            ></AudioRecorderr>
+          ) : (
+            ""
+          )}
           {fileId == -1 ? (
             <button
               id="submit-btn-caseInput"
