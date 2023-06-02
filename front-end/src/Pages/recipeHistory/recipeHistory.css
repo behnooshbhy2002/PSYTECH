@@ -1,0 +1,11 @@
+.recipe-wrapper{
+  display: grid;
+ grid-template-columns: repeat(3, minmax(300px, 1fr));
+ gap: 2rem;
+  margin: 20px;
+}
+
+.recipeItem{
+  margin-right: 20px;
+  padding-right: 25px;
+}
