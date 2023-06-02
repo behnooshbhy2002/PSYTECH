@@ -178,7 +178,7 @@ function Sign({ location, history }) {
               ثبت نام پزشک
             </button>
             <button id="Psignup-toggle" onClick={togglePsignup}>
-              ثبت نام بیمار
+              ثبت نام کاربر
             </button>
           </div>
           <div id="error">
