@@ -4,14 +4,29 @@ import "./DrrecupeHistory.css";
 import { InputTextarea } from "primereact";
 import { Button } from "primereact/button";
 import { Row, Column } from "react";
+import TextField from "@mui/material/TextField";
 function RecipeHistory() {
   const [name, setName] = useState("علی عزیزی");
   const [value, setValue] = useState("");
+  const [title, setTitle] = useState("");
   const str = "نسخه های بیمار: " + name;
   return (
     <div dir="rtl">
       <h2>{str}</h2>
       <div>
+        <div className="card-bodyy kkkk">
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="موضوع"
+            variant="outlined"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            value={title}
+          />
+        </div>
+
         <div className="card-bodyy">
           <InputTextarea
             className="txtAddRecipe"
@@ -25,16 +40,15 @@ function RecipeHistory() {
         <Button className="btn-save-rec" label="ثبت نسخه" />
       </div>
       <div className="recipe-wrapper">
-        
         <RecipeItem className="recipeItem"></RecipeItem>
 
         <RecipeItem className="recipeItem"></RecipeItem>
 
-        <RecipeItem className="recipeItem"></RecipeItem>
+        {/* <RecipeItem className="recipeItem"></RecipeItem>
 
         <RecipeItem className="recipeItem"></RecipeItem>
         <RecipeItem className="recipeItem"></RecipeItem>
-        <RecipeItem className="recipeItem"></RecipeItem>
+        <RecipeItem className="recipeItem"></RecipeItem> */}
       </div>
     </div>
   );

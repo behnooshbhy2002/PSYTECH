@@ -1,4 +1,4 @@
-import {React , useState} from "react";
+import { React, useState } from "react";
 import "../style/PatientCard.css";
 import women from "../../images/woman.png";
 import men from "../../images/men.png";
@@ -15,45 +15,49 @@ const PatientCard = (props) => {
   const { userInfo } = userLogin;
   const dr_id = userInfo?.id;
 
-  const [session , setSession ] = useState({})
+  const [session, setSession] = useState({});
 
   const handleViewFile = (p_id) => {
-    console.log(p_id)
-    axios.post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
+    console.log(p_id);
+    axios
+      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
         id_patient: p_id,
         id_psychologist: dr_id,
       })
       .then((response) => {
-        setSession(response.data)
+        setSession(response.data);
         console.log(response.data);
-        navigate("/CaseHistory", { state: {...response.data} });
+        navigate("/CaseHistory", { state: { ...response.data } });
 
         //return response
       })
       .catch((error) => {
         console.log(error);
       });
-    
-     console.log(session)
-      //navigate("/CaseHistory")
-    
-    //history("/CaseHistory");
+
+    console.log(session);
   };
   const handleViewPrescription = (p_id) => {
-    const { data } = axios
-      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
-        p_id: p_id,
-        dr_id: dr_id,
+    console.log(p_id);
+    axios
+      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
+        id_patient: p_id,
+        id_psychologist: dr_id,
       })
       .then((response) => {
-        console.log(response);
+        setSession(response.data);
+        console.log(response.data);
+        navigate("/RecipeHistory", { state: { ...response.data } });
+        //return response
       })
       .catch((error) => {
         console.log(error);
       });
-    const toComponentB = () => {
-      navigate("/RecipeHistory", { state: data });
-    };
+
+    //  console.log(session)
+    // const toComponentB = () => {
+    //   navigate("/RecipeHistory", { state: data });
+    // };
     //history("/RecipeHistory");
   };
   return (
