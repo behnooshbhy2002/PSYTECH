@@ -2,10 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.models import Psychologist, Patient
+from accounts.models import Psychologist, Patient, Disease
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request, Session, MedicalRecorder
 from appointments.serializers import RequestSerializer, PatientSerializer, \
@@ -15,6 +16,13 @@ from appointments.serializers import RequestSerializer, PatientSerializer, \
 
 
 # MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
+from appointments.models import Request, MedicalRecord
+from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
+    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
+    PsychologistUpdateInfoSerializer, DoctorRelatedDiseaseSerializer, PatientProfileSerializer, \
+    PatientUpdateInfoSerializer
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class RequestListView(APIView):
@@ -48,18 +56,6 @@ class PatientListView(APIView):
         patient_lists = psychologist.patients
         patient_serializer = PatientSerializer(patient_lists, many=True)
         return Response(patient_serializer.data, status=status.HTTP_200_OK)
-
-    # def post(self, request):
-    #     serializer = PostRequestSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         accept_status = serializer.data.get('accept_status')
-    #         pk = serializer.data.get('pk')
-    #         request = Request.objects.get(pk=pk)
-    #         print(accept_status, pk)
-    #         request.accept_status = accept_status
-    #         request.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MedicalRecordView(APIView):
@@ -108,35 +104,78 @@ class ShowPsychologistDetailView(APIView):
 
 
 class PsychologistProfile(APIView):
-    def post(self, request):
-        psychologist_data = {
-            request.data.get('specialist'),
-            request.data['address'],
-            request.data['phone_number'],
-            request.data.get('experience'),
-            request.data['image'],
-            request.data['password'],
-            request.data['confirm_password'],
-        }
-        ser_data = PsychologistUpdateInfoSerializer(psychologist_data)
-        return Response(ser_data.data)
+    authentication_classes = [JWTAuthentication]
+
+    def put(self, request):
+        id_dr = request.query_params.get('id')
+        psychologist = Psychologist.objects.get(id=id_dr)
+
+        psychologist_data = {key: request.data.get(key) for key in request.data if key != 'disease'}
+        psychologist_serialized = PsychologistUpdateInfoSerializer(data=psychologist_data,
+                                                                   context={'request': request})
+        if psychologist_serialized.is_valid():
+            psychologist_serialized.update(psychologist, psychologist_serialized.validated_data)
+
+            disease_spliter = request.data.get('disease')[1:-1].split('},{')
+            disease_id = {int(disease_spliter[i].split(',')[0].split(':')[1]) for i in range(len(disease_spliter))}
+
+            for id in disease_id:
+                disease = Disease.objects.get(id=id)
+                psychologist.diseases.add(disease)
+
+            psychologist.save()
+
+            return Response(psychologist_serialized.data, status=status.HTTP_200_OK)
+        return Response(psychologist_serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
         try:
+            print(request.data)
+            # if request.user.is_authenticated:
+
+            auth_header = request.META.get('HTTP_AUTHORIZATION')
+            if not auth_header:
+                return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
+            auth_token = auth_header.split(' ')[1]
+
             id_dr = request.query_params.get('id')
             psychologist = Psychologist.objects.get(id=id_dr)
             ser_data = PsychologistProfileSerializer(psychologist)
             return Response(ser_data.data, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class PatientProfile(APIView):
-    def post(self, request):
-        pass
+    authentication_classes = [JWTAuthentication]
+
+    def put(self, request):
+        id_user = request.query_params.get('id')
+        patient = Patient.objects.get(id=id_user)
+
+        patient_serialized = PatientUpdateInfoSerializer(patient)
+        if patient_serialized.is_valid():
+            patient_serialized.update(patient, patient_serialized.validated_data)
+
+            return Response(patient_serialized.data, status=status.HTTP_200_OK)
+        return Response(patient_serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        pass
+        try:
+            # if request.user.is_authenticated:
+            auth_header = request.META.get('HTTP_AUTHORIZATION')
+            if not auth_header:
+                return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
+            auth_token = auth_header.split(' ')[1]
+
+            id_user = request.query_params.get('id')
+            patient = Patient.objects.get(id=id_user)
+            ser_data = PatientProfileSerializer(patient)
+            return Response(ser_data.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class RequestView(APIView):

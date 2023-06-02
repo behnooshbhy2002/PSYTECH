@@ -2,13 +2,19 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from accounts.models import Patient, Psychologist, Disease
+from accounts.models import Patient, Psychologist, Disease, User
 from appointments.models import Request, Session, Prescription, MedicalRecorder
 
 
 def clean_password(data):
     if data['password'] != data['confirm_password']:
         raise ValidationError('confirm password does not match password')
+    return data
+
+
+def clean_phone_number(data):
+    if User.objects.filter(phone_number=data).exists():
+        raise serializers.ValidationError({"email": "This phone_number is already in use."})
     return data
 
 
@@ -126,23 +132,18 @@ class PsychologistUpdateInfoSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = Patient
-        fields = ('specialist', 'address', 'phone_number', 'experience', 'image', 'password', 'confirm_password')
+        model = Psychologist
+        fields = ('specialist', 'address', 'phone_number', 'experience', 'password', 'confirm_password', 'image')
         extra_keywords = {
             'password': {'write_only': True, 'validators': (clean_password,)},
+            # 'phone_number': {'validators': (clean_phone_number,)},
         }
 
-    def validate_phone_number(self, value):
-        user = self.context['request'].user
-        if Patient.objects.exclude(pk=user.pk).filter(phone_number=value).exists():
-            raise serializers.ValidationError({"email": "This phone_number is already in use."})
-        return value
-
     def update(self, instance, validated_data):
-        user = self.context['request'].user
-
-        if user.pk != instance.pk:
-            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+        # user = self.context['request'].user
+        #
+        # if user.pk != instance.pk:
+        #     raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
 
         instance.specialist = validated_data['specialist']
         instance.image = validated_data['image']
@@ -164,10 +165,44 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
             'image')
 
 
-class PatientProfileSerializer(serializers.ModelSerializer):  # todo: fields will change
+class PatientUpdateInfoSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Patient
-        fields = ('full_name', 'phone_number', 'email', '')
+        fields = ('phone_number', 'password', 'confirm_password', 'image')
+        extra_keywords = {
+            'password': {'write_only': True, 'validators': (clean_password,)},
+            # 'phone_number': {'validators': (clean_phone_number,)},
+        }
+
+    def update(self, instance, validated_data):
+        # user = self.context['request'].user
+        #
+        # if user.pk != instance.pk:
+        #     raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+
+        instance.image = validated_data['image']
+        instance.password = validated_data['password']
+        instance.phone_number = validated_data['phone_number']
+
+        instance.save()
+
+        return instance
+
+
+class PatientProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ('full_name', 'phone_number', 'email', 'gender')
+
+
+class DoctorRelatedDiseaseSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(queryset=Disease.objects.all())
+
+    class Meta:
+        model = Disease
+        fields = ("id",)
 
 
 class RateSerializer(serializers.ModelSerializer):
