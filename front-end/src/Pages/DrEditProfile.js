@@ -4,11 +4,11 @@ import "../Components/style/DrEditProfile.css";
 import profilepic from "../images/ali-hemati.png";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import SideBarr from "../Components/SideBarr/SideBarr";
+import Message from "../Components/Error&Loading/Message";
 import {
   Form,
   Button,
   FormGroup,
-  FormControl,
   ControlLabel,
   FormLabel,
   Col,
@@ -19,8 +19,26 @@ import { FileUpload } from "primereact";
 
 import { MultiSelect } from "primereact/multiselect";
 
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+
+import { useSelector } from "react-redux";
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 function EditProfile() {
   const [selectedillnesses, setSelectedillnesses] = useState(null);
+  const [opt, setOpt] = React.useState("");
+
+  const handleChange = (event) => {
+    setOpt(event.target.value);
+  };
+
   const illness = [
     { name: "اختلال شخصیت خودشیفته", id: "1" },
     { name: "وسواس", id: "2" },
@@ -64,8 +82,12 @@ function EditProfile() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
   // Handling the name change
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,124 +129,170 @@ function EditProfile() {
 
   return (
     <>
-      <div className="Kharrr">
-        <SideBarr></SideBarr>
-        <div className="Kharrrchild">
-          <div className="Editprofile-div" dir="rtl">
-            <img id="edit-pic" src={profilepic} alt=""></img>
-            <FileUpload
-              mode="basic"
-              name="demo[]"
-              url="/api/upload"
-              accept="image/*"
-              customUpload
-              // uploadHandler={customBase64Uploader}
-            >
-              change
-            </FileUpload>
-            <Form onSubmit={handleSubmit}>
+      {userInfo ? (
+        <div>
+          <Message>دسترسی غیرمجاز</Message>
+        </div>
+      ) : (
+        <div className="Kharrr">
+          <SideBarr></SideBarr>
+          <div className="Kharrrchild">
+            <div className="Editprofile-div" dir="rtl">
+              <img id="edit-pic" src={profilepic} alt=""></img>
               <Row>
                 <Col>
-                  <Form.Label>تحصیلات: </Form.Label>
+                  <FileUpload
+                    mode="basic"
+                    name="demo[]"
+                    url="/api/upload"
+                    accept="image/*"
+                    customUpload
+                    // uploadHandler={customBase64Uploader}
+                  >
+                    change
+                  </FileUpload>
                 </Col>
                 <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="تحصیلات"
-                  />
-                </Col>
-              </Row>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="password"
-                    placeholder="رمز عبور"
-                  />
-                </Col>
-                <Col>
-                  <Form.Label htmlFor="inputPassword5">رمز جدید تکرار:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="password"
-                    placeholder="رمز عبور تکرار"
-                  />
+                  <FormControl sx={{ m: 1, minWidth: 300 }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">
+                      <p>تخصص</p>
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={opt}
+                      onChange={handleChange}
+                      autoWidth
+                      label="Age"
+                    >
+                      <MenuItem value={0}>
+                        <p>هیچ‌کدام</p>
+                      </MenuItem>
+                      <MenuItem value={1}>
+                        <p>مشاوره فردی</p>
+                      </MenuItem>
+                      <MenuItem value={2}>
+                        <p>مشاوره خانواده</p>
+                      </MenuItem>
+                      <MenuItem value={3}>
+                        <p>مشاوره تحصیلی</p>
+                      </MenuItem>
+                      <MenuItem value={4}>
+                        <p>مشاوره ازدواج</p>
+                      </MenuItem>
+                      <MenuItem value={5}>
+                        <p>مشاوره کودک</p>
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
                 </Col>
               </Row>
 
-              <Row>
-                <Form.Text id="passwordHelpBlock" muted>
-                  پسورد شما باید بیشتر از 8 حرف شامل اعدادوحروف کوچک و بزرگ
-                  انگلیسی باشد.
-                </Form.Text>
-              </Row>
-              <br></br>
-              <hr></hr>
-              <FormGroup>
-                <FormLabel>آدرس جدید مطب:</FormLabel>
-                <br></br>
-                <Form.Control
-                  id="address-input-edit"
-                  as="textarea"
-                  placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
-                />
-              </FormGroup>
-              <br></br>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label>شماره تلفن جدید:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="03122222"
-                  />
-                </Col>
-              </Row>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label>تجربه:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="10 سال"
-                  />
-                </Col>
-              </Row>
-              <hr></hr>
-              <FormGroup key="inline" dir="rtl">
-                <Form.Label>لیست بیماری ها : </Form.Label>
-                <br></br>
+              <Form onSubmit={handleSubmit}>
+                {/* <Select
+                      defaultValue={selectedOption}
+                      onChange={setSelectedOption}
+                      options={options}
+                    /> */}
+                {/* <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="تحصیلات"
+                    /> */}
 
-                <MultiSelect
-                  value={selectedillnesses}
-                  onChange={(e) => setSelectedillnesses(e.value)}
-                  options={illness}
-                  optionLabel="name"
-                  placeholder="انتخاب کنید.."
-                  maxSelectedLabels={10}
-                  className="w-full md:w-20rem"
-                />
-              </FormGroup>
-              <Button id="Edit-btn" type="submit" onClick={handleClick}>
-                ویرایش اطلاعات
-              </Button>
-            </Form>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="password"
+                      placeholder="رمز عبور"
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label htmlFor="inputPassword5">
+                      رمز جدید تکرار:
+                    </Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="password"
+                      placeholder="رمز عبور تکرار"
+                    />
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Form.Text id="passwordHelpBlock" muted>
+                    پسورد شما باید بیشتر از 8 حرف شامل اعدادوحروف کوچک و بزرگ
+                    انگلیسی باشد.
+                  </Form.Text>
+                </Row>
+                <br></br>
+                <hr></hr>
+                <FormGroup>
+                  <FormLabel>آدرس جدید مطب:</FormLabel>
+                  <br></br>
+                  <Form.Control
+                    id="address-input-edit"
+                    as="textarea"
+                    placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
+                  />
+                </FormGroup>
+                <br></br>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label>شماره تلفن جدید:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="03122222"
+                    />
+                  </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label>تجربه:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="10 سال"
+                    />
+                  </Col>
+                </Row>
+                <hr></hr>
+                <FormGroup key="inline" dir="rtl">
+                  <Form.Label>لیست بیماری ها : </Form.Label>
+                  <br></br>
+
+                  <MultiSelect
+                    value={selectedillnesses}
+                    onChange={(e) => setSelectedillnesses(e.value)}
+                    options={illness}
+                    optionLabel="name"
+                    placeholder="انتخاب کنید.."
+                    maxSelectedLabels={10}
+                    className="w-full md:w-20rem"
+                  />
+                </FormGroup>
+                <Button id="Edit-btn" type="submit" onClick={handleClick}>
+                  ویرایش اطلاعات
+                </Button>
+              </Form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

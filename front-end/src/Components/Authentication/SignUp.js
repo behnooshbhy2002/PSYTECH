@@ -32,6 +32,12 @@ function Sign({ location, history }) {
   const userRegisterPatient = useSelector((state) => state.userRegisterPatient);
   const { errorPatient, loadingPatient, userInfoPatient } = userRegisterPatient;
 
+  if (errorDr || errorPatient) {
+    console.log(errorDr);
+    console.log(errorPatient);
+    document.getElementById("error").style.display = "block";
+  }
+
   const nav = useNavigate();
   useEffect(() => {
     if (userInfoDr || userInfoPatient) {
@@ -141,6 +147,7 @@ function Sign({ location, history }) {
     document.getElementById("Psignup-toggle").style.background = "#9F74F2";
     document.getElementById("Psignup-toggle").style.color = "#fff";
     document.getElementById("medicalNum").style.display = "none";
+    document.getElementById("error").style.display = "none";
     resetForm();
   };
   const toggleDrSignup = () => {
@@ -151,26 +158,37 @@ function Sign({ location, history }) {
     document.getElementById("Psignup-toggle").style.background = "#fff";
     document.getElementById("Psignup-toggle").style.color = "#222";
     document.getElementById("medicalNum").style.display = "block";
+    document.getElementById("error").style.display = "none";
     resetForm();
   };
   return (
     <>
       <div className="signUPcontainer">
+        {loadingDr ? (
+          <Loader></Loader>
+        ) : loadingPatient ? (
+          <Loader></Loader>
+        ) : (
+          ""
+        )}
+
         <section class="form_model_signup">
           <div class="form_toggle_signup">
             <button id="DrSignup-toggle" onClick={toggleDrSignup}>
               ثبت نام پزشک
             </button>
             <button id="Psignup-toggle" onClick={togglePsignup}>
-              ثبت نام بیمار
+              ثبت نام کاربر
             </button>
           </div>
-          <div>
-            {message && <Message variant="danger">{message}</Message>}
-            {loadingDr && <Loader></Loader>}
-            {errorDr && <Message variant="danger">{errorDr}</Message>}
-            {loadingPatient && <Loader></Loader>}
-            {errorPatient && <Message variant="danger">{errorPatient}</Message>}
+          <div id="error">
+            {errorDr ? (
+              <Message variant="danger">{errorDr}</Message>
+            ) : errorPatient ? (
+              <Message variant="danger">{errorPatient}</Message>
+            ) : (
+              ""
+            )}
           </div>
 
           <div id="DrSignup-form">
@@ -260,7 +278,7 @@ function Sign({ location, history }) {
                   class="signUp-btn"
                   onClick={handlesubmmitPatient}
                 >
-                  ثبت اطلاعات بیمار
+                  ثبت اطلاعات کاربر
                 </button>
               )}
               <div className="login_link">

@@ -27,10 +27,12 @@ function AdminAdmitDrSignUp() {
   }, [dispatch, par, id, status]);
 
   const signupList = useSelector((state) => state.userGetSignUp);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const { error, loading, list } = signupList;
-  console.log(list)
-  
+  console.log(list);
+
   const addRowTable = () => {
     initRow(list);
     setButtonclicked(false);
@@ -112,7 +114,7 @@ function AdminAdmitDrSignUp() {
         <Loader></Loader>
       ) : error ? (
         <Message variant="danger">{error}</Message>
-      ) : (
+      ) : userInfo.role == "admin" ? (
         <div>
           <Toast
             userFull={userFull}
@@ -201,6 +203,8 @@ function AdminAdmitDrSignUp() {
             </table>
           </div>
         </div>
+      ) : (
+        <Message variant="danger">{"دسترسی غیرمجاز"}</Message>
       )}
     </>
   );

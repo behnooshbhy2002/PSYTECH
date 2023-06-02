@@ -1,5 +1,6 @@
 import Star from "./Star";
 import "./style.css";
+import { BsFillStarFill } from "react-icons/fa";
 
 export default function StarRating({ totalStar }) {
   const {
@@ -32,7 +33,7 @@ export default function StarRating({ totalStar }) {
           </span>
         ))}
       </div>
-      <button onClick={() => handleReset()}>Reset Rating</button>
+      <button onClick={() => handleReset()}>تنظیم مجدد</button>
     </div>
   );
 }

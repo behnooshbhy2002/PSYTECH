@@ -15,7 +15,7 @@ function PatientsList() {
 
   const fetchInfo = (par) => {
     return axios
-      .get(`http://127.0.0.1:8000/appointments//${par}`)
+      .get(`http://127.0.0.1:8000/appointments/patient_list/${par}`)
       .then((response) => {
         console.log(response);
         //doctor = response.data;
