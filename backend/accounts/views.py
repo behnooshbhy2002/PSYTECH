@@ -231,5 +231,3 @@ class TopPsychologistView(APIView):
         psychologists = Psychologist.objects.all()[:6]
         serializer_psy = TopPsychologistsSerializer(psychologists, many=True)
         return Response(serializer_psy.data, status=status.HTTP_200_OK)
-class ShowTopPsychologist(APIView):
-    pass

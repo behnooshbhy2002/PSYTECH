@@ -12,12 +12,10 @@ from appointments.models import Request, Session, MedicalRecorder
 from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
     PostRequestSerializer, PsychologistUpdateInfoSerializer, \
-    PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer
-
+    PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer, DoctorSerializer
 
 # MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
-from appointments.models import Request, MedicalRecord
-from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
+from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
     PsychologistUpdateInfoSerializer, DoctorRelatedDiseaseSerializer, PatientProfileSerializer, \
     PatientUpdateInfoSerializer
@@ -180,8 +178,6 @@ class PatientProfile(APIView):
 
 class RequestView(APIView):
     def post(self, request):
-        psychologist = None
-        patient = None
         print(request.data)
         print(request.data.get("id_psychologist"))
         print(request.data.get("id_patient"))
@@ -213,15 +209,21 @@ class RequestView(APIView):
 
 class RatingView(APIView):
     def post(self, request):
-        print(request.data)
         serializer = RateSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             id_psychologist = serializer.data.get('pk')
-            print(id_psychologist)
             psychologist = Psychologist.objects.get(pk=id_psychologist)
             rate = serializer.data.get('rate')
             psychologist.count_rate(rate)
             psychologist.save()
             return Response({"successfully"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DoctorListView(APIView):
+    def get(self, request):
+        id_user = request.query_params.get('id')
+        patient = Patient.objects.get(id=id_user)
+        doctor_list = patient.psychologist_patient.all()
+        doctor_serializer = DoctorSerializer(doctor_list, many=True)
+        return Response(doctor_serializer.data, status=status.HTTP_200_OK)
