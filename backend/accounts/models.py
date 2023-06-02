@@ -58,7 +58,7 @@ class Psychologist(User):  # todo: add address for psychologist
     diseases = models.ManyToManyField(Disease)
     address = models.CharField(max_length=100, blank=True, null=True)
     experience = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-    patients = models.ManyToManyField(Patient)
+    patients = models.ManyToManyField(Patient, related_name='psychologist_patient')
 
     def count_rate(self, value):
         rate_count = self.rate_counter + 1
