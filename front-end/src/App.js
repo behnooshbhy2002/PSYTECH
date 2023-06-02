@@ -14,7 +14,7 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import AdminAdmitDrSignUp from "./Pages/AdminAdmitDrSignUp";
 import DoctorPageDetail from "./Pages/DoctorPageDetail";
-// import SideBarr from "./Components/SideBarr/SideBarr";
+import SideBarr from "./Components/SideBarr/SideBarr";
 // import DoctorPanel from "./Pages/DoctorPanel";
 import { ProSidebarProvider } from "react-pro-sidebar";
 // import PatientsList from "./Components/PatientList/PatientsList";

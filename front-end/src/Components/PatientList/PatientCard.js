@@ -54,7 +54,7 @@ const PatientCard = (props) => {
       <span className="patient-details">
         <div>
           <img
-            src={gender == "2" ? women : men}
+            src={gender == "F" ? women : men}
             alt="women"
             height="110"
             width="110"
