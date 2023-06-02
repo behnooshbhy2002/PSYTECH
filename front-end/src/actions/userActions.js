@@ -20,9 +20,7 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
-  USER_PROFILE_DR_REQUEST,
-  USER_PROFILE_DR_SUCCESS,
-  USER_PROFILE_DR_FAIL,
+
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -65,7 +63,7 @@ export const logout = () => async (dispatch) => {
 export const registerDr =
   (fullname, phonenumber, email, gender, medicalNum, password, confirmPass) =>
   async (dispatch) => {
-    console.log(fullname, email, password);
+    //console.log("d");
     try {
       dispatch({
         type: USER_REGISTER_DR_REQUEST,
@@ -84,7 +82,7 @@ export const registerDr =
         medical_number: medicalNum,
         password: password,
       };
-      console.log(obj);
+      //console.log(obj);
       const { data } = await axios.post(
         "http://127.0.0.1:8000/accounts/register_psychologist/",
         obj,
@@ -110,6 +108,7 @@ export const registerDr =
 
 export const registerPatient =
   (fullname, phonenumber, email, gender, password) => async (dispatch) => {
+    //console.log("p");
     try {
       dispatch({
         type: USER_REGISTER_PATIENT_REQUEST,
@@ -237,36 +236,37 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
   }
 };
 
-export const getProfileDR = (id) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: USER_PROFILE_DR_REQUEST,
-    });
+// export const getProfileDR = (id) => async (dispatch, getState) => {
+//   try {
+//     dispatch({
+//       type: USER_PROFILE_DR_REQUEST,
+//     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+//     const {
+//       userLogin: { userInfo },
+//     } = getState();
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-         Authorization: `BAREAR ${userInfo.token}`
-      },
-    };
+//     const config = {
+//       headers: {
+//         "Content-type": "application/json",
+//          Authorization: `BAREAR ${userInfo.token}`
+//       },
+//     };
 
-    const { data } = await axios.get(`/api/users/${id}`, config);
+//     const { data } = await axios.get(`http://127.0.0.1:8000/appointments/psychologist_profile/${id}`);
 
-    dispatch({
-      type: USER_PROFILE_DR_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: USER_PROFILE_DR_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+//     dispatch({
+//       type: USER_PROFILE_DR_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: USER_PROFILE_DR_FAIL,
+//       payload:
+//         error.response && error.response.data.detail
+//           ? error.response.data.detail
+//           : error.message,
+//     });
+//   }
+// };
+

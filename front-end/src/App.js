@@ -28,9 +28,18 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 // import AudioRecorderr from "./Components/componentss/AudioRecorderr";
 // import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
 import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
+import DrEditProfile from "./Pages/DrEditProfile";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import DRProfile from "./Pages/DRProfile";
+import CaseHistory from "./Pages/CaseHistory";
+import AudioRecorderr from "./Components/componentss/AudioRecorderr";
+import PatientProfile from "./Pages/PatientProfile";
+
 import DoctorList from "./Components/PatientPanel/DoctorList";
 import PPanelDoctorCard from "./Components/PatientPanel/PPanelDoctorCard";
-import PPanelReqList from './Components/PatientPanel/PPanelReqList'
+import PPanelReqList from "./Components/PatientPanel/PPanelReqList";
 import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
 import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
 import UserProfile from "./Components/PatientPanel/UserProfile";
@@ -101,10 +110,14 @@ function App() {
               path="/MyPatientRequestList"
               element={<PatientsRequestList />}
             />
-            <Route path="/EditMyProfile" element={<DrEditProfile />} />
-
+            <Route path="/EditMyProfile" element={<DrEditProfile />} />	
             <Route path="/Home" element={<Home />} />
+
+            <Route path="/PatientProfile" element={<PatientProfile/>}></Route>
+          </Routes>
+
           </Routes> */}
+
           <Footer></Footer>
         </BrowserRouter>
         {/* <NavBarr></NavBarr>

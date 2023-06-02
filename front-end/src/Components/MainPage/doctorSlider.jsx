@@ -33,17 +33,22 @@ function DoctorSlider() {
   //     .then((response) => response.json())
   //     .then((json) => setDrList(json));
   // }, [url]);
+  let doctor ;
+  const fetchInfo = () => {
+    return axios
+    .get("http://127.0.0.1:8000/accounts/top_psychologist/")
+    .then((response) => {
+      console.log(response.data);
+      //doctor = response.data;
+     setDrList(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   useEffect(() => {
-    const { data } = axios
-      .get("http://127.0.0.1:8000/accounts/resend_otp/")
-      .then((response) => {
-        console.log(response.data);
-        setDrList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    fetchInfo();
+  } , []);
   const numberOfItems = drList.length;
   return (
     <div>
@@ -93,16 +98,18 @@ function DoctorSlider() {
           <div>
             {drList.slice(0, numberOfItems).map((item) => {
               return (
-                <SwiperSlide>
+                <div key={item.id}>
+                  <SwiperSlide>
                   <DoctorCard
                     data={{
-                      imgSrc: item.picture,
-                      nameDoctor: item.name,
-                      title: item.spaciality,
-                      score: item.rating,
+                      imgSrc: item.image,
+                      nameDoctor: item.full_name,
+                      title: item.specialist,
+                      score: item.rate,
                     }}
                   />
                 </SwiperSlide>
+                </div>
               );
             })}
           </div>

@@ -5,8 +5,12 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import axios from "axios";
+import { useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { DrDetails } from "../actions/doctorActions";
 function DoctorPageDetail() {
-  const [psyInfo, setPsyInfo] = useState([]);
+  const [psyInfo, setPsyInfo] = useState({});
+  const [sickness, setSickness] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
 
   // useEffect(() => {
@@ -14,38 +18,90 @@ function DoctorPageDetail() {
   //     .then((response) => response.json())
   //     .then((json) => setPsyInfo(json));
   // }, [url]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("https://api.example.com/user-profile", {
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem("token")}`,
-        // },
-      });
-      setPsyInfo(response.data);
-    };
-  }, []);
 
-  //console.log(url);
-  const numberOfItems = psyInfo ? psyInfo.length : 0;
+  const dispatch = useDispatch();
+  const loc = useLocation();
+  const par = loc.search;
+
+  //console.log(par);
+  useEffect(() => {
+    dispatch(DrDetails(par));
+  }, [dispatch, par]);
+
+  const dr = useSelector((state) => state.drDetails);
+  const { error, loading, details } = dr;
+  //console.log(error)
+  let image , name , address , exprience , rate , id , medical , phone;
+  let diseaseArr= []
+
+  
+     console.log(Array.isArray(details))
+     console.log("out")
+     if(!Array.isArray(details)){
+       console.log("gol is here")
+      //const { psychologist : [{name , gender}]} = details
+      const { psychologist, disease } = details;
+      if(Array.isArray(psychologist))
+      {
+        console.log((psychologist[0]))
+        image = psychologist[0].image
+        name = psychologist[0].full_name
+        address = psychologist[0].address
+        exprience = psychologist[0].exprience
+        //rate = psychologist[0].
+        medical = psychologist[0].medical_number
+        phone = psychologist[0].phone_number
+        //console.log(image , name)
+      }
+      if(Array.isArray(disease)){
+        diseaseArr = disease
+        console.log(diseaseArr)
+      }
+       
+     }
+     
+    //console.log(Object.keys(details));
+    // console.log(psyInfo);
+    //const x = psyInfo['0'];
+    //console.log(x)
+    // const data = details.json()
+    //const data = JSON.stringify(details)
+    //const data2 = JSON.parse(data)
+    //const {dieseas} = data2
+    // const d2 = JSON.parse( JSON.stringify(disease))
+    //console.log( typeof JSON.stringify(disease))
+    //const {khar} = psychologist
+  
+  
+  //const x = psychologist
+  // console.log(x)
+  // console.log(x.image)
+  
+
+  
+
+  // setPsyInfo(psychologist[0]);
+  // setSickness(disease);
+
+  // const item = psychologist;
+  // console.log(item[0].full_name);
+
   return (
     <>
-      {psyInfo.slice(0, 2).map((item) => {
-        return (
-          <>
             <div className="detail-doctor-top-page">
               <div className="main-datail-doctor ">
                 <img
-                  src={item.image}
+                  src={image}
                   alt=""
                   className="img-fluid mx-auto d-block rounded-circle main-detail-doctor-img"
                 />
                 <div className="main-detail-doctor-text">
-                  <h4>{item.full_name}</h4>
+                  <h4>{name}</h4>
                   <h5>
                     میزان تجربه:
-                    {item.experience}
+                    {exprience}
                   </h5>
-                  <p> شماره نظام پزشکی: {item.medical_number}</p>
+                  <p> شماره نظام پزشکی: {medical}</p>
                 </div>
               </div>
 
@@ -56,11 +112,11 @@ function DoctorPageDetail() {
                 <h5 className="loc-h5-text">آدرس مطب و شماره تماس</h5>
                 <div className="loc-div">
                   <LocationOnIcon className="loc-icon"></LocationOnIcon>
-                  {item.address}
+                  {address}
                 </div>
                 <div className="loc-div-buttom loc-div">
                   <LocalPhoneIcon className="loc-icon loc-icon-phone"></LocalPhoneIcon>
-                  {item.phone_number}
+                  {phone}
                 </div>
               </div>
             </div>
@@ -72,14 +128,14 @@ function DoctorPageDetail() {
                   <div className="bio-doctor-text">
                     <h5>بیوگرافی:</h5>
 
-                    {item.diseases_list.map((item) => {
+                    {diseaseArr.map((item) => {
                       return (
                         <>
                           <div className="bio-item-doctor">
                             <CheckBoxIcon
                               style={{ color: "green" }}
                             ></CheckBoxIcon>
-                            <p>{item}</p>
+                            <p>{item.title}</p>
                           </div>
                         </>
                       );
@@ -101,11 +157,10 @@ function DoctorPageDetail() {
                     کنید.
                   </p>
                   <button className="detail-doctor-req-button">
-                    ثبت درخواست برای {item.full_name}
+                    ثبت درخواست برای {name}
                   </button>
                 </div>
 
-                {/* <h5>ldcjl</h5> */}
                 <div
                   className="detail-doctor-req detail-doctor-rate "
                   style={{
@@ -115,7 +170,6 @@ function DoctorPageDetail() {
                   <h5 className="loc-h5-text text-rate-top">
                     میزان رضایت از پزشک
                   </h5>
-                  {/* <div className=""> */}
 
                   <div className="rate-div-deatail-doc">
                     <i
@@ -123,23 +177,17 @@ function DoctorPageDetail() {
                       style={{ marginLeft: "2px" }}
                     ></i>
 
-                    {item.rating}
+                    {rate}
                   </div>
-
-                  {/* <h5>رای دادن</h5> */}
 
                   <button className="detail-doctor-req-button">
                     {" "}
-                    رای دادن به {item.full_name}
+                    رای دادن به {name}
                   </button>
-                  {/* </div> */}
                 </div>
               </div>
             </div>
           </>
-        );
-      })}
-    </>
   );
 }
 
