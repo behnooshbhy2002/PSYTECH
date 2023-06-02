@@ -1,8 +1,9 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from accounts.models import Patient, Psychologist, Disease
-from appointments.models import Request, MedicalRecord
+from appointments.models import Request, Session, Prescription, MedicalRecorder
 
 
 def clean_password(data):
@@ -47,7 +48,7 @@ class PostRequestSerializer(serializers.ModelSerializer):
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
-        fields = ("full_name",)
+        fields = ("full_name", "id", "gender")
 
 
 class PsychologistIdSerializer(serializers.ModelSerializer):
@@ -66,24 +67,39 @@ class PatientIdSerializer(serializers.ModelSerializer):
         fields = ("pk",)
 
 
-class GetPsychologistPatientIdSerializer(serializers.ModelSerializer):
-    pk_doctor = PsychologistIdSerializer(read_only=True)
-    pk_patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
-
-    class Meta:
-        model = Patient
-        fields = ("pk_doctor", "pk_patient")
-
-
-class GetIdPsyPatientCustomizeSerializer(serializers.ModelSerializer):
-    id_psychologist = serializers.IntegerField()
-    id_patient = serializers.IntegerField()
-
-
 class MedicalRecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MedicalRecord
-        fields = "__all__"
+        model = MedicalRecorder
+        fields = ("description", "date")
+
+
+class PrescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prescription
+        fields = ("date", "content")
+
+
+class SessionSerializer(serializers.ModelSerializer):
+    prescription = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Session
+        fields = ("date", "content", "title", "id")
+
+    def get_prescription(self, obj):
+        try:
+            return obj.prescription
+        except ObjectDoesNotExist:
+            print("There is no prescription for this session.")
+            raise ObjectDoesNotExist
+
+
+class SessionListSerializer(serializers.ModelSerializer):
+    # list = serializers.ListField(child=SessionSerializer())
+
+    class Meta:
+        model = Session
+        fields = ("date", "content", "title", "id")
 
 
 class DiseaseSerializer(serializers.ModelSerializer):
