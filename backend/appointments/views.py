@@ -8,10 +8,13 @@ from rest_framework.views import APIView
 from accounts.models import Psychologist, Patient
 from accounts.serializers import ActivePsychologistSerializer
 from appointments.models import Request, MedicalRecord
-from appointments.serializers import RequestSerializer, GetMedicalRecordSerializer, PatientSerializer, \
+from appointments.serializers import RequestSerializer, GetPsychologistPatientIdSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
-    PostRequestSerializer
-    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
+    PostRequestSerializer, PsychologistUpdateInfoSerializer, GetIdPsyPatientCustomizeSerializer, \
+    PsychologistIdSerializer, PatientIdSerializer, RateSerializer
+
+
+# MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
 
 
 class RequestListView(APIView):
@@ -59,20 +62,33 @@ class PatientListView(APIView):
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class MedicalReportView(APIView):
+class MedicalRecordView(APIView):
 
     def post(self, request):
-        serializer = GetMedicalRecordSerializer(data=request.data)
-        if serializer.is_valid():
-            pk_doctor = serializer.data.get('pk_doctor')
+        print(request.data)
+        print(request.data.get("id_psychologist"))
+        print(request.data.get("id_patient"))
+        serializer_psychologist = PsychologistIdSerializer(data={'pk': request.data.get("id_psychologist")})
+        serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
+        if serializer_psychologist.is_valid() and serializer_patient.is_valid():
+            print(serializer_psychologist.data)
+            pk_doctor = serializer_psychologist.data.get('pk')
             psychologist = Psychologist.objects.get(pk=pk_doctor)
-            pk_patient = serializer.data.get('pk_patient')
+            print(psychologist.full_name)
+            pk_patient = serializer_patient.data.get('pk')
+            print(pk_patient)
             patient = Patient.objects.get(pk=pk_patient)
             medical_report = MedicalRecord.objects.get(doctor=psychologist, patient=patient)
             print(medical_report)
-            serializer = MedicalRecordSerializer(medical_report, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            print("shoot")
+            serializer = MedicalRecordSerializer(medical_report)
+            return Response({'msg': "successfully", 'data': serializer.data}, status=status.HTTP_200_OK)
+        errors = {}
+        if not serializer_psychologist.is_valid():
+            errors["serializer_psychologist"] = serializer_psychologist.errors
+        if not serializer_patient.is_valid():
+            errors["serializer_patient"] = serializer_patient.errors
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ShowPsychologistDetailView(APIView):
@@ -91,14 +107,14 @@ class ShowPsychologistDetailView(APIView):
 class PsychologistProfile(APIView):
     def post(self, request):
         psychologist_data = {
-                             request.data.get('specialist'),
-                             request.data['address'],
-                             request.data['phone_number'],
-                             request.data.get('experience'),
-                             request.data['image'],
-                             request.data['password'],
-                             request.data['confirm_password'],
-                             }
+            request.data.get('specialist'),
+            request.data['address'],
+            request.data['phone_number'],
+            request.data.get('experience'),
+            request.data['image'],
+            request.data['password'],
+            request.data['confirm_password'],
+        }
         ser_data = PsychologistUpdateInfoSerializer(psychologist_data)
         return Response(ser_data.data)
 
@@ -118,3 +134,52 @@ class PatientProfile(APIView):
 
     def get(self, request):
         pass
+
+
+class RequestView(APIView):
+    def post(self, request):
+        psychologist = None
+        patient = None
+        print(request.data)
+        print(request.data.get("id_psychologist"))
+        print(request.data.get("id_patient"))
+        # serializer = GetPsychologistPatientIdSerializer(data=request.data)
+        serializer_psychologist = PsychologistIdSerializer(data={'pk': request.data.get("id_psychologist")})
+        serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
+        if serializer_psychologist.is_valid() and serializer_patient.is_valid():
+            print(serializer_psychologist.data)
+            pk_doctor = serializer_psychologist.data.get('pk')
+            psychologist = Psychologist.objects.get(pk=pk_doctor)
+            print(psychologist.full_name)
+            pk_patient = serializer_patient.data.get('pk')
+            print(pk_patient)
+            patient = Patient.objects.get(pk=pk_patient)
+            print(patient.full_name)
+            request_patient = Request(sender=patient, receiver=psychologist)
+            request_patient.save()
+            print(request_patient)
+            return Response({'msg': "successfully", 'data': serializer_psychologist.data.get('pk')},
+                            status=status.HTTP_200_OK)
+        errors = {}
+        if not serializer_psychologist.is_valid():
+            errors["serializer_psychologist"] = serializer_psychologist.errors
+        if not serializer_patient.is_valid():
+            errors["serializer_patient"] = serializer_patient.errors
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+        # if serializer_patient.is_valid():
+
+
+class RatingView(APIView):
+    def post(self, request):
+        print(request.data)
+        serializer = RateSerializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            id_psychologist = serializer.data.get('pk')
+            print(id_psychologist)
+            psychologist = Psychologist.objects.get(pk=id_psychologist)
+            rate = serializer.data.get('rate')
+            psychologist.count_rate(rate)
+            psychologist.save()
+            return Response({"successfully"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

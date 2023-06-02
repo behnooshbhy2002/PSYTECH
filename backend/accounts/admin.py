@@ -28,7 +28,7 @@ class PsychologistAdmin(admin.ModelAdmin):
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ("email", "full_name", "phone_number", "gender")
+    list_display = ("email", "full_name", "phone_number", "gender", "id")
     list_filter = ("last_login",)
     search_fields = ("email", "full_name")
     ordering = ("full_name",)

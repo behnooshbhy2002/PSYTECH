@@ -58,13 +58,26 @@ class PsychologistIdSerializer(serializers.ModelSerializer):
         fields = ("pk",)
 
 
-class GetMedicalRecordSerializer(serializers.ModelSerializer):
+class PatientIdSerializer(serializers.ModelSerializer):
+    pk = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+
+    class Meta:
+        model = Patient
+        fields = ("pk",)
+
+
+class GetPsychologistPatientIdSerializer(serializers.ModelSerializer):
     pk_doctor = PsychologistIdSerializer(read_only=True)
     pk_patient = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
 
     class Meta:
         model = Patient
         fields = ("pk_doctor", "pk_patient")
+
+
+class GetIdPsyPatientCustomizeSerializer(serializers.ModelSerializer):
+    id_psychologist = serializers.IntegerField()
+    id_patient = serializers.IntegerField()
 
 
 class MedicalRecordSerializer(serializers.ModelSerializer):
@@ -90,7 +103,7 @@ class DiseaseList(serializers.ModelSerializer):
 class PsychologistDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
-        fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number", "id")
+        fields = ("image", "full_name", "experience", "medical_number", "address", "phone_number", "id", "rate")
 
 
 class PsychologistUpdateInfoSerializer(serializers.ModelSerializer):
@@ -139,3 +152,11 @@ class PatientProfileSerializer(serializers.ModelSerializer):  # todo: fields wil
     class Meta:
         model = Patient
         fields = ('full_name', 'phone_number', 'email', '')
+
+
+class RateSerializer(serializers.ModelSerializer):
+    pk = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+
+    class Meta:
+        model = Psychologist
+        fields = ("pk", "rate")
