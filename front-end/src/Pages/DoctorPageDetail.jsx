@@ -21,7 +21,7 @@ function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState({});
   const [sickness, setSickness] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
-  const [anable, setEnable] = useState(true);
+  const [enable, setEnable] = useState(true);
 
   const dispatch = useDispatch();
   const loc = useLocation();

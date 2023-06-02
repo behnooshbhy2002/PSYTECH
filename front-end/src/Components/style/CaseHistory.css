@@ -25,8 +25,11 @@
 
 .case-list-wrapper {
   align-items: center;
+  /* display: grid;
+  grid-template-columns: repeat(5);
+  gap: 1rem; */
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #icon-add-caseItem {
@@ -51,8 +54,7 @@
   -ms-transform: scale(0.9);
   -o-transform: scale(0.9);
 }
-.text-case-history
-{
+.text-case-history {
   margin-right: 20px;
   margin-top: 20px;
 }

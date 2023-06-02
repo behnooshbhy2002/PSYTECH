@@ -2,11 +2,52 @@ import React from "react";
 import "../style/PatientCard.css";
 import women from "../../images/woman.png";
 import men from "../../images/men.png";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 // import
 const PatientCard = (props) => {
   let { name, gender, id } = props.data;
-  const handleViewFile = () => {
-    //route to files
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const dr_id = userInfo?.id;
+
+  const handleViewFile = (p_id) => {
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        p_id: p_id,
+        dr_id: dr_id,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    const toComponentB = () => {
+      navigate("/CaseHistory", { state: data });
+    };
+    //history("/CaseHistory");
+  };
+  const handleViewPrescription = (p_id) => {
+    const { data } = axios
+      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+        p_id: p_id,
+        dr_id: dr_id,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    const toComponentB = () => {
+      navigate("/RecipeHistory", { state: data });
+    };
+    //history("/RecipeHistory");
   };
   return (
     <div className="patient-card">
@@ -34,7 +75,14 @@ const PatientCard = (props) => {
           مشاهده و تکمیل پرونده
         </button>
         <br></br>
-        <button className="patient-card-button">ارسال نسخه به بیمار</button>
+        <button
+          className="patient-card-button"
+          onClick={() => {
+            handleViewPrescription(id);
+          }}
+        >
+          ارسال نسخه به بیمار
+        </button>
       </div>
     </div>
   );

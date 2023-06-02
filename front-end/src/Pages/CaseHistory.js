@@ -4,12 +4,30 @@ import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import CaseInput from "../Components/componentss/CaseInput";
 import CaseItem from "../Components/componentss/CaseItem";
 import "../Components/style/CaseHistory.css";
+import { useLocation } from "react-router-dom";
 
 function CaseHistory() {
   const [StatusForm, setStatusForm] = useState(false);
+  const [fileId, setFileId] = useState(-1);
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const location = useLocation();
+  let FileList = location.state?.data;
+  FileList = [
+    {
+      id: 1,
+      title: "جلسه دوم",
+      date: "2020 / 01 / 01",
+    },
+    {
+      id: 5,
+      title: "جلسه سوم",
+      date: "2021/02/02",
+    },
+  ];
+
+  const handleClick = (clicked_id) => {
+    setFileId(clicked_id);
     setStatusForm(true);
   };
 
@@ -33,12 +51,21 @@ function CaseHistory() {
             id="icon-add-caseItem"
             size={70}
             color="#a8a8a9"
-            onClick={handleClick}
+            onClick={() => {
+              //setFileId(false);
+              handleClick(-1);
+            }}
           ></IoAddCircle>
         </div>
-        <CaseItem clickhandler={handleClick}></CaseItem>
+        {FileList?.map((item) => {
+          return <CaseItem data={item} clickhandler={handleClick}></CaseItem>;
+        })}
       </div>
-      <div>{StatusForm && <CaseInput closing={closeHandle}></CaseInput>}</div>
+      <div>
+        {StatusForm && (
+          <CaseInput closing={closeHandle} fileId={fileId}></CaseInput>
+        )}
+      </div>
     </div>
   );
 }

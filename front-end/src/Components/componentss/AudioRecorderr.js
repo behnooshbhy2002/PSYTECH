@@ -6,7 +6,7 @@ import {
   useReactMediaRecorder,
   ReactMediaRecorder,
 } from "react-media-recorder";
-function AudioRecorderr() {
+function AudioRecorderr(props) {
   //   const { recordstatus, startRecording, stopRecording, mediaBlobUrl } =
   //     useReactMediaRecorder({ audio: true });
   const [audio, setAudio] = useState();

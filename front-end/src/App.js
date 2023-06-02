@@ -45,16 +45,14 @@ import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
 import UserProfile from "./Components/PatientPanel/UserProfile";
 import Rulse from "./Components/MainPage/Rules";
 import AboutUs from "./Components/MainPage/AboutUs";
+import RecipeHistory from "./Pages/recipeHistory/DrrecipeHistory";
+
 function App() {
   return (
     <>
       <div className="main-div-body">
         <BrowserRouter>
           <NavBarr></NavBarr>
-
-          {/* <PPanelReqList></PPanelReqList> */}
-          {/* <PatientsRequestList></PatientsRequestList> */}
-          {/* <SideBarrPatient></SideBarrPatient> */}
           <Routes>
             <Route path="/MyDoctor" element={<DoctorList></DoctorList>}></Route>
             <Route path="/AboutUs" element={<AboutUs></AboutUs>}></Route>
@@ -75,17 +73,21 @@ function App() {
               path="/MyProfileP"
               element={<UserProfile></UserProfile>}
             ></Route>
+            <Route path="/CaseHistory" element={<CaseHistory />}></Route>
+            <Route
+              path="/RecipeHistory"
+              element={<RecipeHistory></RecipeHistory>}
+            ></Route>
           </Routes>
 
-          {/* <SideBarr></SideBarr> */}
-          {/* <Routes>
+          <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/Login" element={<Login />}></Route>
             <Route path="/PsycologistList" element={<Card />}></Route>
             <Route path="/SignUp" element={<Sign />}></Route>
             <Route path="/Profile" element={<Profile />}></Route>
             <Route path="/Edit" element={<CaseHistory />}></Route>
-            
+
             <Route
               path="/Admin-SignUp"
               element={<AdminAdmitDrSignUp />}
@@ -95,36 +97,9 @@ function App() {
               path="/PsycologistProfile"
               element={<DoctorPageDetail />}
             ></Route>
-            <Route
-              path="/sideBar"
-              element={
-                <ProSidebarProvider> */}
-          {/* <DoctorPanel></DoctorPanel> */}
-          {/* <SideBarr></SideBarr>
-                </ProSidebarProvider>
-              }
-            ></Route>
-            <Route path="/MyProfile" element={<DRProfile />} />
-            <Route path="/MyPatientnList" element={<PatientsList />} />
-            <Route
-              path="/MyPatientRequestList"
-              element={<PatientsRequestList />}
-            />
-            <Route path="/EditMyProfile" element={<DrEditProfile />} />	
-            <Route path="/Home" element={<Home />} />
-
-            <Route path="/PatientProfile" element={<PatientProfile/>}></Route>
           </Routes>
-
-          </Routes> */}
-
           <Footer></Footer>
         </BrowserRouter>
-        {/* <NavBarr></NavBarr>
-      <SearchBox></SearchBox>
-      <ServiceSlide></ServiceSlide>
-      <DoctorSlider></DoctorSlider>
-      <Footer></Footer> */}
       </div>
     </>
   );
