@@ -18,15 +18,18 @@ function CaseHistory() {
       id: 1,
       title: "جلسه دوم",
       date: "2020 / 01 / 01",
+      content: "behnoosh was here",
     },
     {
       id: 5,
       title: "جلسه سوم",
       date: "2021/02/02",
+      content: "جلسه 3 اینجا بود",
     },
   ];
 
   const handleClick = (clicked_id) => {
+    //console.log(clicked_id);
     setFileId(clicked_id);
     setStatusForm(true);
   };
@@ -63,7 +66,11 @@ function CaseHistory() {
       </div>
       <div>
         {StatusForm && (
-          <CaseInput closing={closeHandle} fileId={fileId}></CaseInput>
+          <CaseInput
+            closing={closeHandle}
+            fileId={fileId}
+            FileList={FileList}
+          ></CaseInput>
         )}
       </div>
     </div>

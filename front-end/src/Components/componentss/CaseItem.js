@@ -4,16 +4,16 @@ import { RxCross2 } from "react-icons/rx";
 function CaseItem(props) {
   let data = props?.data;
   const clickhandler = props?.clickhandler;
-  const [dateTime, setDateTime] = useState(new Date());
+  //const [dateTime, setDateTime] = useState(new Date());
   const handleClick = (clicked_id) => {
     clickhandler(clicked_id);
   };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDateTime(new Date());
-    }, 1000); // Update the date and time every second
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setDateTime(new Date());
+  //   }, 1000); // Update the date and time every second
+  //   return () => clearInterval(interval);
+  // }, []);
   return (
     <div
       className="caseItem-wrapper"

@@ -5,27 +5,36 @@ import AudioRecorderr from "./AudioRecorderr";
 import { file } from "@babel/types";
 import axios from "axios";
 function CaseInput(props) {
+  const [id, setId] = useState();
   const closing = props?.closing;
   const fileId = props?.fileId;
-  //console.log(fileId);
-  const [historyText, setHistoryText] = useState("");
+  const FileList = props?.FileList;
 
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [dateTime, setDateTime] = useState(new Date());
-  const fetchInfo = (par) => {
-    return axios
-      .get(`http://127.0.0.1:8000/appointments/patient_list/${par}`)
-      .then((response) => {
-        console.log(response);
-        //doctor = response.data;
-        setFileItem(response.data);
-        console.log(fileItem);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
+  let contentM = "";
+  let titleM = "";
+  let dateTimeM = new Date();
+  //console.log(FileList);
+
+  FileList?.map((item) => {
+    if (item?.id == fileId) {
+      contentM = item?.content;
+      titleM = item?.title;
+      dateTimeM = item?.date;
+    } else if (fileId == -1) {
+      contentM = "";
+      titleM = "";
+    }
+  });
+
+  const [historyText, setHistoryText] = useState("");
+
+  // const fetchInfo = () => {
+
+  // };
 
   const handleSubmitFile = () => {
     console.log(title);
@@ -34,19 +43,25 @@ function CaseInput(props) {
   // const userLogin = useSelector((state) => state.userLogin);
   // const { userInfo } = userLogin;
   // const id = userInfo?.id;
-  const par = `?fileId=${fileId}`;
+  //const par = `?fileId=${fileId}`;
   //let fileItem;
   const [fileItem, setFileItem] = useState();
-  useEffect(() => {
-    setFileItem(fetchInfo(par));
-    // setFileItem({
-    //   id: 2,
-    //   content: "jjjjjjjj",
-    //   title: "[gsi h,g",
-    //   date: "2020/01/01",
-    // });
-    console.log(fileId);
-  }, [par]);
+  // useEffect(() => {
+  //   FileList?.map((item) => {
+  //     if (item.id == fileId) {
+  //       console.log("hiiiii");
+  //       setContent(item.content);
+  //       setTitle(item.title);
+  //       setDateTime(item.date);
+  //     }
+  //   });
+  //   if (fileId == -1) {
+  //     setContent("");
+  //     setTitle("");
+  //     setDateTime(new Date());
+  //   }
+  //   console.log();
+  // }, []);
 
   // if (fileId == -1) {
   //   const interval = setInterval(() => {
@@ -64,7 +79,7 @@ function CaseInput(props) {
           <input
             id="date-caseInput"
             disabled={true}
-            placeholder={fileId === -1 ? dateTime : fileItem?.date}
+            placeholder={fileId == -1 ? dateTime : dateTimeM}
           ></input>
           <input
             id="subject-caseInput"
@@ -73,7 +88,7 @@ function CaseInput(props) {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            value={fileId !== -1 ? fileItem?.title : title}
+            value={fileId != -1 ? titleM : title}
           ></input>
           <textarea
             id="description-caseInput"
@@ -81,11 +96,11 @@ function CaseInput(props) {
             onChange={(e) => {
               setContent(e.target.value);
             }}
-            value={fileId !== -1 ? fileItem?.content : content}
+            value={fileId != -1 ? contentM : content}
           ></textarea>
           <br></br>
-          <AudioRecorderr></AudioRecorderr>
-          {fileId != -1 ? (
+          <AudioRecorderr fileId></AudioRecorderr>
+          {fileId == -1 ? (
             <button
               id="submit-btn-caseInput"
               onClick={(event) => {
