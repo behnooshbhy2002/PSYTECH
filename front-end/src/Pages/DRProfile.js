@@ -67,41 +67,51 @@ function DRProfile() {
 
   return (
     <>
-      <div className="Kharrr">
-        <SideBarr></SideBarr>
-        <div className="Kharrrchild">
-          <div className="profile-container">
-            <img className="profilePicture" src={!img ? img : pic} alt=""></img>
-            <div className="personData" dir="rtl">
-              <div className="default-data">
-                <p>نام و نام خانوادگی:</p>
-                <p>تحصیلات:</p>
-                <p>شماره نظام پزشکی:</p>
-                <p>آدرس:</p>
-                <br />
-                <br />
-                <p>شماره تلفن:</p>
-                <p>ایمیل:</p>
-                <p>تجربه:</p>
-                <p>امتیاز:</p>
-              </div>
-              <div className="data-doctor">
-                <p> {namee}</p>
-                <p>{education ? education : "اطلاعات وارد نشده"}</p>
-                <p>{code}</p>
-                <p>{address ? address : "اطلاعات وارد نشده"}</p>
+      {!userInfo ? (
+        <div>
+          <Message>دسترسی غیرمجاز</Message>
+        </div>
+      ) : (
+        <div className="Kharrr">
+          <SideBarr></SideBarr>
+          <div className="Kharrrchild">
+            <div className="profile-container">
+              <img
+                className="profilePicture"
+                src={!img ? img : pic}
+                alt=""
+              ></img>
+              <div className="personData" dir="rtl">
+                <div className="default-data">
+                  <p>نام و نام خانوادگی:</p>
+                  <p>تحصیلات:</p>
+                  <p>شماره نظام پزشکی:</p>
+                  <p>آدرس:</p>
+                  <br />
+                  <br />
+                  <p>شماره تلفن:</p>
+                  <p>ایمیل:</p>
+                  <p>تجربه:</p>
+                  <p>امتیاز:</p>
+                </div>
+                <div className="data-doctor">
+                  <p> {namee}</p>
+                  <p>{education ? education : "اطلاعات وارد نشده"}</p>
+                  <p>{code}</p>
+                  <p>{address ? address : "اطلاعات وارد نشده"}</p>
 
-                {address ? "" : <br></br>}
-                <br></br>
-                <p>{phone}</p>
-                <p>{email}</p>
-                <p>{experiment ? experiment : "اطلاعات وارد نشده"}</p>
-                <p>{score ? score : "امتیازی ثبت نشده"}</p>
+                  {address ? "" : <br></br>}
+                  <br></br>
+                  <p>{phone}</p>
+                  <p>{email}</p>
+                  <p>{experiment ? experiment : "اطلاعات وارد نشده"}</p>
+                  <p>{score ? score : "امتیازی ثبت نشده"}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

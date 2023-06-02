@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import '../style/DrEditProfile.css'
+import "../style/DrEditProfile.css";
 import profilepic from "../../images/men.png";
 import SideBarrPatient from "./SideBarrPatient";
+import Message from "../Error&Loading/Message";
 import {
   Form,
   Button,
@@ -30,15 +31,15 @@ function EditProfile() {
   // Handling the name change
 
   // Handling the form submission
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (name === "" || email === "") {
-//       setError(true);
-//     } else {
-//       setSubmitted(true);
-//       setError(false);
-//     }
-//   };
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     if (name === "" || email === "") {
+  //       setError(true);
+  //     } else {
+  //       setSubmitted(true);
+  //       setError(false);
+  //     }
+  //   };
 
   // Showing success message
   const successMessage = () => {
@@ -68,7 +69,13 @@ function EditProfile() {
     );
   };
 
-  return (
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  return !userInfo ? (
+    <div>
+      <Message>دسترسی غیرمجاز</Message>
+    </div>
+  ) : (
     <>
       <div className="Kharrr">
         <SideBarrPatient></SideBarrPatient>
@@ -79,9 +86,7 @@ function EditProfile() {
               {/* <Form onSubmit={handleSubmit}> */}
               <Row>
                 <Col>
-                  <Form.Label htmlFor="inputPassword5">
-                    رمز جدید:
-                  </Form.Label>
+                  <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
                 </Col>
                 <Col>
                   <input
@@ -92,7 +97,7 @@ function EditProfile() {
                 </Col>
                 <Col>
                   <Form.Label htmlFor="inputPassword5">
-                   تکرار رمز جدید:
+                    تکرار رمز جدید:
                   </Form.Label>
                 </Col>
                 <Col>

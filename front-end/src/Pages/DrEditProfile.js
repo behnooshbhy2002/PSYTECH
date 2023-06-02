@@ -4,6 +4,7 @@ import "../Components/style/DrEditProfile.css";
 import profilepic from "../images/ali-hemati.png";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import SideBarr from "../Components/SideBarr/SideBarr";
+import Message from "../Components/Error&Loading/Message";
 import {
   Form,
   Button,
@@ -107,124 +108,132 @@ function EditProfile() {
 
   return (
     <>
-      <div className="Kharrr">
-        <SideBarr></SideBarr>
-        <div className="Kharrrchild">
-          <div className="Editprofile-div" dir="rtl">
-            <img id="edit-pic" src={profilepic} alt=""></img>
-            <FileUpload
-              mode="basic"
-              name="demo[]"
-              url="/api/upload"
-              accept="image/*"
-              customUpload
-              // uploadHandler={customBase64Uploader}
-            >
-              change
-            </FileUpload>
-            <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col>
-                  <Form.Label>تحصیلات: </Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="تحصیلات"
-                  />
-                </Col>
-              </Row>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="password"
-                    placeholder="رمز عبور"
-                  />
-                </Col>
-                <Col>
-                  <Form.Label htmlFor="inputPassword5">رمز جدید تکرار:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="password"
-                    placeholder="رمز عبور تکرار"
-                  />
-                </Col>
-              </Row>
+      {!userInfo ? (
+        <div>
+          <Message>دسترسی غیرمجاز</Message>
+        </div>
+      ) : (
+        <div className="Kharrr">
+          <SideBarr></SideBarr>
+          <div className="Kharrrchild">
+            <div className="Editprofile-div" dir="rtl">
+              <img id="edit-pic" src={profilepic} alt=""></img>
+              <FileUpload
+                mode="basic"
+                name="demo[]"
+                url="/api/upload"
+                accept="image/*"
+                customUpload
+                // uploadHandler={customBase64Uploader}
+              >
+                change
+              </FileUpload>
+              <Form onSubmit={handleSubmit}>
+                <Row>
+                  <Col>
+                    <Form.Label>تحصیلات: </Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="تحصیلات"
+                    />
+                  </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="password"
+                      placeholder="رمز عبور"
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label htmlFor="inputPassword5">
+                      رمز جدید تکرار:
+                    </Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="password"
+                      placeholder="رمز عبور تکرار"
+                    />
+                  </Col>
+                </Row>
 
-              <Row>
-                <Form.Text id="passwordHelpBlock" muted>
-                  پسورد شما باید بیشتر از 8 حرف شامل اعدادوحروف کوچک و بزرگ
-                  انگلیسی باشد.
-                </Form.Text>
-              </Row>
-              <br></br>
-              <hr></hr>
-              <FormGroup>
-                <FormLabel>آدرس جدید مطب:</FormLabel>
+                <Row>
+                  <Form.Text id="passwordHelpBlock" muted>
+                    پسورد شما باید بیشتر از 8 حرف شامل اعدادوحروف کوچک و بزرگ
+                    انگلیسی باشد.
+                  </Form.Text>
+                </Row>
                 <br></br>
-                <Form.Control
-                  id="address-input-edit"
-                  as="textarea"
-                  placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
-                />
-              </FormGroup>
-              <br></br>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label>شماره تلفن جدید:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="03122222"
+                <hr></hr>
+                <FormGroup>
+                  <FormLabel>آدرس جدید مطب:</FormLabel>
+                  <br></br>
+                  <Form.Control
+                    id="address-input-edit"
+                    as="textarea"
+                    placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
                   />
-                </Col>
-              </Row>
-              <hr></hr>
-              <Row>
-                <Col>
-                  <Form.Label>تجربه:</Form.Label>
-                </Col>
-                <Col>
-                  <input
-                    className="input-edit"
-                    type="text"
-                    placeholder="10 سال"
-                  />
-                </Col>
-              </Row>
-              <hr></hr>
-              <FormGroup key="inline" dir="rtl">
-                <Form.Label>لیست بیماری ها : </Form.Label>
+                </FormGroup>
                 <br></br>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label>شماره تلفن جدید:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="03122222"
+                    />
+                  </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                  <Col>
+                    <Form.Label>تجربه:</Form.Label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="10 سال"
+                    />
+                  </Col>
+                </Row>
+                <hr></hr>
+                <FormGroup key="inline" dir="rtl">
+                  <Form.Label>لیست بیماری ها : </Form.Label>
+                  <br></br>
 
-                <MultiSelect
-                  value={selectedillnesses}
-                  onChange={(e) => setSelectedillnesses(e.value)}
-                  options={illness}
-                  optionLabel="name"
-                  placeholder="انتخاب کنید.."
-                  maxSelectedLabels={10}
-                  className="w-full md:w-20rem"
-                />
-              </FormGroup>
-              <Button id="Edit-btn" type="submit" onClick={handleClick}>
-                ویرایش اطلاعات
-              </Button>
-            </Form>
+                  <MultiSelect
+                    value={selectedillnesses}
+                    onChange={(e) => setSelectedillnesses(e.value)}
+                    options={illness}
+                    optionLabel="name"
+                    placeholder="انتخاب کنید.."
+                    maxSelectedLabels={10}
+                    className="w-full md:w-20rem"
+                  />
+                </FormGroup>
+                <Button id="Edit-btn" type="submit" onClick={handleClick}>
+                  ویرایش اطلاعات
+                </Button>
+              </Form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
