@@ -4,6 +4,7 @@ from rest_framework.exceptions import ValidationError
 
 from accounts.models import Patient, Psychologist, Disease, User
 from appointments.models import Request, Session, Prescription, MedicalRecorder
+from datetime import date
 
 
 def clean_password(data):
@@ -92,29 +93,24 @@ class PrescriptionContentSerializer(serializers.ModelSerializer):
 
 
 class SessionSerializer(serializers.ModelSerializer):
-    prescription = serializers.SerializerMethodField()
-
     class Meta:
         model = Session
-        fields = ("date", "content", "title", "id")
+        fields = ("date", "content", "title", "id", "medical_recorde")
 
-    def get_prescription(self, obj):
-        try:
-            return obj.prescription
-        except ObjectDoesNotExist:
-            print("There is no prescription for this session.")
-            raise ObjectDoesNotExist
-
+    # def create(self, validated_data):
+    #     # validated_data['date'] = date.today
+    #     return Session.objects.create(**validated_data)
 
 class CreateSessionSerializer(serializers.ModelSerializer):
+    # medical_recorde = serializers.RelatedField(source='', read_only=True)
+    # category_name = serializers.RelatedField(source='category', read_only=True)
+
     class Meta:
         model = Session
-        fields = ("title", "content", "id")
+        fields = ("title", "content")
 
 
 class SessionListSerializer(serializers.ModelSerializer):
-    # list = serializers.ListField(child=SessionSerializer())
-
     class Meta:
         model = Session
         fields = ("date", "content", "title", "id")
