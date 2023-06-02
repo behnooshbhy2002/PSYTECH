@@ -162,3 +162,16 @@
   font-size: 14px;
   margin-bottom: 6px;
 }
+.detail-doctor-req-button-disable{
+  border-radius: 10px;
+  justify-content: center;
+  justify-items: center;
+  padding: 8px;
+  width: 95%;
+  margin: 0.5%;
+  color: DC299B;
+  margin-bottom: 10px;
+  background-color: #888385;
+  color: white;
+  border: #888385;
+}
