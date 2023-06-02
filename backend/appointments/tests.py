@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from accounts.models import Psychologist
+from accounts.models import Psychologist, Patient
 from appointments.models import Request
 
 User = get_user_model()
@@ -19,7 +19,7 @@ class TestAppointments(TestCase):
         )
 
     def test_get_request_list(self):
-        sender = User.objects.create(
+        sender = Patient.objects.create(
             email='client@gmail.com',
             password="password",
             phone_number="09162545424"
@@ -35,16 +35,16 @@ class TestAppointments(TestCase):
         }
         psychologist = Psychologist.objects.create(**psychologist_data)
 
-        request = Request.objects.create(sender=sender, receiver=psychologist, accept_status=True)
+        request = Request.objects.create(sender=sender, receiver=psychologist, accept_status=False)
 
         url = f"/appointments/request_list/?id={psychologist.id}"
         res = self.client.get(url)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(len(res.data), Request.objects.filter(receiver=psychologist).count())
+        self.assertEqual(len(res.data), Request.objects.filter(receiver=psychologist, accept_status=False).count())
 
     def test_submit_request(self):
         url = "/appointments/request_list/"
-        sender = User.objects.create(
+        sender = Patient.objects.create(
             email='sender@gmail.com',
             password="password",
             phone_number="09162345424"
