@@ -41,10 +41,17 @@ class Session(models.Model):
         return f'title:{self.title} content:{self.content}'
 
 
+class PrescriptionPage(models.Model):
+    doctor = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='doctor_p')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patients_p')
+
+    def __str__(self):
+        return f'pk:{self.pk}'
+
+
 class Prescription(models.Model):
-    # voice_field = models.FileField(upload_to=user_directory_path, blank=True, null=True)
-    session = models.OneToOneField(Session, on_delete=models.CASCADE)
     content = models.TextField()
+    prescription_page = models.ForeignKey(PrescriptionPage, on_delete=models.CASCADE, related_name='prescription_page')
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):

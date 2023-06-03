@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Request, Session, MedicalRecorder, Prescription
+from .models import Request, Session, MedicalRecorder, Prescription, PrescriptionPage
 
 
 @admin.register(Request)
@@ -28,3 +28,8 @@ class PrescriptionAdmin(admin.ModelAdmin):
     list_display = ("content",)
     search_fields = ("date",)
     ordering = ("date",)
+
+
+@admin.register(PrescriptionPage)
+class PrescriptionPageAdmin(admin.ModelAdmin):
+    list_display = ("doctor", "patient")
