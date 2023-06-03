@@ -114,7 +114,7 @@ function AdminAdmitDrSignUp() {
         <Loader></Loader>
       ) : error ? (
         <Message variant="danger">{error}</Message>
-      ) : userInfo.role == "admin" ? (
+      ) : userInfo?.role == "admin" ? (
         <div>
           <Toast
             userFull={userFull}

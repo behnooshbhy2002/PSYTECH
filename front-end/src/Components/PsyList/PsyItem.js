@@ -90,7 +90,7 @@ const PsyItem = () => {
             Hiii
           </button> */}
         </div>
-      ) : doctors?.length != 0 ? (
+      ) : doctors?.length == 0 ? (
         <Message variant="info">
           {"روانشناس با اطلاعات خواسته‌شده یافت نشد"}
         </Message>
