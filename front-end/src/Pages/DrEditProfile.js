@@ -86,46 +86,46 @@ function EditProfile() {
 
   // Handling the name change
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  // Handling the form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (education === "" || password === "") {
-      setError(true);
-    } else {
-      setSubmitted(true);
-      setError(false);
-    }
-  };
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
+  // // Handling the form submission
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (education === "" || password === "") {
+  //     setError(true);
+  //   } else {
+  //     setSubmitted(true);
+  //     setError(false);
+  //   }
+  // };
 
-  // Showing success message
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? "" : "none",
-        }}
-      >
-        <h1>User profile successfully editted!!</h1>
-      </div>
-    );
-  };
+  // // Showing success message
+  // const successMessage = () => {
+  //   return (
+  //     <div
+  //       className="success"
+  //       style={{
+  //         display: submitted ? "" : "none",
+  //       }}
+  //     >
+  //       <h1>User profile successfully editted!!</h1>
+  //     </div>
+  //   );
+  // };
 
-  // Showing error message if error is true
-  const errorMessage = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error ? "" : "none",
-        }}
-      >
-        <h1>Please enter all the fields correctly</h1>
-      </div>
-    );
-  };
+  // // Showing error message if error is true
+  // const errorMessage = () => {
+  //   return (
+  //    <div
+  //      className="error"
+  //      style={{
+  //        display: error ? "" : "none",
+   //     }}
+  //    >
+  //      <h1>Please enter all the fields correctly</h1>
+  //    </div>
+   // );
+ // };
 
   return (
     <>
