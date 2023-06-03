@@ -32,4 +32,4 @@ class PrescriptionAdmin(admin.ModelAdmin):
 
 @admin.register(PrescriptionPage)
 class PrescriptionPageAdmin(admin.ModelAdmin):
-    list_display = ("doctor", "patient")
+    list_display = ("doctor", "patient", "pk")

@@ -1,3 +1,4 @@
+from django.db.migrations import serializer
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,12 +9,13 @@ from rest_framework.views import APIView
 
 from accounts.models import Psychologist, Patient, Disease
 from accounts.serializers import ActivePsychologistSerializer
-from appointments.models import Request, Session, MedicalRecorder
+from appointments.models import Request, Session, MedicalRecorder, PrescriptionPage, Prescription
 from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
     PostRequestSerializer, PsychologistUpdateInfoSerializer, \
     PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer, DoctorSerializer, \
-    SessionSerializer, PatientProfileSerializer, PatientUpdateInfoSerializer, CreateSessionSerializer
+    SessionSerializer, PatientProfileSerializer, PatientUpdateInfoSerializer, CreateSessionSerializer, \
+    PrescriptionSerializer, PrescriptionContentSerializer
 from appointments.serializers import RequestSerializer, PatientSerializer
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -37,6 +39,10 @@ class RequestListView(APIView):
             request = Request.objects.get(pk=pk)
             print(accept_status, pk)
             request.accept_status = accept_status
+            patient = request.sender
+            psychologist = request.receiver
+            PrescriptionPage.objects.create(doctor=psychologist, patient=patient)
+            MedicalRecorder.objects.create(doctor=psychologist, patient=patient)
             request.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -62,16 +68,12 @@ class MedicalRecordView(APIView):
         serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
         if serializer_psychologist.is_valid() and serializer_patient.is_valid():
             pk_doctor = serializer_psychologist.data.get('pk')
-            print(pk_doctor,'goal')
+            print(pk_doctor, 'goal')
             psychologist = Psychologist.objects.get(pk=pk_doctor)
             pk_patient = serializer_patient.data.get('pk')
-            print(pk_patient,'goal2')
+            print(pk_patient, 'goal2')
             patient = Patient.objects.get(pk=pk_patient)
-            if MedicalRecorder.objects.filter(doctor=psychologist, patient=patient).exists():
-                medical_record = MedicalRecorder.objects.get(doctor=psychologist, patient=patient)
-            else:
-                medical_record = MedicalRecorder.objects.create(doctor=psychologist, patient=patient)
-
+            medical_record = MedicalRecorder.objects.get(doctor=psychologist, patient=patient)
             print(medical_record)
             medical_record_serialized = MedicalRecordSerializer(medical_record)
             print(medical_record_serialized.data, 'hooooo')
@@ -86,6 +88,7 @@ class MedicalRecordView(APIView):
         if not serializer_patient.is_valid():
             errors["serializer_patient"] = serializer_patient.errors
         return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # class MakeSessionView():
 
@@ -195,7 +198,7 @@ class RequestView(APIView):
             print(pk_patient)
             patient = Patient.objects.get(pk=pk_patient)
             print(patient.full_name)
-            request_patient = Request(sender=patient, receiver=psychologist)
+            request_patient = Request.objects.create(sender=patient, receiver=psychologist)
             request_patient.save()
             print(request_patient)
             return Response({'msg': "successfully", 'data': serializer_psychologist.data.get('pk')},
@@ -238,8 +241,60 @@ class DoctorListView(APIView):
 #         recorde_id = request.data.get("medical_recorde")
 #         recorde = MedicalRecorder.objects.get(id=recorde_id)
 
-# class CreatePrescriptionView(APIView):
-#      def post(self,request):
+class CreatePrescriptionView(APIView):
+    def get(self, request):
+        prescription_page = PrescriptionPage.objects.get(pk=request.query_params.get('id'))
+
+        prescriptions_list = Prescription.objects.filter(prescription_page=prescription_page)
+        prescriptions_list_serialized = PrescriptionSerializer(prescriptions_list, many=True)
+        return Response(prescriptions_list_serialized.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer_psychologist = PsychologistIdSerializer(data={'pk': request.data.get("id_psychologist")})
+        serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
+        serializer_prescription_content = PrescriptionContentSerializer(data={'content': request.data.get("content")})
+        if serializer_psychologist.is_valid() and serializer_patient.is_valid() \
+                and serializer_prescription_content.is_valid():
+            print(serializer_psychologist.data)
+            pk_doctor = serializer_psychologist.data.get('pk')
+            psychologist = Psychologist.objects.get(pk=pk_doctor)
+            print(psychologist.full_name)
+            pk_patient = serializer_patient.data.get('pk')
+            print(pk_patient)
+            patient = Patient.objects.get(pk=pk_patient)
+            prescription_page = PrescriptionPage.objects.get(doctor=psychologist, patient=patient)
+            Prescription.objects.create(content=serializer_prescription_content.data,
+                                        prescription_page=prescription_page)
+            return Response({"successfully"}, status=status.HTTP_200_OK)
+        errors = {}
+        if not serializer_psychologist.is_valid():
+            errors["serializer_psychologist"] = serializer_psychologist.errors
+        if not serializer_patient.is_valid():
+            errors["serializer_patient"] = serializer_patient.errors
+        if not serializer_prescription_content.is_valid():
+            errors["serializer_prescription_content"] = serializer_prescription_content.errors
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+class PrescriptionListView(APIView):
+    def post(self, request):
+        serializer_psychologist = PsychologistIdSerializer(data={'pk': request.data.get("id_psychologist")})
+        serializer_patient = PatientIdSerializer(data={'pk': request.data.get("id_patient")})
+        if serializer_psychologist.is_valid() and serializer_patient.is_valid():
+            print(serializer_psychologist.data)
+            pk_doctor = serializer_psychologist.data.get('pk')
+            psychologist = Psychologist.objects.get(pk=pk_doctor)
+            print(psychologist.full_name)
+            pk_patient = serializer_patient.data.get('pk')
+            print(pk_patient)
+            patient = Patient.objects.get(pk=pk_patient)
+            prescription_page = PrescriptionPage.objects.get(doctor=psychologist, patient=patient)
+            prescription_list = Prescription.objects.filter(prescription_page=prescription_page)
+            prescription_list_serialized = PrescriptionSerializer(prescription_list, many=True)
+            return Response(prescription_list_serialized.data, status=status.HTTP_200_OK)
+        errors = {}
+        if not serializer_psychologist.is_valid():
+            errors["serializer_psychologist"] = serializer_psychologist.errors
+        if not serializer_patient.is_valid():
+            errors["serializer_patient"] = serializer_patient.errors
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)

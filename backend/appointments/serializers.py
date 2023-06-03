@@ -85,6 +85,12 @@ class PrescriptionSerializer(serializers.ModelSerializer):
         fields = ("date", "content")
 
 
+class PrescriptionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prescription
+        fields = ("content",)
+
+
 class SessionSerializer(serializers.ModelSerializer):
     prescription = serializers.SerializerMethodField()
 
@@ -104,7 +110,6 @@ class CreateSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = ("title", "content", "id")
-
 
 
 class SessionListSerializer(serializers.ModelSerializer):
