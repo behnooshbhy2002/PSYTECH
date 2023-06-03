@@ -24,9 +24,13 @@ function SignUpVerify() {
 
   const userSignUpVerify = useSelector((state) => state.userSignUpVerify);
   let { error, loading, result } = userSignUpVerify;
+  //console.log(result?.data)
   const nav = useNavigate();
+  let massage;
   if (result?.data == "valid otp") {
     nav("/", { replace: true });
+  }else{
+     massage = result?.data;
   }
 
   const [otp, setOtp] = useState("");
@@ -61,10 +65,11 @@ function SignUpVerify() {
     const { data } = axios
       .post("http://127.0.0.1:8000/accounts/resend_otp/", { email: x })
       .then((response) => {
+        console.log(response)
         if (response?.data == "valid otp") {
           nav("/", { replace: true });
         } else {
-          error = "wrong otp";
+          massage = "wrong otp";
         }
       })
       .catch((error) => {
