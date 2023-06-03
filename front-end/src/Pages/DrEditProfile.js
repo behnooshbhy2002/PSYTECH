@@ -5,6 +5,7 @@ import profilepic from "../images/ali-hemati.png";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import SideBarr from "../Components/SideBarr/SideBarr";
 import Message from "../Components/Error&Loading/Message";
+import axios from "axios";
 import {
   Form,
   Button,
@@ -86,18 +87,18 @@ function EditProfile() {
 
   // Handling the name change
 
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   // // Handling the form submission
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (education === "" || password === "") {
-  //     setError(true);
-  //   } else {
-  //     setSubmitted(true);
-  //     setError(false);
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (education === "" || password === "") {
+      setError(true);
+    } else {
+      setSubmitted(true);
+      setError(false);
+    }
+  };
 
   // // Showing success message
   // const successMessage = () => {
@@ -120,12 +121,12 @@ function EditProfile() {
   //      className="error"
   //      style={{
   //        display: error ? "" : "none",
-   //     }}
+  //     }}
   //    >
   //      <h1>Please enter all the fields correctly</h1>
   //    </div>
-   // );
- // };
+  // );
+  // };
 
   return (
     <>

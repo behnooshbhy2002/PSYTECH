@@ -1,6 +1,8 @@
 import PPanelDoctorCard from "./PPanelDoctorCard";
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 import SideBarrPatient from "./SideBarrPatient";
 function DoctorList() {

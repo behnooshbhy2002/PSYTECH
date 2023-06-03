@@ -1,6 +1,10 @@
 // import img from '../../images/ali-hemati.png'
 import "./Carddd.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function PPanelDoctorCard(props) {
+  const navigate = useNavigate();
   let id = props?.data?.id;
   let img = props.data?.img;
   let name = props.data?.name;
