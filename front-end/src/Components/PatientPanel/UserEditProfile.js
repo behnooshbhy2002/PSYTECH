@@ -19,75 +19,49 @@ import {
 
 function EditProfile() {
   const [user, setUser] = useState({
-    gender: "",
     phone: "",
     password: "",
   });
+
+  // const id=userInfo.id;
+  // const par=`?id=${id}`;
+  //  console.log(id);
+  //  event.preventDefault();
+  //  fetch(`http://127.0.0.1:8000/appointments/patient_profile/${par}`
+
+  const [phonenum,setPhoneNum]=useState("");
+  const [passwordd,setPasswordd]=useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const handleInputChange = (event) => {
-  //   setData({ ...data, [event.target.name]: event.target.value });
-  // }
+  
   const handleSubmit = (event) => {
-    if (user.password != confirmPassword) {
-      console.log("Error");
-    } else {
-     const id=userInfo.id;
-     const par=`id=${id}`;
-      console.log(id);
-      event.preventDefault();
-      fetch(`http://127.0.0.1:8000/appointments/patient_profile/${par}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-    }
-  };
-
-  useEffect(() => {
+    event.preventDefault();
     const id=userInfo.id;
-     const par=`id=${id}`;
-    console.log(id);
-    fetch(`http://127.0.0.1:8000/appointments/psychologist_profile/${par}`)
-      .then((response) => response.json())
-      .then((data) => setUser(data))
-      .catch((error) => console.error(error));
-  }, []);
-
-  // States for checking the errors
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
-
-  // Showing success message
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? "" : "none",
-        }}
-      >
-        <h1>User profile successfully editted!!</h1>
-      </div>
-    );
-  };
-
-  // Showing error message if error is true
-  const errorMessage = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error ? "" : "none",
-        }}
-      >
-        <h1>Please enter all the fields correctly</h1>
-      </div>
-    );
+    const par=`?id=${id}`;
+    
+    
+  
+    const data = {
+      password: passwordd,
+      phone_number: phonenum,
+    };
+  
+    fetch(`http://127.0.0.1:8000/appointments/patient_profile/${par}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // handle success
+        } else {
+          throw new Error('Error creating user');
+        }
+      })
+      .catch((error) => {
+        // handle error
+      });
   };
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -104,7 +78,7 @@ function EditProfile() {
           <div className="Editprofile-div" dir="rtl">
             <img id="edit-pic" src={profilepic} alt=""></img>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} >
               <Row>
                 <Col>
                   <Form.Label htmlFor="inputPassword5">رمز جدید:</Form.Label>
@@ -114,13 +88,11 @@ function EditProfile() {
                     className="input-edit"
                     type="password"
                     placeholder="رمز عبور"
-                    value={user.password}
-                    onChange={(e) => {
-                      setUser((current) => ({
-                        ...current,
-                        password: current.password,
-                      }));
-                    }}
+                     
+                     onChange={(e) => {
+                      setPasswordd(e.target.value);
+                     }}
+                     
                   />
                 </Col>
                 <Col>
@@ -153,14 +125,10 @@ function EditProfile() {
                   <input
                     className="input-edit"
                     type="text"
-                    placeholder="03122222"
-                    value={user.phone}
+                    placeholder="9112222332"
+                    
                     onChange={(e) => {
-                      setUser((current) => ({
-                        ...current,
-                        phone: e.target.value,
-                        password: current.password,
-                      }));
+                      setPhoneNum(e.target.value);
                     }}
                   />
                 </Col>
