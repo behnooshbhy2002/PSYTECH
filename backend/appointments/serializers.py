@@ -137,28 +137,34 @@ class PsychologistDetailSerializer(serializers.ModelSerializer):
 
 
 class PsychologistUpdateInfoSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(write_only=True, required=True)
+    # confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = Psychologist
-        fields = ('specialist', 'address', 'phone_number', 'experience', 'password', 'confirm_password', 'image')
+        fields = ('specialist', 'address', 'phone_number', 'experience', 'password')
         extra_keywords = {
             'password': {'write_only': True, 'validators': (clean_password,)},
             # 'phone_number': {'validators': (clean_phone_number,)},
         }
+
 
     def update(self, instance, validated_data):
         # user = self.context['request'].user
         #
         # if user.pk != instance.pk:
         #     raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
-
-        instance.specialist = validated_data['specialist']
-        instance.image = validated_data['image']
-        instance.experience = validated_data['experience']
-        instance.password = validated_data['password']
-        instance.phone_number = validated_data['phone_number']
-        instance.address = validated_data['address']
+        if validated_data.get('specialist'):
+            instance.specialist = validated_data['specialist']
+        # if validated_data.get('image'):
+        #     instance.image = validated_data['image']
+        if validated_data.get('experience'):
+            instance.experience = validated_data['experience']
+        if validated_data.get('password'):
+            instance.password = validated_data['password']
+        if validated_data.get('phone_number'):
+            instance.phone_number = validated_data['phone_number']
+        if validated_data.get('address'):
+            instance.address = validated_data['address']
 
         instance.save()
 
@@ -174,13 +180,13 @@ class PsychologistProfileSerializer(serializers.ModelSerializer):
 
 
 class PatientUpdateInfoSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(write_only=True, required=True)
+    # confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = Patient
-        fields = ('phone_number', 'password', 'confirm_password')
+        fields = ('phone_number', 'password')
         extra_keywords = {
-            'password': {'write_only': True, 'validators': (clean_password,)},
+            'password': {'write_only': True},
             # 'phone_number': {'validators': (clean_phone_number,)},
         }
 
@@ -189,9 +195,11 @@ class PatientUpdateInfoSerializer(serializers.ModelSerializer):
         #
         # if user.pk != instance.pk:
         #     raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+        if validated_data.get('password'):
+            instance.password = validated_data['password']
 
-        instance.password = validated_data['password']
-        instance.phone_number = validated_data['phone_number']
+        if validated_data.get('phone_number'):
+            instance.phone_number = validated_data['phone_number']
 
         instance.save()
 

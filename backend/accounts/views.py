@@ -131,8 +131,8 @@ class VerifyOTP(APIView):
 
                 user = User.objects.get(email=email)
                 if not user:
-                    user = Psychologist.objects.get(email=email)
-                    if not user:
+                    # user = Psychologist.objects.get(email=email)
+                    # if not user:
                         return Response({
                             'status': 400,
                             'message': 'user with this email does not exist',

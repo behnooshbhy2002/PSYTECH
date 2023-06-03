@@ -103,14 +103,23 @@ class PsychologistProfile(APIView):
         id_dr = request.query_params.get('id')
         psychologist = Psychologist.objects.get(id=id_dr)
 
-        psychologist_data = {key: request.data.get(key) for key in request.data if key != 'disease'}
+        print(request.data)
+
+        psychologist_data = {key: request.data.get(key) for key in request.data if key != 'diseases'}
         psychologist_serialized = PsychologistUpdateInfoSerializer(data=psychologist_data,
                                                                    context={'request': request})
         if psychologist_serialized.is_valid():
             psychologist_serialized.update(psychologist, psychologist_serialized.validated_data)
 
-            disease_spliter = request.data.get('disease')[1:-1].split('},{')
+            print('disease', request.data.get('diseases'))
+
+            disease_spliter = request.data.get('diseases')[1:-1].split('}, {')
+
+            print('disease_spliter', disease_spliter)
+
             disease_id = {int(disease_spliter[i].split(',')[0].split(':')[1]) for i in range(len(disease_spliter))}
+
+            print('disease_id', disease_id)
 
             for id in disease_id:
                 disease = Disease.objects.get(id=id)
@@ -126,14 +135,15 @@ class PsychologistProfile(APIView):
             print(request.data)
             # if request.user.is_authenticated:
 
-            auth_header = request.META.get('HTTP_AUTHORIZATION')
-            if not auth_header:
-                return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
-            auth_token = auth_header.split(' ')[1]
+            # auth_header = request.META.get('HTTP_AUTHORIZATION')
+            # if not auth_header:
+            #     return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
+            # auth_token = auth_header.split(' ')[1]
 
             id_dr = request.query_params.get('id')
             psychologist = Psychologist.objects.get(id=id_dr)
             ser_data = PsychologistProfileSerializer(psychologist)
+            print(ser_data.data)
             return Response(ser_data.data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -146,9 +156,12 @@ class PatientProfile(APIView):
     def put(self, request):
         id_user = request.query_params.get('id')
         patient = Patient.objects.get(id=id_user)
+        print(request.data)
 
-        patient_serialized = PatientUpdateInfoSerializer(patient)
+        patient_serialized = PatientUpdateInfoSerializer(data=request.data)
+        print(patient_serialized)
         if patient_serialized.is_valid():
+            print(patient_serialized.data)
             patient_serialized.update(patient, patient_serialized.validated_data)
 
             return Response(patient_serialized.data, status=status.HTTP_200_OK)
@@ -157,10 +170,10 @@ class PatientProfile(APIView):
     def get(self, request):
         try:
             # if request.user.is_authenticated:
-            auth_header = request.META.get('HTTP_AUTHORIZATION')
-            if not auth_header:
-                return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
-            auth_token = auth_header.split(' ')[1]
+            # auth_header = request.META.get('HTTP_AUTHORIZATION')
+            # if not auth_header:
+            #     return Response({"error": "Authorization header missing"}, status=status.HTTP_401_UNAUTHORIZED)
+            # auth_token = auth_header.split(' ')[1]
 
             id_user = request.query_params.get('id')
             patient = Patient.objects.get(id=id_user)
