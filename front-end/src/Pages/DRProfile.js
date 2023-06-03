@@ -31,7 +31,7 @@ function DRProfile() {
 
   useEffect(() => {
     if (!userInfo) {
-      navigate("./Login");
+      navigate("../Login");
       //history.push("/login");
     } else {
       if (!user || !user.full_name) {
@@ -53,17 +53,9 @@ function DRProfile() {
     }
   }, [dispatch, userInfo, user]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await axios.get("https://api.example.com/user-profile", {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     });
-  //    // setUserProfile(response.data);
-  //   };
-  //   fetchData();
-  // }, []);
+   useEffect(() => {
+    
+  },);
 
   return (
     <>
@@ -84,7 +76,7 @@ function DRProfile() {
               <div className="personData" dir="rtl">
                 <div className="default-data">
                   <p>نام و نام خانوادگی:</p>
-                  <p>تحصیلات:</p>
+                  <p>تخصص: </p>
                   <p>شماره نظام پزشکی:</p>
                   <p>آدرس:</p>
                   <br />
@@ -101,6 +93,7 @@ function DRProfile() {
                   <p>{address ? address : "اطلاعات وارد نشده"}</p>
 
                   {address ? "" : <br></br>}
+                  <br></br>
                   <br></br>
                   <p>{phone}</p>
                   <p>{email}</p>

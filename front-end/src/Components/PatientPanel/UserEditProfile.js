@@ -5,7 +5,7 @@ import profilepic from "../../images/men.png";
 import SideBarrPatient from "./SideBarrPatient";
 import Message from "../Error&Loading/Message";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   Button,
@@ -28,7 +28,7 @@ function EditProfile() {
   //  console.log(id);
   //  event.preventDefault();
   //  fetch(`http://127.0.0.1:8000/appointments/patient_profile/${par}`
-
+  const navigate = useNavigate();
   const [phonenum,setPhoneNum]=useState("");
   const [passwordd,setPasswordd]=useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -55,6 +55,7 @@ function EditProfile() {
       .then((response) => {
         if (response.ok) {
           // handle success
+          navigate("../MyProfileP");
         } else {
           throw new Error('Error creating user');
         }

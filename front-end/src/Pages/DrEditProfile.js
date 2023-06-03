@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import { useSelector } from "react-redux";
 import "../Components/style/DrEditProfile.css";
 import profilepic from "../images/ali-hemati.png";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
@@ -17,7 +18,7 @@ import {
 } from "react-bootstrap";
 
 import { FileUpload } from "primereact";
-
+import { useNavigate } from "react-router-dom";
 import { MultiSelect } from "primereact/multiselect";
 
 import Box from "@mui/material/Box";
@@ -26,20 +27,59 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 
-import { useSelector } from "react-redux";
+
 const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
   { value: "vanilla", label: "Vanilla" },
 ];
 function EditProfile() {
+  const navigate = useNavigate();
   const [selectedillnesses, setSelectedillnesses] = useState(null);
   const [opt, setOpt] = React.useState("");
 
-  const handleChange = (event) => {
-    setOpt(event.target.value);
-  };
+  const handleClick = (event) => {
+    event.preventDefault();
 
+   
+  const data = {
+    specialist:selectedOption,
+    password: password,
+    address:address,
+    phone_number: phoneNumber,
+    experience:experiment,
+    diseases:selectedillnesses
+  };
+  const id=userInfo.id;
+  const par=`?id=${id}`;
+  fetch(`http://127.0.0.1:8000/appointments/psychologist_profile/${par}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (response.ok) {
+        // handle success
+        navigate("../MyProfile");
+      } else {
+        throw new Error('Error creating user');
+      }
+    })
+    .catch((error) => {
+      // handle error
+    });
+};
+
+
+  const specials=[
+    {name:"مشاوره فردی"},
+    {name:"مشاوره خانواده"},
+    {name:"مشاوره ازدواج"},
+    {name:"مشاوره کودک"},
+    {name:"مشاوره تحصیلی"},
+  ]
   const illness = [
     { name: "اختلال شخصیت خودشیفته", id: "1" },
     { name: "وسواس", id: "2" },
@@ -63,22 +103,18 @@ function EditProfile() {
     { name: "اختلال شخصیت مرزی", id: "20" },
   ];
 
-  const handleClick = () => {
-    console.log(selectedillnesses);
-  };
+  
 
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-  });
-  const [name, setName] = useState("");
-  const [education, setEducation] = useState("");
+  
+  const [img, setimg] = useState("");
+  
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [telephone, setTelephone] = useState("");
+  
+  const [experiment,setExperiment]=useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [sickness, setSickness] = useState([]);
+  
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -89,52 +125,32 @@ function EditProfile() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  // // Handling the form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (education === "" || password === "") {
-      setError(true);
-    } else {
-      setSubmitted(true);
-      setError(false);
-    }
-  };
+  
 
-  // // Showing success message
-  // const successMessage = () => {
-  //   return (
-  //     <div
-  //       className="success"
-  //       style={{
-  //         display: submitted ? "" : "none",
-  //       }}
-  //     >
-  //       <h1>User profile successfully editted!!</h1>
-  //     </div>
-  //   );
-  // };
 
-  // // Showing error message if error is true
-  // const errorMessage = () => {
-  //   return (
-  //    <div
-  //      className="error"
-  //      style={{
-  //        display: error ? "" : "none",
-  //     }}
-  //    >
-  //      <h1>Please enter all the fields correctly</h1>
-  //    </div>
-  // );
-  // };
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const id=userInfo.id;
+    const par=`?id=${id}`;
+    fetch(`http://127.0.0.1:8000/appointments/psychologist_profile/${par}`)
+      .then(response => response.json())
+      .then(user => {
+        setUser(user);
+      })
+      .catch(error => {
+        // handle error
+      });
+  }, []);
 
   return (
     <>
-      {userInfo ? (
+      {/* {userInfo ? (
         <div>
           <Message>دسترسی غیرمجاز</Message>
         </div>
-      ) : (
+      ) : ( */}
         <div className="Kharrr">
           <SideBarr></SideBarr>
           <div className="Kharrrchild">
@@ -148,48 +164,29 @@ function EditProfile() {
                     url="/api/upload"
                     accept="image/*"
                     customUpload
-                    // uploadHandler={customBase64Uploader}
+                    //uploadHandler={customBase64Uploader}
                   >
                     change
                   </FileUpload>
                 </Col>
                 <Col>
                   <FormControl sx={{ m: 1, minWidth: 300 }}>
-                    <InputLabel id="demo-simple-select-autowidth-label">
-                      <p>تخصص</p>
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-autowidth-label"
-                      id="demo-simple-select-autowidth"
-                      value={opt}
-                      onChange={handleChange}
-                      autoWidth
-                      label="Age"
-                    >
-                      <MenuItem value={0}>
-                        <p>هیچ‌کدام</p>
-                      </MenuItem>
-                      <MenuItem value={1}>
-                        <p>مشاوره فردی</p>
-                      </MenuItem>
-                      <MenuItem value={2}>
-                        <p>مشاوره خانواده</p>
-                      </MenuItem>
-                      <MenuItem value={3}>
-                        <p>مشاوره تحصیلی</p>
-                      </MenuItem>
-                      <MenuItem value={4}>
-                        <p>مشاوره ازدواج</p>
-                      </MenuItem>
-                      <MenuItem value={5}>
-                        <p>مشاوره کودک</p>
-                      </MenuItem>
-                    </Select>
+                    
+                    <input
+                      className="input-edit"
+                      type="text"
+                      placeholder="تخصص"
+                      defaultValue={selectedOption}
+                      onChange={(e) => {
+                        setSelectedOption(e.target.value);
+                      }}
+                    />
+                     
                   </FormControl>
                 </Col>
               </Row>
 
-              <Form onSubmit={handleSubmit}>
+              <Form >
                 {/* <Select
                       defaultValue={selectedOption}
                       onChange={setSelectedOption}
@@ -211,6 +208,10 @@ function EditProfile() {
                       className="input-edit"
                       type="password"
                       placeholder="رمز عبور"
+                      defaultValue={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                     />
                   </Col>
                   <Col>
@@ -242,6 +243,10 @@ function EditProfile() {
                     id="address-input-edit"
                     as="textarea"
                     placeholder="آدرس جدید مطب را به صورت دقیق و با جزییات وارد کنید..."
+                    defaultValue={address}
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                    }}
                   />
                 </FormGroup>
                 <br></br>
@@ -255,6 +260,10 @@ function EditProfile() {
                       className="input-edit"
                       type="text"
                       placeholder="03122222"
+                      defaultValue={phoneNumber}
+                      onChange={(e) => {
+                        setPhoneNumber(e.target.value);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -268,6 +277,10 @@ function EditProfile() {
                       className="input-edit"
                       type="text"
                       placeholder="10 سال"
+                      defaultValue={experiment}
+                      onChange={(e) => {
+                        setExperiment(e.target.value);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -278,12 +291,13 @@ function EditProfile() {
 
                   <MultiSelect
                     value={selectedillnesses}
-                    onChange={(e) => setSelectedillnesses(e.value)}
+                    onChange={(e) => setSelectedillnesses(e.target.value)}
                     options={illness}
                     optionLabel="name"
                     placeholder="انتخاب کنید.."
                     maxSelectedLabels={10}
                     className="w-full md:w-20rem"
+                    defaultChecked={selectedillnesses}
                   />
                 </FormGroup>
                 <Button id="Edit-btn" type="submit" onClick={handleClick}>
@@ -293,7 +307,7 @@ function EditProfile() {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
     </>
   );
 }
