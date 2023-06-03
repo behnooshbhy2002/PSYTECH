@@ -11,7 +11,7 @@ class RequestAdmin(admin.ModelAdmin):
 
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ("title", "date", "medical_recorde", "patient", "content")
+    list_display = ("title", "date", "medical_recorde", "content")
     search_fields = ("date",)
     ordering = ("date",)
 

@@ -20,7 +20,7 @@ class Request(models.Model):
 
 
 class MedicalRecorder(models.Model):
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     doctor = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='doctor')
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patients')
     date = models.DateField(auto_now_add=True)

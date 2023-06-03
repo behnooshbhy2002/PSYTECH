@@ -13,13 +13,8 @@ from appointments.serializers import RequestSerializer, PatientSerializer, \
     MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
     PostRequestSerializer, PsychologistUpdateInfoSerializer, \
     PsychologistIdSerializer, PatientIdSerializer, RateSerializer, SessionListSerializer, DoctorSerializer, \
-    SessionSerializer
-
-# MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, PsychologistUpdateInfoSerializer
-from appointments.serializers import RequestSerializer, PatientSerializer, \
-    MedicalRecordSerializer, PsychologistDetailSerializer, DiseaseSerializer, PsychologistProfileSerializer, \
-    PsychologistUpdateInfoSerializer, DoctorRelatedDiseaseSerializer, PatientProfileSerializer, \
-    PatientUpdateInfoSerializer
+    SessionSerializer, PatientProfileSerializer, PatientUpdateInfoSerializer, CreateSessionSerializer
+from appointments.serializers import RequestSerializer, PatientSerializer
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -72,7 +67,11 @@ class MedicalRecordView(APIView):
             pk_patient = serializer_patient.data.get('pk')
             print(pk_patient,'goal2')
             patient = Patient.objects.get(pk=pk_patient)
-            medical_record = MedicalRecorder.objects.get(doctor=psychologist, patient=patient)
+            if MedicalRecorder.objects.filter(doctor=psychologist, patient=patient).exists():
+                medical_record = MedicalRecorder.objects.get(doctor=psychologist, patient=patient)
+            else:
+                medical_record = MedicalRecorder.objects.create(doctor=psychologist, patient=patient)
+
             print(medical_record)
             medical_record_serialized = MedicalRecordSerializer(medical_record)
             print(medical_record_serialized.data, 'hooooo')
@@ -87,6 +86,8 @@ class MedicalRecordView(APIView):
         if not serializer_patient.is_valid():
             errors["serializer_patient"] = serializer_patient.errors
         return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class MakeSessionView():
 
 
 class ShowPsychologistDetailView(APIView):
@@ -231,8 +232,11 @@ class DoctorListView(APIView):
 
 
 class SessionView(APIView):
-    def get(self, request):
-        pass
-
     def post(self, request):
-        session_serialized = SessionSerializer(request.data)
+        session_data = {key: request.data.get(key) for key in request.data if key != 'medical_recorde'}
+        session_serialized = CreateSessionSerializer(session_data)
+        recorde_id = request.data.get("medical_recorde")
+        recorde = MedicalRecorder.objects.get(id=recorde_id)
+
+
+

@@ -76,7 +76,7 @@ class PatientIdSerializer(serializers.ModelSerializer):
 class MedicalRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalRecorder
-        fields = ("description", "date")
+        fields = ("description", "date", "id")
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
@@ -98,6 +98,13 @@ class SessionSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             print("There is no prescription for this session.")
             raise ObjectDoesNotExist
+
+
+class CreateSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ("title", "content", "id")
+
 
 
 class SessionListSerializer(serializers.ModelSerializer):
