@@ -11,7 +11,7 @@ class Request(models.Model):
     sender = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='sender_request')
     receiver = models.ForeignKey(Psychologist, on_delete=models.CASCADE, related_name='receiver_request')
     date = models.DateField(auto_now_add=True)
-    accept_status = models.BooleanField(null=True, blank=True)
+    accept_status = models.BooleanField(default=False)
 
     # check = models.BooleanField(default=False)
 
