@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 function CaseItem(props) {
   let data = props?.data;
   const clickhandler = props?.clickhandler;
+
   //const [dateTime, setDateTime] = useState(new Date());
   const handleClick = (clicked_id) => {
     clickhandler(clicked_id);

@@ -6,8 +6,10 @@ import { Button } from "primereact/button";
 import { Row, Column } from "react";
 import { useLocation } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function RecipeHistory() {
+  const navigate = useNavigate();
   const [name, setName] = useState("علی عزیزی");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
