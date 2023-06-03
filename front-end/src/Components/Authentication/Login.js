@@ -25,7 +25,7 @@ function Login({ location }) {
   const redirect = location?.search ? location?.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
-  let { error, loading, userInfo } = userLogin;
+  const { error, loading, userInfo } = userLogin;
   const nav = useNavigate();
 
   useEffect(() => {
@@ -33,8 +33,10 @@ function Login({ location }) {
       nav(`/MyProfile`, { replace: true });
     } else if (userInfo?.role == "patient") {
       nav(`/MyProfileP`, { replace: true });
+    } else if (userInfo?.role == "admin") {
+      nav(`/Admin-SignUp`, { replace: true });
     } else {
-      //dddd
+      console.log(userInfo);
     }
   }, [userInfo]);
 
