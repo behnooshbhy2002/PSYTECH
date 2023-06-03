@@ -47,7 +47,7 @@ const NavBarr = () => {
           <NavLink to="/Login">
             <button id="login">ورود</button>
           </NavLink>
-        )}}
+        )}
       </ul>
     </div>
   );
