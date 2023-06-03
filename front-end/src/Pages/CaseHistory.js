@@ -12,21 +12,25 @@ function CaseHistory() {
   const navigate = useNavigate();
 
   const location = useLocation();
-  let FileList = location.state?.data;
-  FileList = [
-    {
-      id: 1,
-      title: "جلسه دوم",
-      date: "2020 / 01 / 01",
-      content: "behnoosh was here",
-    },
-    {
-      id: 5,
-      title: "جلسه سوم",
-      date: "2021/02/02",
-      content: "جلسه 3 اینجا بود",
-    },
-  ];
+  let FileList = location.state;
+  console.log((FileList))
+  let session_list = FileList?.session_list
+  let medical_recorde = FileList?.medical_recorde?.id
+  console.log(session_list)
+  // FileList = [
+  //   {
+  //     id: 1,
+  //     title: "جلسه دوم",
+  //     date: "2020 / 01 / 01",
+  //     content: "behnoosh was here",
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "جلسه سوم",
+  //     date: "2021/02/02",
+  //     content: "جلسه 3 اینجا بود",
+  //   },
+  // ];
 
   const handleClick = (clicked_id) => {
     //console.log(clicked_id);
@@ -60,7 +64,7 @@ function CaseHistory() {
             }}
           ></IoAddCircle>
         </div>
-        {FileList?.map((item) => {
+        {session_list?.map((item) => {
           return <CaseItem data={item} clickhandler={handleClick}></CaseItem>;
         })}
       </div>
@@ -69,7 +73,8 @@ function CaseHistory() {
           <CaseInput
             closing={closeHandle}
             fileId={fileId}
-            FileList={FileList}
+            FileList={session_list}
+            medical_recorde={medical_recorde}
           ></CaseInput>
         )}
       </div>

@@ -9,6 +9,7 @@ function CaseInput(props) {
   const closing = props?.closing;
   const fileId = props?.fileId;
   const FileList = props?.FileList;
+  const id_me = props?.medical_recorde
 
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -42,10 +43,10 @@ function CaseInput(props) {
   const handleSubmitFile = () => {
     const { data } = axios
       .post(`http://127.0.0.1:8000/appointments/request_list/`, {
-        sessionID: sessionID,
+        medical_recorde: id_me,
         content: content,
         title: title,
-        ...audioFile,
+        audio:{...audioFile},
       })
       .then((response) => {
         console.log(response);

@@ -14,16 +14,16 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import AdminAdmitDrSignUp from "./Pages/AdminAdmitDrSignUp";
 import DoctorPageDetail from "./Pages/DoctorPageDetail";
-// import SideBarr from "./Components/SideBarr/SideBarr";
+ import SideBarr from "./Components/SideBarr/SideBarr";
 // import DoctorPanel from "./Pages/DoctorPanel";
 import { ProSidebarProvider } from "react-pro-sidebar";
-// import PatientsList from "./Components/PatientList/PatientsList";
-// import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
+ import PatientsList from "./Components/PatientList/PatientsList";
+ //import PatientsRequestList from "./Components/PatientRequestList/PatientsRequestList";
 // import DrEditProfile from "./Pages/DrEditProfile";
 // import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import "primereact/resources/themes/lara-light-indigo/theme.css";
 // import "primereact/resources/primereact.min.css";
-// import DRProfile from "./Pages/DRProfile";
+ import DRProfile from "./Pages/DRProfile";
 // import CaseHistory from "./Pages/CaseHistory";
 // import AudioRecorderr from "./Components/componentss/AudioRecorderr";
 // import SideBarrPatient from "./Components/PatientPanel/SideBarrPatient";
@@ -32,7 +32,7 @@ import DrEditProfile from "./Pages/DrEditProfile";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import DRProfile from "./Pages/DRProfile";
+//import DRProfile from "./Pages/DRProfile";
 import CaseHistory from "./Pages/CaseHistory";
 import AudioRecorderr from "./Components/componentss/AudioRecorderr";
 import PatientProfile from "./Pages/PatientProfile";
@@ -78,6 +78,14 @@ function App() {
               path="/RecipeHistory"
               element={<RecipeHistory></RecipeHistory>}
             ></Route>
+            <Route path="/sideBar" element={<SideBarr></SideBarr>}></Route>
+          <Route path="/EditMyProfile" element={<DrEditProfile></DrEditProfile>}></Route>
+          <Route path="/MyProfile" element={<DRProfile></DRProfile>}></Route>
+          <Route path="/MyPatientRequestList" element={<PatientsRequestList></PatientsRequestList>}></Route>
+          <Route path="/MyPatientnList" element={<PatientsList></PatientsList>}></Route>
+
+
+          
           </Routes>
 
           <Routes>
