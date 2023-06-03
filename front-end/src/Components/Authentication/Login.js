@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import { login } from "../../actions/userActions";
 import { useEffect } from "react";
+import Message from "../Error&Loading/Message";
+import Loader from "../Error&Loading/Loader";
 
 function Login({ location }) {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -23,12 +25,16 @@ function Login({ location }) {
   const redirect = location?.search ? location?.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { error, loading, userInfo } = userLogin;
+  let { error, loading, userInfo } = userLogin;
   const nav = useNavigate();
 
   useEffect(() => {
-    if (userInfo) {
-      nav(`/Profile/${userInfo?.id}`, { replace: true });
+    if (userInfo?.role == "dr") {
+      nav(`/MyProfile`, { replace: true });
+    } else if (userInfo?.role == "patient") {
+      nav(`/MyProfileP`, { replace: true });
+    } else {
+      //dddd
     }
   }, [userInfo]);
 
@@ -38,7 +44,9 @@ function Login({ location }) {
   };
   return (
     <div className="form_model_login">
+      {loading ? <Loader></Loader> : ""}
       <h1>ورود</h1>
+      {error ? <Message></Message> : ""}
       <form action="post" onSubmit={handleSubmmit}>
         <div className="txt_field-login email">
           <input

@@ -23,6 +23,7 @@ function RecipeHistory() {
       })
       .then((response) => {
         console.log(response);
+        navigate("/RecipeHistory", { state: { ...response.data } });
       })
       .catch((error) => {
         console.log(error);

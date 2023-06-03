@@ -4,12 +4,13 @@ import { RxCross2 } from "react-icons/rx";
 import AudioRecorderr from "./AudioRecorderr";
 import { file } from "@babel/types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function CaseInput(props) {
   const [id, setId] = useState();
   const closing = props?.closing;
   const fileId = props?.fileId;
   const FileList = props?.FileList;
-  const id_me = props?.medical_recorde
+  const id_me = props?.medical_recorde;
 
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -20,6 +21,7 @@ function CaseInput(props) {
   let titleM = "";
   let dateTimeM = new Date();
   let sessionID = "";
+  const navigate = useNavigate();
   //console.log(FileList);
 
   FileList?.map((item) => {
@@ -46,10 +48,11 @@ function CaseInput(props) {
         medical_recorde: id_me,
         content: content,
         title: title,
-        audio:{...audioFile},
+        audio: { ...audioFile },
       })
       .then((response) => {
         console.log(response);
+        navigate("/CaseHistory", { state: { ...response.data } });
       })
       .catch((error) => {
         console.log(error);
