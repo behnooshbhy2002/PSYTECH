@@ -31,10 +31,11 @@ function EditProfile() {
     if (user.password != confirmPassword) {
       console.log("Error");
     } else {
-      const id = JSON.parse(localStorage.key(0));
+     const id=userInfo.id;
+     const par=`id=${id}`;
       console.log(id);
       event.preventDefault();
-      fetch(`http://127.0.0.1:8000/appointments/patient_profile/${id}`, {
+      fetch(`http://127.0.0.1:8000/appointments/patient_profile/${par}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -48,9 +49,10 @@ function EditProfile() {
   };
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
+    const id=userInfo.id;
+     const par=`id=${id}`;
     console.log(id);
-    fetch(`http://127.0.0.1:8000/appointments/psychologist_profile/${id}`)
+    fetch(`http://127.0.0.1:8000/appointments/psychologist_profile/${par}`)
       .then((response) => response.json())
       .then((data) => setUser(data))
       .catch((error) => console.error(error));
