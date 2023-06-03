@@ -6,6 +6,8 @@ import Loader from "../Components/Error&Loading/Loader";
 import Message from "../Components/Error&Loading/Message";
 import "../Components/style/AdminAdmitDrSignUp.css";
 import Toast from "../Components/Error&Loading/toast";
+import { logout } from "../actions/userActions";
+
 // function TableRows({ rows, tableRowRemove, onValUpdate, tableRowAccept }) {
 
 // }
@@ -108,13 +110,16 @@ function AdminAdmitDrSignUp() {
     setUserFull(obj.full_name);
     SetMessageType(mess);
   };
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
   return (
     <>
       {loading ? (
         <Loader></Loader>
       ) : error ? (
         <Message variant="danger">{error}</Message>
-      ) : userInfo.role == "admin" ? (
+      ) : userInfo?.role == "admin" ? (
         <div>
           <Toast
             userFull={userFull}
@@ -129,7 +134,13 @@ function AdminAdmitDrSignUp() {
               className="Show-requests-button btn btn-info"
               onClick={addRowTable}
             >
-              Show Requests
+              نمایش درخواست
+            </button>
+            <button
+              className="Show-requests-button btn btn-danger"
+              onClick={handleLogOut}
+            >
+              خروج
             </button>
           </div>
           <div className="signup-table-show-admin">

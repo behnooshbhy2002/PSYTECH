@@ -29,7 +29,7 @@ function Login({ location }) {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (userInfo?.role == "dr") {
+    if (userInfo?.role == "psychologist") {
       nav(`/MyProfile`, { replace: true });
     } else if (userInfo?.role == "patient") {
       nav(`/MyProfileP`, { replace: true });
@@ -45,10 +45,11 @@ function Login({ location }) {
     dispatch(login(email, pwd));
   };
   return (
+    <>
+    {loading ? <Loader></Loader> : ""}
+      {error ? <Message variant='danger'>{error}</Message> : ""}
     <div className="form_model_login">
-      {loading ? <Loader></Loader> : ""}
       <h1>ورود</h1>
-      {error ? <Message></Message> : ""}
       <form action="post" onSubmit={handleSubmmit}>
         <div className="txt_field-login email">
           <input
@@ -102,6 +103,7 @@ function Login({ location }) {
         </div>
       </form>
     </div>
+    </>
   );
 }
 export default Login;

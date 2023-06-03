@@ -32,18 +32,22 @@ const NavBarr = () => {
           <button id="signup">ثبت نام</button>
         </NavLink>
         {userInfo?.role=="patient" ? (
-          <NavLink to="/PatientProfile">
+          <NavLink to="/MyProfileP">
             <button id="login"> پروفایل </button>
           </NavLink>
         ) : userInfo?.role=="psychologist" ? (
-          <NavLink to="/sideBar">
+          <NavLink to="/MyProfile">
             <button id="login"> پروفایل دکتر </button>
           </NavLink>
-        ): (
+        ): userInfo?.role=="admin" ? (
+          <NavLink to="/Admin-SignUp">
+            <button id="login">پروفایل ادمین</button>
+          </NavLink>
+        ) : (
           <NavLink to="/Login">
             <button id="login">ورود</button>
           </NavLink>
-        )}
+        )}}
       </ul>
     </div>
   );

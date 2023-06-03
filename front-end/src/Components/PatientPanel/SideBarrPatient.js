@@ -8,7 +8,8 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import Message from "../Error&Loading/Message";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 import { useEffect, useState } from "react";
 import {
@@ -19,6 +20,10 @@ import {
   NavLink,
 } from "react-router-dom";
 function SideBarrPatient() {
+  const handleLogOut = () =>{
+    dispatch(logout())
+  }
+  const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
@@ -100,6 +105,7 @@ function SideBarrPatient() {
                 component={<NavLink to="/" className="link" />}
                 icon={<LogoutRoundedIcon />}
                 className="sidebar-item"
+                onClick={handleLogOut}
               >
                 {" "}
                 <div id="logout-sidebar">خروج </div>
