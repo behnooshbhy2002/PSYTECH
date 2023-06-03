@@ -54,7 +54,6 @@ function CaseInput(props) {
       })
       .then((response) => {
         console.log(response);
-        navigate("/CaseHistory", { state: { ...response.data } });
       })
       .catch((error) => {
         console.log(error);
