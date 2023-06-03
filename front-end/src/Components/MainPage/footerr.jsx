@@ -127,7 +127,7 @@ export default function Footer() {
                 <div className="a-tags">
                   <p>
                     <a
-                      href="#!"
+                      href="/AboutUs"
                       className="text-reset fw-bold a-non-decoration "
                     >
                       درباره ما
@@ -135,18 +135,10 @@ export default function Footer() {
                   </p>
                   <p>
                     <a
-                      href="#!"
+                      href="/Rules"
                       className="text-reset fw-bold a-non-decoration"
                     >
                       قوانین
-                    </a>
-                  </p>
-                  <p>
-                    <a
-                      href="#!"
-                      className="text-reset fw-bold a-non-decoration"
-                    >
-                      گزارش تخلف
                     </a>
                   </p>
                 </div>

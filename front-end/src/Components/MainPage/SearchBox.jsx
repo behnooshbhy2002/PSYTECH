@@ -32,8 +32,8 @@ const SearchBox = () => {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       console.log(keyword);
-      history("/PsycologistList");
-      removeQuery("keyword", history);
+      //history("/PsycologistList");
+      //removeQuery("keyword", history);
       addQuery("keyword", keyword, history);
     }
   };

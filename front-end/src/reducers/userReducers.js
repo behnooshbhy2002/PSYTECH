@@ -18,9 +18,7 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
-  USER_PROFILE_DR_REQUEST,
-  USER_PROFILE_DR_SUCCESS,
-  USER_PROFILE_DR_FAIL,
+ 
 } from "../constants/userConstants";
 
 export const userLoginReduser = (state = {}, action) => {
@@ -58,21 +56,7 @@ export const userRegisterDrReduser = (state = {}, action) => {
   }
 };
 
-export const userProfileDrReduser = (state = {user:{}}, action) => {
-  switch (action.type) {
-    case USER_PROFILE_DR_REQUEST:
-      return {...state, loadingDr: true };
 
-    case USER_PROFILE_DR_SUCCESS:
-      return { loadingDr: false, user: action.payload };
-
-    case USER_PROFILE_DR_FAIL:
-      return { loadingDr: false, errorDr: action.payload };
-
-    default:
-      return state;
-  }
-};
 
 export const userRegisterPatientReduser = (state = {}, action) => {
   switch (action.type) {

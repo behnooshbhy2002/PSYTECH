@@ -21,7 +21,7 @@ function DoctorPageDetail() {
   const [psyInfo, setPsyInfo] = useState({});
   const [sickness, setSickness] = useState([]);
   const [url, setUrl] = useState("http://localhost:3002/psyInfo");
-  const [anable, setEnable] = useState(true);
+  const [enable, setEnable] = useState(true);
 
   const dispatch = useDispatch();
   const loc = useLocation();
@@ -295,7 +295,7 @@ function DoctorPageDetail() {
               aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title">
-                {"میزان رضایت خود را مشخص کنید"}
+                <h4>{"میزان رضایت خود را مشخص کنید"}</h4>
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
@@ -320,12 +320,14 @@ function DoctorPageDetail() {
                         </span>
                       ))}
                     </div>
-                    <button onClick={() => handleReset()}>Reset Rating</button>
+                    <button onClick={() => handleReset()}>تنظیم مجدد</button>
                   </div>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
+                <Button onClick={handleClose}>
+                  <p className="star-text">بستن</p>
+                </Button>
                 <Button
                   onClick={() => {
                     console.log(rated);
@@ -333,7 +335,7 @@ function DoctorPageDetail() {
                   }}
                   autoFocus
                 >
-                  Agree
+                  <p className="star-text">تایید</p>
                 </Button>
               </DialogActions>
             </Dialog>
