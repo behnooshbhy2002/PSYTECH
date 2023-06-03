@@ -231,12 +231,15 @@ class DoctorListView(APIView):
         return Response(doctor_serializer.data, status=status.HTTP_200_OK)
 
 
-class SessionView(APIView):
-    def post(self, request):
-        session_data = {key: request.data.get(key) for key in request.data if key != 'medical_recorde'}
-        session_serialized = CreateSessionSerializer(session_data)
-        recorde_id = request.data.get("medical_recorde")
-        recorde = MedicalRecorder.objects.get(id=recorde_id)
+# class SessionView(APIView):
+#     def post(self, request):
+#         session_data = {key: request.data.get(key) for key in request.data if key != 'medical_recorde'}
+#         session_serialized = CreateSessionSerializer(session_data)
+#         recorde_id = request.data.get("medical_recorde")
+#         recorde = MedicalRecorder.objects.get(id=recorde_id)
+
+# class CreatePrescriptionView(APIView):
+#      def post(self,request):
 
 
 
