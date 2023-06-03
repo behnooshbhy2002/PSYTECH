@@ -20,6 +20,7 @@ import {
   USER_REGISTER_VERIFY_FAIL,
   USER_GET_PROFILE_FAIL,
   USER_GET_PROFILE_REQUEST,
+  USER_GET_PROFILE_SUCCESS,
  
 } from "../constants/userConstants";
 

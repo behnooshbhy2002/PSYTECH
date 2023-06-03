@@ -73,7 +73,10 @@ function App() {
               path="/MyProfileP"
               element={<UserProfile></UserProfile>}
             ></Route>
+            <Route path="/Login" element={<Login />}></Route>
+            <Route path="/SignUp" element={<Sign />}></Route>
           </Routes>
+          
 
           {/* <SideBarr></SideBarr> */}
           {/* <Routes>

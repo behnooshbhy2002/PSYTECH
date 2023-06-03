@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import pic from "../../images/maryam-montazeri.png";
-import { getUserProfile } from "../actions/userActions";
+import { getUserProfile } from "../../actions/userActions";
 import "../style/ProfileDetail.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import SideBarrPatient from "./SideBarrPatient";
-import Loader from "../Components/Error&Loading/Loader";
-import Message from "../Components/Error&Loading/Message";
+import Loader from "../Error&Loading/Loader";
+import Message from "../Error&Loading/Message";
 import { useNavigate } from "react-router-dom";
 function UserProfile() {
   const navigate = useNavigate();
