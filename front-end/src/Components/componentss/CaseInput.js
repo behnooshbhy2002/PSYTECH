@@ -21,6 +21,7 @@ function CaseInput(props) {
   let titleM = "";
   let dateTimeM = new Date();
   let sessionID = "";
+  let audio;
   const navigate = useNavigate();
   //console.log(FileList);
 
@@ -30,6 +31,7 @@ function CaseInput(props) {
       titleM = item?.title;
       dateTimeM = item?.date;
       sessionID = item?.sessionID;
+      audio = item?.audio;
     } else if (fileId == -1) {
       contentM = "";
       titleM = "";
