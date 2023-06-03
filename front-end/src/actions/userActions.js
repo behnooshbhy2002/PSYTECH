@@ -20,9 +20,10 @@ import {
   USER_REGISTER_VERIFY_REQUEST,
   USER_REGISTER_VERIFY_SUCCESS,
   USER_REGISTER_VERIFY_FAIL,
-  USER_PROFILE_DR_REQUEST,
-  USER_PROFILE_DR_SUCCESS,
-  USER_PROFILE_DR_FAIL,
+  USER_GET_PROFILE_REQUEST,
+  USER_GET_PROFILE_SUCCESS,
+  USER_GET_PROFILE_FAIL
+
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -238,35 +239,34 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
   }
 };
 
-export const getProfileDR = (id) => async (dispatch, getState) => {
+export const getUserProfile = (par , userInfo) =>
+async (dispatch) => {
   try {
-    dispatch({
-      type: USER_PROFILE_DR_REQUEST,
-    });
-
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
+    console.log(userInfo)
+    dispatch({ type: USER_GET_PROFILE_REQUEST });
+    
+    
     const config = {
       headers: {
         "Content-type": "application/json",
-         Authorization: `BAREAR ${userInfo.token}`
+         Authorization: `BAREAR ${userInfo.tokens.access}`
       },
     };
-
-    const { data } = await axios.get(`/api/users/${id}`, config);
+    console.log(config)
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000/appointments/patient_profile/${par}`, config);
 
     dispatch({
-      type: USER_PROFILE_DR_SUCCESS,
+      type: USER_GET_PROFILE_SUCCESS,
       payload: data,
     });
-  } catch (error) {
+  } 
+  catch (error) {
     dispatch({
-      type: USER_PROFILE_DR_FAIL,
+      type: USER_GET_PROFILE_FAIL,
       payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.message
+          ? error.response.data.message
           : error.message,
     });
   }
