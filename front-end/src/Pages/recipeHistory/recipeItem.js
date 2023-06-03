@@ -14,11 +14,11 @@ function RecipeItem(props) {
       <div className="card-body">
         <div className="front-card">
           <br></br>
-          <h3>جلسه 1</h3>
-          <h5>19/02/1402</h5>
+          <h3>{title}</h3>
+          <h5>{date}</h5>
         </div>
         <div className="back-card">
-          <p>مظالعه کتاب مردی به نام اوه ، توجه به احساسات و....</p>
+          <p>{pre}</p>
         </div>
       </div>
     </div>
