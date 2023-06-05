@@ -240,7 +240,7 @@ export const userSendSignUpStatus = (id, status) => async (dispatch) => {
 
 export const getUserProfile = (par, userInfo) => async (dispatch) => {
   try {
-    console.log(userInfo);
+    console.log(userInfo , par);
     dispatch({ type: USER_GET_PROFILE_REQUEST });
 
     const config = {

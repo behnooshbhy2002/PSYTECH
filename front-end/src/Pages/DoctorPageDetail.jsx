@@ -332,6 +332,7 @@ function DoctorPageDetail() {
                   onClick={() => {
                     console.log(rated);
                     handleSubmitRate(rated);
+                    handleClose()
                   }}
                   autoFocus
                 >

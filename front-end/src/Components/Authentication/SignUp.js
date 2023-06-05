@@ -233,8 +233,8 @@ function Sign({ location, history }) {
                 <option value="default" hidden>
                   جنسیت
                 </option>
-                <option value="M">مرد</option>
-                <option value="F">زن</option>
+                <option value="M">آقا</option>
+                <option value="F">خانم</option>
               </select>
               <input
                 type="text"

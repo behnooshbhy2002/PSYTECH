@@ -25,7 +25,7 @@ function UserProfile() {
   };
   const dispatch = useDispatch();
 
-  const userProfile = useSelector((state) => state.userProfile);
+  const userProfile = useSelector((state) => state.userProfileP);
   const { error, loading, user } = userProfile;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -39,7 +39,7 @@ function UserProfile() {
       if (!user || !user.full_name) {
         const id = userInfo?.id;
         const par = `?id=${id}`;
-        console.log(user, user?.full_name);
+        console.log(par, user?.full_name);
         dispatch(getUserProfile(par, userInfo));
       } else {
         setName(user.full_name);
@@ -50,17 +50,17 @@ function UserProfile() {
     }
   }, [dispatch, userInfo, user]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("https://api.example.com/user-profile", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      getUserProfile(response.data);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios.get("https://api.example.com/user-profile", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     });
+  //     getUserProfile(response.data);
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <>
@@ -90,7 +90,7 @@ const Profile = ({ name, phone, email, gender }) => {
         <p> {name}</p>
         <p>{phone}</p>
         <p>{email}</p>
-        <p>{gender}</p>
+        <p>{gender=="F" ? "خانم" : "آقا"}</p>
       </div>
     </div>
   );

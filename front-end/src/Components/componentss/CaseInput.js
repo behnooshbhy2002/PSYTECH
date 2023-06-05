@@ -46,11 +46,11 @@ function CaseInput(props) {
 
   const handleSubmitFile = () => {
     const { data } = axios
-      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+      .post(`http://127.0.0.1:8000/appointments/create_session/`, {
         medical_recorde: id_me,
         content: content,
         title: title,
-        audio: { ...audioFile },
+        //audio: { ...audioFile },
       })
       .then((response) => {
         console.log(response);

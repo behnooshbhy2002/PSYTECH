@@ -129,7 +129,7 @@ export const userProfileReducer = (state = { user: {} }, action) => {
       return { loading: false, user: action.payload };
 
     case USER_GET_PROFILE_FAIL:
-      return { loading: false, errorDr: action.payload };
+      return { loading: false, error: action.payload };
 
     default:
       return state;
