@@ -112,6 +112,7 @@ function AdminAdmitDrSignUp() {
   };
   const handleLogOut = () => {
     dispatch(logout());
+    history("/")
   };
   return (
     <>

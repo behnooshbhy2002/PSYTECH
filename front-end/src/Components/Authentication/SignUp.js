@@ -42,7 +42,7 @@ function Sign({ location, history }) {
   useEffect(() => {
     if (userInfoDr || userInfoPatient) {
       console.log(userInfoPatient, userInfoDr);
-      nav("/signUp-verify", { replace: true });
+      nav("/signUp-verify");
     }
   }, [history, userInfoDr, redirect, userInfoPatient]);
 
