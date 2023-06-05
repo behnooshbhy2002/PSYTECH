@@ -19,6 +19,7 @@ const PatientCard = (props) => {
 
   const handleViewFile = (p_id) => {
     console.log(p_id);
+    
     axios
       .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
         id_patient: p_id,
