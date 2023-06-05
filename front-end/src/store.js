@@ -8,6 +8,7 @@ import {
   userGetSignUpReduser,
   userSignUpVerifyReduser,
   userSendSignUpReduser,
+  userProfileReducer,
 } from "./reducers/userReducers";
 import { requestSendReduser } from "./reducers/requestReducers";
 import {
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   userSendSignUpStatus: userSendSignUpReduser,
   drDetails: drDetailsReducers,
   // userProfile: userProfileDrReduser,
+  userProfileP: userProfileReducer,
   userProfile: userProfileDrReduser,
   sendRequest: requestSendReduser,
 });
