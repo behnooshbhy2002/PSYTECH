@@ -20,7 +20,6 @@ const PatientCard = (props) => {
   const handleViewFile = (p_id) => {
     localStorage.setItem("dr_id", dr_id);
     localStorage.setItem("p_id", p_id);
-
     axios
       .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
         id_patient: localStorage.getItem("p_id"),
@@ -32,28 +31,29 @@ const PatientCard = (props) => {
         //setSession_list(fileList?.session_list);
         //setMedical_recordeID(fileList?.medical_record?.id);
         //console.log(medical_recordeId)
-        console.log(response.data)
+        console.log(response.data);
         localStorage.setItem("m_id", response.data?.medical_record?.id);
         navigate("/CaseHistory");
-        // console.log(response.data);
         return response.data;
       })
       .catch((error) => {
         console.log(error);
       });
-    //console.log(p_id);
   };
   const handleViewPrescription = (p_id) => {
-    console.log(p_id);
+    localStorage.setItem("dr_id", dr_id);
+    localStorage.setItem("p_id", p_id);
     axios
-      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
-        id_patient: p_id,
-        id_psychologist: dr_id,
+      .post(`http://127.0.0.1:8000/appointments/prescription_list/`, {
+        id_patient: localStorage.getItem("p_id"),
+        id_psychologist: localStorage.getItem("dr_id"),
       })
       .then((response) => {
-        setSession(response.data);
+        //setSession(response.data);
+        //console.log(response.data);
         console.log(response.data);
-        navigate("/RecipeHistory", { state: { ...response.data } });
+        localStorage.setItem("page_id", response.data?.prescription_page?.id);
+        navigate("/DrRecipeHistory");
         //return response
       })
       .catch((error) => {

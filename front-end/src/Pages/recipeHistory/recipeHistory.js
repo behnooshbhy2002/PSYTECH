@@ -4,17 +4,43 @@ import "./recipeHistory.css";
 import { Row, Column } from "react";
 import { useLocation } from "react-router-dom";
 function RecipeHistory() {
-  const location = useLocation();
-  let FileList = location.state;
-  console.log(FileList);
-  let session_list = FileList?.session_list;
-  let medical_recorde = FileList?.medical_recorde?.id;
-  console.log(session_list);
+  // const location = useLocation();
+  // let FileList = location.state;
+  // console.log(FileList);
+  // let session_list = FileList?.session_list;
+  // let medical_recorde = FileList?.medical_recorde?.id;
+  // console.log(session_list);
+  const [preList, setPreList] = useState();
+  const fetchData = () => {
+    return axios
+      .get(
+        `http://127.0.0.1:8000/appointments/create_prescription/?id=${localStorage.getItem(
+          "page_id"
+        )}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setPreList(response.data);
+        // setSession_list(fileList?.session_list);
+        // setMedical_recordeID(fileList?.medical_record?.id);
+        // console.log(medical_recordeId)
+        //doctor = response.data;
+        //setDrList(response.data);
+        //console.log(drList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div>
       <h1>نسخه های من</h1>
       <div className="recipe-wrapper" dir="rtl">
-        {session_list?.map((item) => {
+        {preList?.map((item) => {
           <RecipeItem className="recipeItem" data={item}></RecipeItem>;
         })}
       </div>

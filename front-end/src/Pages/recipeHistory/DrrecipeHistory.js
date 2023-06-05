@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RecipeItem from "./recipeItem";
 import "./DrrecupeHistory.css";
 import { InputTextarea } from "primereact";
@@ -13,11 +13,12 @@ function RecipeHistory() {
   const [name, setName] = useState("علی عزیزی");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
+  const [preList, setPreList] = useState();
   const str = "نسخه های بیمار: " + name;
 
   const handleSubmmitPre = () => {
     const { data } = axios
-      .post(`http://127.0.0.1:8000/appointments/request_list/`, {
+      .get(`http://127.0.0.1:8000/appointments/request_list/`, {
         pre: name,
         content: value,
         title: title,
@@ -31,12 +32,38 @@ function RecipeHistory() {
         console.log(error);
       });
   };
-  const location = useLocation();
-  let FileList = location.state;
-  console.log(FileList);
-  let session_list = FileList?.session_list;
-  let medical_recorde = FileList?.medical_recorde?.id;
-  console.log(session_list);
+
+  const fetchData = () => {
+    return axios
+      .get(
+        `http://127.0.0.1:8000/appointments/create_prescription/?id=${localStorage.getItem(
+          "page_id"
+        )}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setPreList(response.data);
+        // setSession_list(fileList?.session_list);
+        // setMedical_recordeID(fileList?.medical_record?.id);
+        // console.log(medical_recordeId)
+        //doctor = response.data;
+        //setDrList(response.data);
+        //console.log(drList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  // const location = useLocation();
+  // let FileList = location.state;
+  // console.log(FileList);
+  // let session_list = FileList?.session_list;
+  // let medical_recorde = FileList?.medical_recorde?.id;
+  // console.log(session_list);
 
   return (
     <div dir="rtl">
@@ -72,15 +99,9 @@ function RecipeHistory() {
         />
       </div>
       <div className="recipe-wrapper">
-        {session_list?.map((item) => {
+        {preList?.map((item) => {
           <RecipeItem className="recipeItem" data={item}></RecipeItem>;
         })}
-
-        {/* <RecipeItem className="recipeItem"></RecipeItem>
-
-        <RecipeItem className="recipeItem"></RecipeItem>
-        <RecipeItem className="recipeItem"></RecipeItem>
-        <RecipeItem className="recipeItem"></RecipeItem> */}
       </div>
     </div>
   );

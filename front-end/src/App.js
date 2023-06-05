@@ -45,7 +45,8 @@ import UserEditProfile from "./Components/PatientPanel/UserEditProfile";
 import UserProfile from "./Components/PatientPanel/UserProfile";
 import Rulse from "./Components/MainPage/Rules";
 import AboutUs from "./Components/MainPage/AboutUs";
-import RecipeHistory from "./Pages/recipeHistory/DrrecipeHistory";
+import DrRecipeHistory from "./Pages/recipeHistory/DrrecipeHistory";
+import RecipeHistory from "./Pages/recipeHistory/recipeHistory";
 
 function App() {
   return (
@@ -77,6 +78,10 @@ function App() {
             <Route
               path="/RecipeHistory"
               element={<RecipeHistory></RecipeHistory>}
+            ></Route>
+            <Route
+              path="/DrRecipeHistory"
+              element={<DrRecipeHistory></DrRecipeHistory>}
             ></Route>
             <Route path="/sideBar" element={<SideBarr></SideBarr>}></Route>
             <Route

@@ -9,17 +9,22 @@ function PPanelDoctorCard(props) {
   let img = props.data?.img;
   let name = props.data?.name;
   let p_id = props.data?.p_id;
+
   const handleShowPreToP = (dr_id) => {
-    console.log(dr_id);
+    localStorage.setItem("dr_id", dr_id);
+    localStorage.setItem("p_id", p_id);
     axios
-      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
-        id_patient: p_id,
-        id_psychologist: dr_id,
+      .post(`http://127.0.0.1:8000/appointments//`, {
+        id_patient: localStorage.getItem("p_id"),
+        id_psychologist: localStorage.getItem("dr_id"),
       })
       .then((response) => {
         //setSession(response.data);
+        //console.log(response.data);
         console.log(response.data);
-        navigate("/RecipeHistory", { state: { ...response.data } });
+        localStorage.setItem("page_id", response.data?.prescription_page?.id);
+        navigate("/RecipeHistory");
+        //return response
       })
       .catch((error) => {
         console.log(error);
