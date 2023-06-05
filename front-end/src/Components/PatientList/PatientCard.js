@@ -18,25 +18,10 @@ const PatientCard = (props) => {
   const [session, setSession] = useState({});
 
   const handleViewFile = (p_id) => {
-    console.log(p_id);
-    
-    axios
-      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
-        id_patient: p_id,
-        id_psychologist: dr_id,
-      })
-      .then((response) => {
-        setSession(response.data);
-        console.log(response.data);
-        navigate("/CaseHistory", { state: { ...response.data } });
-
-        //return response
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    console.log(session);
+    localStorage.setItem("dr_id", dr_id);
+    localStorage.setItem("p_id", p_id);
+    navigate("/CaseHistory");
+    //console.log(p_id);
   };
   const handleViewPrescription = (p_id) => {
     console.log(p_id);

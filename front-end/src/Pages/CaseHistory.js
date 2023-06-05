@@ -7,17 +7,45 @@ import "../Components/style/CaseHistory.css";
 import { useLocation } from "react-router-dom";
 import Message from "../Components/Error&Loading/Message";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 function CaseHistory() {
   const [StatusForm, setStatusForm] = useState(false);
   const [fileId, setFileId] = useState(-1);
+  const [fileList, setfileList] = useState();
+  const [session_list, setSession_list] = useState();
+  const [medical_recordeId, setMedical_recordeID] = useState();
   const navigate = useNavigate();
 
-  const location = useLocation();
-  let FileList = location.state;
-  console.log(FileList);
-  let session_list = FileList?.session_list;
-  let medical_recorde = FileList?.medical_recorde?.id;
-  console.log(session_list);
+  //const location = useLocation();
+  //let FileList = location.state;
+  //console.log(FileList);
+  //let session_list = FileList?.session_list;
+  //let medical_recorde = FileList?.medical_recorde?.id;
+  //console.log(session_list);
+
+  const fetchData = () => {
+    axios
+      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
+        id_patient: localStorage.getItem("p_id"),
+        id_psychologist: localStorage.getItem("dr_id"),
+      })
+      .then((response) => {
+        //setSession(response.data);
+        setfileList(response.data);
+        console.log(response.data);
+        return response.data;
+        //navigate("/CaseHistory", { state: { ...response.data } });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    setfileList(fetchData());
+    setSession_list(fileList?.session_list);
+    setMedical_recordeID(fileList?.medical_recorde?.id);
+    localStorage.setItem("medical_recordeId", medical_recordeId);
+  }, []);
   // FileList = [
   //   {
   //     id: 1,
