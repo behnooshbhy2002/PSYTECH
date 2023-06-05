@@ -66,8 +66,8 @@ function UserProfile() {
           <div className="profile-container">
             <img className="profilePicture" src={pic} alt=""></img>
             <Profile
-              name={user.name}
-              phone={user.phone}
+              name={smapleUser.name}
+              phone={smapleUser.phone}
               email={smapleUser.email}
               gender={smapleUser.gender}
             />

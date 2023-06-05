@@ -18,7 +18,7 @@ function SignUpVerify() {
     //console.log(verifyCode);
     //console.log(email);
     let x = email.substring(1, email.length - 1);
-    console.log(x);
+    console.log(x,verifyCode);
     dispatch(verify(verifyCode, x));
   };
 
