@@ -5,8 +5,9 @@ function RecipeItem(props) {
   //const [date,setData]=useState("");
   //const [text,setText]=useState("");
 
+  console.log(props.data)
   let title = props?.data?.title;
-  let pre = props?.data?.pre;
+  let pre = props?.data?.content;
   let date = props?.data?.date;
 
   return (

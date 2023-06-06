@@ -19,7 +19,7 @@ function DoctorList() {
   // }, [url]);
   const fetchInfo = (par) => {
     return axios
-      .get(`http://127.0.0.1:8000/appointments/request_list/${par}`)
+      .get(`http://127.0.0.1:8000/appointments/doctor_list/${par}`)
       .then((response) => {
         console.log(response);
         //doctor = response.data;

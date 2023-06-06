@@ -1,8 +1,9 @@
-import React from "react";
+import {React , useState , useEffect} from "react";
 import RecipeItem from "./recipeItem";
 import "./recipeHistory.css";
 import { Row, Column } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 function RecipeHistory() {
   // const location = useLocation();
   // let FileList = location.state;
@@ -14,7 +15,7 @@ function RecipeHistory() {
   const fetchData = () => {
     return axios
       .get(
-        `http://127.0.0.1:8000/appointments/create_prescription/?id=${localStorage.getItem(
+        `http://127.0.0.1:8000/appointments/prescription_list/?id=${localStorage.getItem(
           "page_id"
         )}`
       )
@@ -41,7 +42,11 @@ function RecipeHistory() {
       <h1>نسخه های من</h1>
       <div className="recipe-wrapper" dir="rtl">
         {preList?.map((item) => {
-          <RecipeItem className="recipeItem" data={item}></RecipeItem>;
+          return(
+            <>
+            <RecipeItem className="recipeItem" data={item}></RecipeItem>;
+            </>
+          )
         })}
       </div>
     </div>

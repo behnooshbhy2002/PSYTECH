@@ -52,7 +52,7 @@ const PatientCard = (props) => {
         //setSession(response.data);
         //console.log(response.data);
         console.log(response.data);
-        localStorage.setItem("page_id", response.data?.prescription_page?.id);
+        localStorage.setItem("page_id", response.data?.prescription_page?.pk);
         navigate("/DrRecipeHistory");
         //return response
       })

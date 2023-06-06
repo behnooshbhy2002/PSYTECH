@@ -14,7 +14,7 @@ function PPanelDoctorCard(props) {
     localStorage.setItem("dr_id", dr_id);
     localStorage.setItem("p_id", p_id);
     axios
-      .post(`http://127.0.0.1:8000/appointments//`, {
+      .post(`http://127.0.0.1:8000/appointments/prescription_list/`, {
         id_patient: localStorage.getItem("p_id"),
         id_psychologist: localStorage.getItem("dr_id"),
       })
@@ -22,7 +22,7 @@ function PPanelDoctorCard(props) {
         //setSession(response.data);
         //console.log(response.data);
         console.log(response.data);
-        localStorage.setItem("page_id", response.data?.prescription_page?.id);
+        localStorage.setItem("page_id", response.data?.prescription_page?.pk);
         navigate("/RecipeHistory");
         //return response
       })

@@ -10,23 +10,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function RecipeHistory() {
   const navigate = useNavigate();
-  const [name, setName] = useState("علی عزیزی");
+  //const [name, setName] = useState("علی عزیزی");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [preList, setPreList] = useState();
-  const str = "نسخه های بیمار: " + name;
+  // const str = "نسخه های بیمار: " + name;
 
   const handleSubmmitPre = () => {
-    const { data } = axios
-      .get(`http://127.0.0.1:8000/appointments/request_list/`, {
-        pre: name,
+    axios
+      .post(`http://127.0.0.1:8000/appointments/create_prescription/`, {
         content: value,
-        title: title,
-        date: new Date(),
+        pk: localStorage.getItem("page_id")
       })
       .then((response) => {
         console.log(response);
-        navigate("/RecipeHistory", { state: { ...response.data } });
+        // navigate("/RecipeHistory", { state: { ...response.data } });
       })
       .catch((error) => {
         console.log(error);
@@ -67,7 +65,7 @@ function RecipeHistory() {
 
   return (
     <div dir="rtl">
-      <h2>{str}</h2>
+      <h2>{"str"}</h2>
       <div>
         <div className="card-bodyy kkkk">
           <TextField
@@ -100,8 +98,13 @@ function RecipeHistory() {
       </div>
       <div className="recipe-wrapper">
         {preList?.map((item) => {
-          <RecipeItem className="recipeItem" data={item}></RecipeItem>;
-        })}
+          return (
+            <>
+                      <RecipeItem className="recipeItem" data={item}></RecipeItem>;
+
+            </>
+          )
+                })}
       </div>
     </div>
   );
