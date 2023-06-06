@@ -10,7 +10,7 @@ function CaseInput(props) {
   const closing = props?.closing;
   const fileId = props?.fileId;
   const FileList = props?.FileList;
-  const id_me = props?.medical_recorde;
+  const id_me = localStorage.getItem("m_id")
 
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");

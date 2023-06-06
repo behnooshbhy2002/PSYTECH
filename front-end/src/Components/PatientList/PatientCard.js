@@ -20,7 +20,27 @@ const PatientCard = (props) => {
   const handleViewFile = (p_id) => {
     localStorage.setItem("dr_id", dr_id);
     localStorage.setItem("p_id", p_id);
-    navigate("/CaseHistory");
+
+    axios
+      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
+        id_patient: localStorage.getItem("p_id"),
+        id_psychologist: localStorage.getItem("dr_id"),
+      })
+      .then((response) => {
+        //setSession(response.data);
+        //setfileList(response.data);
+        //setSession_list(fileList?.session_list);
+        //setMedical_recordeID(fileList?.medical_record?.id);
+        //console.log(medical_recordeId)
+        console.log(response.data)
+        localStorage.setItem("m_id", response.data?.medical_record?.id);
+        navigate("/CaseHistory");
+        // console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     //console.log(p_id);
   };
   const handleViewPrescription = (p_id) => {

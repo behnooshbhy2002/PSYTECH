@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import Message from "../Components/Error&Loading/Message";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import axios from "axios";
 function CaseHistory() {
   const [StatusForm, setStatusForm] = useState(false);
   const [fileId, setFileId] = useState(-1);
@@ -24,27 +25,24 @@ function CaseHistory() {
   //console.log(session_list);
 
   const fetchData = () => {
-    axios
-      .post(`http://127.0.0.1:8000/appointments/medical_recorder/`, {
-        id_patient: localStorage.getItem("p_id"),
-        id_psychologist: localStorage.getItem("dr_id"),
-      })
-      .then((response) => {
-        //setSession(response.data);
-        setfileList(response.data);
-        console.log(response.data);
-        return response.data;
-        //navigate("/CaseHistory", { state: { ...response.data } });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return axios.get(`http://127.0.0.1:8000/appointments/create_session/?id=${localStorage.getItem("m_id")}`)
+    .then((response) => {
+      console.log(response.data);
+      setfileList(response.data);
+        // setSession_list(fileList?.session_list);
+        // setMedical_recordeID(fileList?.medical_record?.id);
+        // console.log(medical_recordeId)
+      //doctor = response.data;
+      //setDrList(response.data);
+      //console.log(drList);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
+  let x;
   useEffect(() => {
-    setfileList(fetchData());
-    setSession_list(fileList?.session_list);
-    setMedical_recordeID(fileList?.medical_recorde?.id);
-    localStorage.setItem("medical_recordeId", medical_recordeId);
+    x = fetchData();
   }, []);
   // FileList = [
   //   {
@@ -101,7 +99,7 @@ function CaseHistory() {
                 }}
               ></IoAddCircle>
             </div>
-            {session_list?.map((item) => {
+            {fileList?.map((item) => {
               return (
                 <CaseItem data={item} clickhandler={handleClick}></CaseItem>
               );
@@ -112,8 +110,8 @@ function CaseHistory() {
               <CaseInput
                 closing={closeHandle}
                 fileId={fileId}
-                FileList={session_list}
-                medical_recorde={medical_recorde}
+                FileList={fileList}
+                // medical_recorde={medical_recordeId}
               ></CaseInput>
             )}
           </div>
